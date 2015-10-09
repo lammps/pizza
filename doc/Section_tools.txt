@@ -1,0 +1,88 @@
+"Previous Section"_Section_basics.html - "Pizza.py WWW Site"_pws -
+"Pizza.py Documentation"_pd - "Pizza.py Tools"_pt - "Next
+Section"_Section_examples.html :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pt,Section_tools.html)
+
+:line
+
+4. Tools within Pizza.py :h3
+
+"Th previous section"_Section_basics.html#3_4 describes how Pizza.py
+tools are used in Pizza.py.
+
+Help on the syntax for invoking a tool and using its methods and
+settings can be accessed interactively within Pizza.py itself by
+typing "? tool" or "?? tool".  Typing "??" gives a one-line
+description of each tool.
+
+These are the different categories of Pizza.py tools:
+
+LAMMPS in/out files: chain, data, dump, log, patch, bdump, ldump, tdump
+ChemCell in/out files: cdata, olog, dump
+SPPARKS in/out files: olog, dump
+SPARTA in/out files: sdata, olog, dump
+Visualization: gl, rasmol, raster, svg, vmd
+File conversion: cfg, ensight, pdbfile, vtk, xyz
+GUI wrappers: animate, image, plotview, vcr
+Plotting: gnu, matlab
+Miscellaneous: histo, mdump, pair, vec :tb(s=:)
+
+Within the plotting and viz categories, individual tools share many
+common methods, so the tools can often be used interchangeably.  For
+example, the same script can produce an animation using either
+Raster3d or SVG to generate the movie frames, by simply changing the
+line that creates the visualizer object, or by passing the object into
+the script as an argument.
+
+This is the complete list of tools in Pizza.py; the link is to each
+tool's documentation page.
+
+"animate.py"_animate.html; Animate a series of image files
+"bdump.py"_bdump.html; Read LAMMPS dump local files with bond info
+"cdata.py"_data.html; Read, write, manipulate "Chemcell"_ccell data files
+"chain.py"_chain.html; Create bead-spring chains for LAMMPS input
+"cfg.py"_cfg.html; Convert LAMMPS snapshots to CFG format
+"data.py"_data.html; Read, write, manipulate LAMMPS data files
+"dump.py"_dump.html; Read, write, manipulate dump files and particle attributes
+"ensight.py"_ensight.html; Convert LAMMPS snapshots to "Ensight"_ensight format
+"gl.py"_gl.html; 3d interactive visualization via OpenGL
+"gnu.py"_gnu.html; Create plots via "GnuPlot"_gnuplot plotting program
+"histo.py"_histo.html; Particle density histogram from a dump
+"image.py"_image.html; View and manipulate images
+"ldump.py"_ldump.html; Read LAMMPS dump files with line info
+"log.py"_log.html; Read LAMMPS log files and extract thermodynamic data
+"matlab.py"_matlab.html; Create plots via "MatLab"_matlab numerical analysis program
+"mdump.py"_mdump.html; Read, write, manipulate mesh dump files
+"olog.py"_olog.html; Read other log files (ChemCell, SPPARKS, SPARTA) and extract time-series data
+"pair.py"_pair.html; Compute LAMMPS pairwise energies
+"patch.py"_patch.html; Create patchy Lennard-Jones particles for LAMMPS input
+"pdbfile.py"_pdbfile.html; Read, write PDB files in combo with LAMMPS snapshots
+"plotview.py"_plotview.html; Plot multiple vectors from a data set
+"rasmol.py"_rasmol.html; 3d visualization via "RasMol"_rasmol program
+"raster.py"_raster.html; 3d visualization via "Raster3d"_raster3d program
+"sdata.py"_sdata.html; Read, write, manipulate "SPARTA"_sparta surface files
+"svg.py"_svg.html; 3d visualization via "SVG"_svg files
+"tdump.py"_tdump.html; Read LAMMPS dump files with triangle info
+"vcr.py"_vcr.html; VCR-style GUI for 3d interactive OpenGL visualization
+"vec.py"_vec.html; Create numeric vectors from columns in file or list of vecs
+"vtk.py"_vtk.html; Convert LAMMPS snapshots to VTK format
+"vmd.py"_vmd.html; Wrapper on "VMD visualization package"_vmd
+"xyz.py"_xyz.html; Convert LAMMPS snapshots to XYZ format :tb(s=;)
+
+:link(gnuplot,http://www.gnuplot.info)
+:link(matlab,http://www.mathworks.com)
+:link(rasmol,http://www.openrasmol.org)
+:link(raster3d,http://www.bmsc.washington.edu/raster3d/raster3d.html)
+:link(svg,http://www.w3.org/Graphics/SVG)
+:link(ensight,http://www.ensight.com)
+:link(ccell,http://www.cs.sandia.gov/~sjplimp/cell.html)
+:link(vmd,http://www.ks.uiuc.edu/Research/vmd)
+
+This diagram represents the different ways tools can be interconnected
+by Pizza.py.  Tools within the same red box are tools that are
+(roughly) interchangeable.
+
+:c,image(tools.jpg)

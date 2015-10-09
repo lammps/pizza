@@ -1,0 +1,92 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>image tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>View and manipulate images.
+</P>
+<P><B>Description:</B>
+</P>
+<P>The image tool can be used to display image files or convert them to
+other formats via the ImageMagick tools (or alternate tools if
+specified in the DEFAULTS.py file).
+</P>
+<P>The image constructor creates a GUI to view a set of image files as a
+palette of thumbnail-size images.  Each thumbnail can be clicked on to
+view the full-size image.  Clicking on the full-size image removes it.
+The view() method does the same operation for a new set of files.
+</P>
+<P>The convert() method invokes the ImageMagick "convert" command to
+convert an image file to a different format.  If both arguments have a
+wildcard character, one conversion is done for each file in the 1st
+argument to create a file in the 2nd argument, e.g. "convert
+image0012.svg new0012.png".  If either argument has no wildcard, one
+"convert" command is issued using both arguments.  This form can be
+used to create a movie file, e.g. "convert *.png ligand.mpg".
+</P>
+<P>The montage() method invokes the ImageMagick "montage" command to
+combine 2 image files to create a 3rd.  If all 3 arguments have a
+wildcard character, one montage is created for each file in the 1st
+argument, paired with one file in the 2nd argument, e.g. "montage
+image0012.svg plot0012.eps combine0012.png".  For this to work, the
+1st arguments must each expand to the same number of files.  If any of
+the 3 arguments does not have a wildcard, one "montage" command is
+issued using all 3 arguements.
+</P>
+<P>Image files can be in any format (PNG, GIF, JPG, etc) recognized by
+the Python Image Library (PIL) installed in your Python or by
+ImageMagick.  Various Pizza.py visualization tools (raster, deja,
+rasmol, etc) create such image files.  If a particular image format
+fails to load, your PIL installation was linked without support for
+that format.  Rebuild PIL, and follow the install instructions
+included in its top directory.
+</P>
+<P><B>Usage:</B>
+</P>
+<PRE>i = image("my1.gif my2.gif")    display thumbnails of matching images
+i = image("*.png *.gif")        wildcards allowed
+i = image("*.png *.gif",0)      2nd arg = sort filenames, 0 = no sort, def = 1
+i = image("")	   		blank string matches all image suffixes
+i = image()			no display window opened if no arg 
+</PRE>
+<PRE>  image suffixes for blank string = *.png, *.bmp, *.gif, *.tiff, *.tif
+  click on a thumbnail to view it full-size
+  click on thumbnail again to remove full-sized version 
+</PRE>
+<PRE>i.view("*.png *.gif")	        display thumbnails of matching images 
+</PRE>
+<PRE>  view arg is same as constructor arg 
+</PRE>
+<PRE>i.convert("image*.svg","new*.png")                      each SVG file to PNG
+i.convert("image*.svg","new*.jpg","-quality 50")        3rd arg is switch
+i.convert("image*.png","movie.mpg")                     all PNGs to MPG movie
+i.convert("image*.png","movie.mpg","-resize 128x128")   3rd arg is switch
+i.montage("","image*.png","plot*.png","two*.png")       image + plot = two
+i.montage("-geometry 512x512","i*.png","new.png")       1st arg is switch 
+</PRE>
+<PRE>  convert with 2 wildcard args loops over 1st set of files to make 2nd set
+  convert with not all wildcard args will issue single convert command
+  montage with all wildcard args loops over 1st set of files,
+    combines with one file from other sets, to make last set of files
+  montage with not all wildcard args will issue single montage command 
+</PRE>
+<P><B>Related tools:</B>
+</P>
+<P><A HREF = "raster.html">raster</A>, <A HREF = "rasmol.html">rasmol</A>, <A HREF = "animate.html">animate</A>
+</P>
+<P><B>Prerequisites:</B>
+</P>
+<P>Python Tkinter, Pmw, and PIL packages.  ImageMagick convert and
+montage commands or equivalent.
+</P>
+</HTML>

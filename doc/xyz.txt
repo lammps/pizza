@@ -1,0 +1,46 @@
+"Pizza.py WWW Site"_pws - "Pizza.py Documentation"_pd - "Pizza.py Tools"_pc :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pc,Section_tools.html)
+
+:line
+
+xyz tool :h3
+
+[Purpose:]
+
+Convert LAMMPS snapshots to XYZ format.
+
+[Description:]
+
+The xyz tool converts atom snapshots in a LAMMPS dump or data file to
+the XYZ format used by various visualization packages.
+
+The xyz constructor takes an object that stores atom snapshots
+("dump"_dump.html, "data"_data.html) as its first argument.  The atom
+snapshots must have "id", "type", "x", "y", and "z" defined; see the
+map() methods of those tools.
+
+The one(), many(), and single() methods convert specific snapshots to
+the XYZ format and write them out.  Optionally, a file prefix for the
+XYZ output files can also be specified.  A ".xyz" suffix will be
+appended to all output files.
+
+[Usage:]
+
+x = xyz(d)		d = object containing atom coords (dump, data) :pre
+
+x.one()                 write all snapshots to tmp.xyz
+x.one("new")            write all snapshots to new.xyz
+x.many()                write snapshots to tmp0000.xyz, tmp0001.xyz, etc
+x.many("new")           write snapshots to new0000.xyz, new0001.xyz, etc
+x.single(N)             write snapshot for timestep N to tmp.xyz 
+x.single(N,"file")      write snapshot for timestep N to file.xyz  :pre
+
+[Related tools:]
+
+"cfg"_cfg.html, "data"_data.html, "dump"_dump.html,
+"ensight"_ensight.html, "vtk"_vtk.html
+
+[Prerequisites:] none

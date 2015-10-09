@@ -1,0 +1,59 @@
+"Pizza.py WWW Site"_pws - "Pizza.py Documentation"_pd - "Pizza.py Tools"_pc :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pc,Section_tools.html)
+
+:line
+
+log tool :h3
+
+[Purpose:]
+
+Read LAMMPS log files and extract thermodynamic data.
+
+[Description:]
+
+Read one or more LAMMPS log files and combine their thermodynamic data
+into long, named vectors (versus time).  The vectors can be used in
+Python for further processing and plotting, or they can be output to a
+file.
+
+The log constructor reads one or more log files.  If 2 arguments are
+specified, a single file is specified, and it can be read
+incrementally (e.g. as it is created) by the next() method.
+
+The nvec, nlen, and names values give the # of vectors, their length,
+and names.  The get() method returns one of more vectors as a Python
+list.  The write() method outputs the numeric vectors to a file.
+
+[Usage:]
+
+l = log("file1")                     read in one or more log files
+l = log("log1 log2.gz")              can be gzipped
+l = log("file*")                     wildcard expands to multiple files
+l = log("log.lammps",0)              two args = store filename, but don't read :pre
+
+  incomplete and duplicate thermo entries are deleted :pre
+
+time = l.next()                      read new thermo info from file :pre
+
+  used with 2-argument constructor to allow reading thermo incrementally
+  return time stamp of last thermo read
+  return -1 if no new thermo since last read :pre
+
+nvec = l.nvec                        # of vectors of thermo info
+nlen = l.nlen                        length of each vectors
+names = l.names                      list of vector names
+t,pe,... = l.get("Time","KE",...)    return one or more vectors of values
+l.write("file.txt")	 	     write all vectors to a file
+l.write("file.txt","Time","PE",...)  write listed vectors to a file :pre
+
+  get and write allow abbreviated (uniquely) vector names :pre
+
+[Related tools:]
+
+"olog"_olog.html, "plotview"_plotview.html, "gnu"_gnu.html,
+"matlab"_matlab.html
+
+[Prerequisites:] none

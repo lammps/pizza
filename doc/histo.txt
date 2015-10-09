@@ -1,0 +1,40 @@
+"Pizza.py WWW Site"_pws - "Pizza.py Documentation"_pd - "Pizza.py Tools"_pc :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pc,Section_tools.html)
+
+:line
+
+histo tool :h3
+
+[Purpose:]
+
+Particle density histogram from a dump.
+
+[Description:]
+
+The histo tool creates spatial histograms of particle snapshots in
+a dump file.
+
+The histo constructor takes an object that stores atom snapshots
+("dump"_dump.html, "data"_data.html) as its argument.
+
+The compute() method creates a histogram in a specific dimension at a
+desired resolution, averaged across all selected snapshots and atoms
+in the dump.  The returned vectors can be plotted; x is the distance
+along the chosen dimension, y is the histogram counts.
+
+[Usage:]
+
+h = histo(d)                        d = dump/cdump object :pre
+
+x,y = h.compute('x',N,lo,hi)        compute histogram in dim with N bins :pre
+
+  lo/hi are optional, if not used histo will be over entire box :pre
+
+[Related tools:]
+
+"dump"_dump.html
+
+[Prerequisites:] none

@@ -1,0 +1,94 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>vcr tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>VCR-style GUI for 3d interactive OpenGL visualization.
+</P>
+<P><B>Description:</B>
+</P>
+<P>The vcr tool displays a GUI to do 3d interactive visualization of
+LAMMPS snapshots or data files.  It is a wrapper on the <A HREF = "gl.html">gl</A>
+tool which draws the individual images in OpenGL windows
+</P>
+<P>The vcr constructor creates the GUI.  Note that multiple OpenGL
+windows can be run by the same GUI so that multiple views of the same
+data set can be manipulated simultaneously (or views of different data
+sets so long as they have the same # of snapshots).
+</P>
+<P>The view can be controlled by the GUI widgets or by invoking the tool
+methods: play(), stop(), axis(), etc.  The frame slider can be dragged
+to view a desired frame.  The mouse can also be used in the OpenGL
+window to translage, rotate, or zoom the scene.  The clipping sliders
+or methods can be used to narrow the view of displayed data, though
+their interactivity can be slow for scenes with lots of data.
+</P>
+<P>The reload() method is needed if you change the selection attributes
+of the underlying data assigned to the <A HREF = "gl.html">gl</A> tool, such as via
+the <A HREF = "dump.html">dump</A> tool's methods.  These changes will not be
+visible in the OpenGL windows until the data is reloaded.
+</P>
+<P>The save() method will save the current OpenGL window contents
+to a PNG file.  If multiple OpenGL windows are being used, multiple
+files will be created.  The save-all checkbox or method will store one
+file per snapshot if the Play or Back buttons are used to start an
+animation.
+</P>
+<P><B>Usage:</B>
+</P>
+<PRE>v = vcr(gl1,gl2,...)       start vcr GUI with one or more gl windows
+v.add(gl)                  add a gl window to vcr GUI 
+</PRE>
+<PRE>Actions (same as GUI widgets): 
+</PRE>
+<PRE>v.first()		   go to first frame
+v.prev()                   go to previous frame
+v.back()                   play backwards from current frame to start
+v.stop()         	   stop on current frame		
+v.play()                   play from current frame to end
+v.next()		   go to next frame
+v.last()		   go to last frame 
+</PRE>
+<PRE>v.frame(31)    	           set frame slider
+v.delay(0.4)     	   set delay slider
+v.q(5)          	   set quality slider 
+</PRE>
+<PRE>v.xaxis()		   view scene from x axis
+v.yaxis()  		   view scene from y axis
+v.zaxis()		   view scene from z axis
+v.box()		 	   toggle bounding box
+v.axis() 	           toggle display of xyz axes
+v.norm()	           recenter and resize the view
+v.ortho()	           toggle ortho/perspective button
+v.reload()           	   reload all frames from gl viewer data files 
+</PRE>
+<PRE>v.clipxlo(0.2)             clip scene at x lo fraction of box
+v.clipxhi(1.0)             clip at x hi
+v.clipylo(0.2)             clip in y
+v.clipyhi(1.0)
+v.clipzlo(0.2)             clip in z
+v.clipzhi(1.0) 
+</PRE>
+<PRE>v.save()		   save current scene to file.png
+v.file("image")		   set filename
+v.saveall()		   toggle save-all checkbox 
+</PRE>
+<P><B>Related tools:</B>
+</P>
+<P><A HREF = "animate.html">animate</A>, <A HREF = "gl.html">gl</A>
+</P>
+<P><B>Prerequisites:</B>
+</P>
+<P>Python Tkinter package.
+</P>
+</HTML>

@@ -1,0 +1,55 @@
+"Pizza.py WWW Site"_pws - "Pizza.py Documentation"_pd - "Pizza.py Tools"_pc :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pc,Section_tools.html)
+
+:line
+
+cfg tool :h3
+
+[Purpose:]
+
+Convert LAMMPS snapshots to AtomEye CFG format.
+
+[Description:]
+
+The cfg tool converts atom snapshots in a LAMMPS dump or data file to
+the CFG format used by the "AtomEye"_atomeye visualization tool.
+
+:link(atomeye,http://164.107.79.177/Archive/Graphics/A)
+
+The cfg constructor takes an object that stores atom snapshots
+("dump"_dump.html, "data"_data.html) as its first argument.  The atom
+snapshots must have "id", "type", "x", "y", and "z" defined; see the
+map() methods of those tools.
+
+The one(), many(), and single() methods convert specific snapshots to
+the CFG format and write them out.  Optionally, a file prefix for the
+CFG output files can also be specified.  A ".cfg" suffix will be
+appended to all output files.
+
+If your atom snapshots are not sorted by atom ID (e.g. because they
+were written out by a parallel LAMMPS run), then you may want to sort
+them before converting them to CFG files with this tool.  This can be
+done by "d = dump("tmp.dump"); d.sort()".  This is because AtomEye
+does not use atom IDs directly but infers an ID by the order of atoms
+as they appear in the CFG file.
+
+[Usage:]
+
+c = cfg(d)		d = object containing atom coords (dump, data) :pre
+
+c.one()                 write all snapshots to tmp.cfg
+c.one("new")            write all snapshots to new.cfg
+c.many()                write snapshots to tmp0000.cfg, tmp0001.cfg, etc
+c.many("new")           write snapshots to new0000.cfg, new0001.cfg, etc
+c.single(N)             write snapshot for timestep N to tmp.cfg 
+c.single(N,"file")      write snapshot for timestep N to file.cfg  :pre
+
+[Related tools:]
+
+"data"_data.html, "dump"_dump.html, "ensight"_ensight.html,
+"vtk"_vtk.html, "xyz"_xyz.html
+
+[Prerequisites:] none

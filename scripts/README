@@ -1,0 +1,20 @@
+This directory contains a collection of scripts written by Pizza.py
+users that are generically useful; you may wish to use them directly
+or modify them for your own purposes.  You can add your own scripts to
+this directory as well.
+
+Any script in this directory (or other directories you define, see the
+Pizza.py manual), can be run from Pizza.py, by typing a line
+appropriate to the script's syntax, e.g.
+
+% pizza.py -f movie.py svg 0.5 60 135 dump.*          from the shell
+> @run movie.py svg 0.5 60 135 dump.*                 from Pizza.py
+
+The top of each script file describes its purpose and syntax.  That
+information can be be accessed from within Pizza.py by typing "??" or
+"? name.py" or "?? name.py".
+
+Many of the scripts can also be run directly from Python (without
+running Pizza.py), so long as the Pizza.py tools (Python files) it
+needs to import (e.g. log.py) can be found by Python.
+

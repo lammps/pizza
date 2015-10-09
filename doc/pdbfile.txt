@@ -1,0 +1,93 @@
+"Pizza.py WWW Site"_pws - "Pizza.py Documentation"_pd - "Pizza.py Tools"_pc :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pc,Section_tools.html)
+
+:line
+
+pdbfile tool :h3
+
+[Purpose:]
+
+Read, write PDB files in combo with LAMMPS snapshots.
+
+[Description:]
+
+The pdbfile tool reads in PDB (Protein Data Bank) files of protein
+coordinates and uses them in conjunction with LAMMPS snapshots in
+various ways.  The PDB format is commonly used by various
+vizualization and analysis programs.
+
+The pdbfile constructor takes a string argument listing one or more
+PDB filenames and a data argument with LAMMPS atom information
+("data"_data.html or "dump"_dump.html object).  The atom snapshots
+must have "id", "type", "x", "y", and "z" defined; see the map()
+methods of those tools.
+
+Both arguments to the constructor are optional, as described below.
+If a single PDB file is given as a constructor argument, and it is 4
+letters long, and it does not exist on your system, then it is treated
+as a PDB identifier and the matching PDB file is downloaded from a PDB
+repository on the WWW to your machine.
+
+The one(), many(), and single() methods write out PDB files in various
+manners, depending on the 1 or 2 arguments used in the constructor.
+If only a string was specified (no data object), the specified PDB
+files are written out as-is.  Thus the one() method concatenates the
+files together.  If only a data object was specified (no string of PDB
+files), then PDB files in a generic format (Lennard-Jones atoms) are
+created.  If both arguments are specified, then only a single PDB file
+can be listed.  It is treated as a template file, and the atom
+coordinates in the data object replace the atom coordinates in the
+template PDB file to create a series of new PDB files.  This
+replacement is only done for selected atoms (in the dump object) and
+for atom IDs that appear in the PDB file.
+
+The iterator() method is called by the "rasmol"_rasmol.html tool to
+create a series of PDB files for visualization purposes.
+
+[Usage:]
+
+p = pdbfile("3CRO")         create pdb object from PDB file or WWW
+p = pdbfile("pep1 pep2")    read in multiple PDB files
+p = pdbfile("pep*")         can use wildcards
+p = pdbfile(d)              read in snapshot data with no PDB file
+p = pdbfile("3CRO",d)       read in single PDB file with snapshot data :pre
+
+  string arg contains one or more PDB files
+    don't need .pdb suffix except wildcard must expand to file.pdb
+    if only one 4-char file specified and it is not found,
+      it will be downloaded from http://www.rcsb.org as 3CRO.pdb
+  d arg is object with atom coordinates (dump, data) :pre
+
+p.one()                     write all output as one big PDB file to tmp.pdb
+p.one("mine")               write to mine.pdb
+p.many()                    write one PDB file per snapshot: tmp0000.pdb, ...
+p.many("mine")              write as mine0000.pdb, mine0001.pdb, ...
+p.single(N)                 write timestamp N as tmp.pdb
+p.single(N,"new")           write as new.pdb :pre
+
+  how new PDB files are created depends on constructor inputs:
+    if no d: one new PDB file for each file in string arg (just a copy)
+    if only d specified: one new PDB file per snapshot in generic format
+    if one file in str arg and d: one new PDB file per snapshot
+      using input PDB file as template
+    multiple input PDB files with a d is not allowed :pre
+
+index,time,flag = p.iterator(0)
+index,time,flag = p.iterator(1) :pre
+
+  iterator = loop over number of PDB files
+    call first time with arg = 0, thereafter with arg = 1
+    N = length = # of snapshots or # of input PDB files
+    index = index of snapshot or input PDB file (0 to N-1)
+    time = timestep value (time stamp for snapshot, index for multiple PDB)
+    flag = -1 when iteration is done, 1 otherwise
+  typically call p.single(time) in iterated loop to write out one PDB file :pre
+
+[Related tools:]
+
+"data"_data.html, "dump"_dump.html, "rasmol"_rasmol.html
+
+[Prerequisites:] none

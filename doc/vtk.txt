@@ -1,0 +1,49 @@
+"Pizza.py WWW Site"_pws - "Pizza.py Documentation"_pd - "Pizza.py Tools"_pc :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pc,Section_tools.html)
+
+:line
+
+vtk tool :h3
+
+[Purpose:]
+
+Convert LAMMPS snapshots to VTK format.
+
+[Description:]
+
+The vtk tool converts atom snapshots in a LAMMPS dump or data file to
+the VTK format used by various visualization packages.
+
+The vtk constructor takes an object that stores atom snapshots
+("dump"_dump.html, "data"_data.html) as its first argument.  The atom
+snapshots must have "id", "type", "x", "y", and "z" defined; see the
+map() methods of those tools.
+
+The one(), many(), and single() methods convert specific snapshots to
+the VTK format and write them out.  Optionally, a file prefix for the
+XYZ output files can also be specified.  A ".xyz" suffix will be
+appended to all output files.
+
+[Usage:]
+
+v = vtk(d)	        d = object containing atom coords (dump, data) :pre
+
+v.one()                 write all snapshots to tmp.vtk
+v.one("new")            write all snapshots to new.vtk
+v.many()                write snapshots to tmp0000.vtk, tmp0001.vtk, etc
+v.many("new")           write snapshots to new0000.vtk, new0001.vtk, etc
+v.single(N)             write snapshot for timestep N to tmp.vtk 
+v.single(N,"file")      write snapshot for timestep N to file.vtk :pre
+
+  surfaces in snapshot will be written to SURF1.vtk, SURF2.vtk, etc
+    where each surface (triangle type) is in a different file :pre
+
+[Related tools:]
+
+"cfg"_cfg.html, "data"_data.html, "dump"_dump.html,
+"ensight"_ensight.html, "xyz"_xyz.html
+
+[Prerequisites:] none

@@ -1,0 +1,111 @@
+"Pizza.py WWW Site"_pws - "Pizza.py Documentation"_pd - "Pizza.py Tools"_pc :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pc,Section_tools.html)
+
+:line
+
+gnu tool :h3
+
+[Purpose:]
+
+Create plots via GnuPlot plotting program.
+
+[Description:]
+
+The gnu tool is a wrapper on the "GnuPlot"_http://www.gnuplot.info/
+plotting package.  GnuPlot is open source software and runs on any
+platform.
+
+The gnu constructor launches GnuPlot as a process which the gnu tool
+sends commands to.  The GnuPlot process can be killed via the stop()
+method, though this is typically unnecessary.
+
+The plot() method plots a single vector against a linear index or
+pairs of vectors against each other.  The pairs of vectors are written
+to files and read-in by GnuPlot's plot command.
+
+The mplot() method creates a series of plots and saves them each to a
+numbered file.  Each file is a plot of an increasing portion of the
+vector(s).  This can be used to make an animation of a plot.
+
+The enter() method can be used to interact with GnuPlot directly.
+Each subsequent line you type is a GnuPlot command, until you type
+"quit" or "exit" to return to Pizza.py.  Single GnuPlot commands can
+be issued as string arguments to the gnu tool.
+
+The export() method writes numeric data as columns to text files, so
+that GnuPlot can read them via its "plot" command.
+
+Mutliple windows can be displayed, plotted to, and manipulated using
+the select() and hide() methods.  The save() method writes the
+currently selected plot to a PostScript file.
+
+The remaining methods (aspect, title, xrange, etc) set attributes of
+the currently selected plot.  The erase() method resets all attributes
+to their default values.
+
+[Usage:]
+
+g = gnu()		       start up GnuPlot
+g.stop()		       shut down GnuPlot process :pre
+
+g.plot(a)                      plot vector A against linear index
+g.plot(a,b)	 	       plot B against A
+g.plot(a,b,c,d,...)	       plot B against A, D against C, etc
+g.mplot(M,N,S,"file",a,b,...)  multiple plots saved to file0000.eps, etc :pre
+
+  each plot argument can be a tuple, list, or Numeric/NumPy vector
+  mplot loops over range(M,N,S) and create one plot per iteration
+    last args are same as list of vectors for plot(), e.g. 1, 2, 4 vectors
+    each plot is made from a portion of the vectors, depending on loop index i
+      Ith plot is of b\[0:i\] vs a\[0:i\], etc
+    series of plots saved as file0000.eps, file0001.eps, etc
+    if use xrange(),yrange() then plot axes will be same for all plots :pre
+
+g("plot 'file.dat' using 2:3 with lines")      execute string in GnuPlot :pre
+
+g.enter()	   	                enter GnuPlot shell
+gnuplot> plot sin(x) with lines         type commands directly to GnuPlot
+gnuplot> exit, quit	      	        exit GnuPlot shell :pre
+
+g.export("data",range(100),a,...)       create file with columns of numbers :pre
+
+  all vectors must be of equal length
+  could plot from file with GnuPlot command: plot 'data' using 1:2 with lines :pre
+
+g.select(N)  	               figure N becomes the current plot :pre
+
+  subsequent commands apply to this plot :pre
+
+g.hide(N)  	               delete window for figure N
+g.save("file")	               save current plot as file.eps :pre
+
+Set attributes for current plot: :pre
+
+g.erase()                      reset all attributes to default values
+g.aspect(1.3)                  aspect ratio
+g.xtitle("Time")               x axis text
+g.ytitle("Energy")             y axis text
+g.title("My Plot")             title text
+g.title("title","x","y")       title, x axis, y axis text
+g.xrange(xmin,xmax)            x axis range
+g.xrange()                     default x axis range
+g.yrange(ymin,ymax)            y axis range
+g.yrange()                     default y axis range
+g.xlog()                       toggle x axis between linear and log
+g.ylog()                       toggle y axis between linear and log
+g.label(x,y,"text")            place label at x,y coords
+g.curve(N,'r')                 set color of curve N :pre
+
+  colors: 'k' = black, 'r' = red, 'g' = green, 'b' = blue
+          'm' = magenta, 'c' = cyan, 'y' = yellow :pre
+
+[Related tools:]
+
+"matlab"_matlab.html, "plotview"_plotview.html
+
+[Prerequisites:]
+
+GnuPlot plotting package.

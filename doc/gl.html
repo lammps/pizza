@@ -1,0 +1,187 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>gl tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>3d interactive visualization via OpenGL.
+</P>
+<P><B>Description:</B>
+</P>
+<P>The gl tool does visualizes LAMMPS or ChemCell snapshots or data files
+and mesh files via OpenGL graphics calls.  The interface to OpenGL is
+provided to Python by the open-source <A HREF = "http://pyopengl.sourceforge.net">PyOpenGL
+toolkit</A>.  To do interactive
+visualization, consider using this tool in conjunction with the
+<A HREF = "vcr.html">vcr</A> tool.
+</P>
+<P>The gl constructor takes a data object containing atom or mesh
+snapshots as an argument (<A HREF = "dump.html">dump</A>, <A HREF = "data.html">data</A>,
+<A HREF = "cdata.html">cdata</A>, <A HREF = "mdump.html">mdump</A>).
+</P>
+<P>The show() method displays a single image of the selected atoms or
+triangles of snapshot N and saves it as image.png.  While an image is
+displayed, the view can be changed directly by using the mouse buttons
+in the OpenGl window to translate (left), rotate (middle), or zoom
+(right) the image.  However, these mouse changes are not permanent,
+unless the corresponding trans(), rotate(), and zoom() methods are
+invoked.  The all() method loops thru all selected snapshots,
+displaying each one in turn.  The resulting image files are saved to
+image0000.png, image0001.png, etc.  The prefix "image" can be changed
+via the file setting.
+</P>
+<P>The bg(), size(), rotate(), trans(), zoom(), box(), label(), and
+nolabel() methods control various aspects of the images produced.
+Without the trans() and zoom() settings, the GL image should roughly
+fill the window and be centered.
+</P>
+<P>Additional movie effects can be produced using the pan() and select()
+methods.  The pan() method specifies an initial and final viewpoint
+that is applied to the images produced by the all() method.  For
+intermediate images, the view parameters will be interpolated between
+their initial and final values.  The pan() method can thus be used to
+rotate a single image or fly-by the simulation as it animates.  The
+select() method performs additional atom selection for each image of
+the all() sequence.  An image-dependent %g variable can be used in the
+select() string.  The select() method can thus be used to slice thru
+the data set.
+</P>
+<P>The acol(), arad(), bcol(), brad(), tcol(), and tfill() methods change
+attributes of the atoms, bonds, and triangles displayed.  Each atom or
+bond returned from the data object has an integer "type" from 1 to N.
+The type is used to index into a list of RGB colors or radii for atoms
+and bond thickness.  The adef(), bdef(), and tdef() methods setup
+default mappings of types to colors/radii.  The other methods enable
+specific assignments to be made.  The interpolation option (e.g. many
+types assigned to a few colors), enables a smooth rainbow of colors to
+be assigned to a range of types.  Note that the <A HREF = "dump.html">dump</A> tool
+allows any vector to be returned as an atom "type" via its atype
+setting.  Thus displayed colors can be keyed to atom velocity or other
+properties.
+</P>
+<P>Colors are specified with a string, e.g. "red".  There are 140
+pre-defined colors from <A HREF = "http://www.oreilly.com/catalog/wdnut/excerpt/color_names.html">this WWW page</A> which can be
+examined by importing the "colors" variable from "vizinfo".  New
+colors can be defined by assigning a nickname of your choice to an RGB
+triplet, as described below.
+</P>
+
+
+<P>The visual quality of atom spheres can be set via the q() method.  The
+axis() method toggles whether xyz axes are displayed in the OpenGL
+window.  Red is the +x axis, green is +y, and blue is +z.  The ortho()
+method toggles between an orthographic and perspective display of the
+snapshot.  The clip() method can be used to narrow the amount of data
+that is visualized.  The reload() method is needed if you change the
+selection attributes of the underlying data assigned to the
+<A HREF = "gl.html">gl</A> tool, such as via the <A HREF = "dump.html">dump</A> tool's methods.
+These changes will not be visible in the OpenGL window until the data
+is reloaded.
+</P>
+<P><B>Usage:</B>
+</P>
+<PRE>g = gl(d)                   create OpenGL display for data in d
+g = gl(d,N)                 window of size NxN (def = 512x512)
+g = gl(d,N,M)               window of size NxM 
+</PRE>
+<PRE>  d = atom snapshot object (dump, data) 
+</PRE>
+<PRE>g.bg("black")               set background color (def = "black")
+g.rotate(60,135)            view from z theta and azimuthal phi (def = 60,30)
+g.shift(x,y)                translate by x,y pixels in view window (def = 0,0)
+g.zoom(0.5)                 scale image by factor (def = 1)
+g.box(0/1/2)                0/1/2 = none/variable/fixed box
+g.box(0/1/2,"green")        set box color
+g.box(0/1/2,"red",4)        set box edge thickness
+g.file = "image"            file prefix for created images (def = "image") 
+</PRE>
+<PRE>g.show(N)                   show image of snapshot at timestep N 
+</PRE>
+<PRE>g.all()                     make images of all selected snapshots
+g.all(P)                    images of all, start file label at P
+g.all(N,M,P)                make M images of snapshot N, start label at P 
+</PRE>
+<PRE>g.pan(60,135,1.0,40,135,1.5)    pan during all() operation
+g.pan()                         no pan during all() (default) 
+</PRE>
+<PRE>  args = z theta, azimuthal phi, zoom factor at beginning and end
+  values at each step are interpolated between beginning and end values 
+</PRE>
+<PRE>g.select = "$x > %g*3.0"    string to pass to d.aselect.test() during all()
+g.select = ""               no extra aselect (default) 
+</PRE>
+<PRE>  %g varies from 0.0 to 1.0 from beginning to end of all() 
+</PRE>
+<PRE>g.acol(2,"green")		   set atom colors by atom type (1-N)
+g.acol([2,4],["red","blue"])	   1st arg = one type or list of types
+g.acol(0,"blue")	           2nd arg = one color or list of colors
+g.acol(range(20),["red","blue"])   if list lengths unequal, interpolate
+g.acol(range(10),"loop")           assign colors in loop, randomly ordered 
+</PRE>
+<PRE>  if 1st arg is 0, set all types to 2nd arg
+  if list of types has a 0 (e.g. range(10)), +1 is added to each value
+  interpolate means colors blend smoothly from one value to the next 
+</PRE>
+<PRE>g.arad([1,2],[0.5,0.3])            set atom radii, same rules as acol() 
+</PRE>
+<PRE>g.bcol()			   set bond color, same args as acol()
+g.brad()			   set bond thickness, same args as arad() 
+</PRE>
+<PRE>g.tcol()			   set triangle color, same args as acol()
+g.tfill()			   set triangle fill, 0 fill, 1 line, 2 both 
+</PRE>
+<PRE>g.lcol()                           set line color, same args as acol()
+g.lrad()                           set line thickness, same args as arad() 
+</PRE>
+<PRE>g.adef()                           set atom/bond/tri/line properties to default
+g.bdef()			   default = "loop" for colors, 0.45 for radii
+g.tdef()  			   default = 0.25 for bond/line thickness
+g.ldef()  			   default = 0 fill 
+</PRE>
+<PRE>  by default 100 types are assigned
+  if atom/bond/tri/line has type > # defined properties, is an error 
+</PRE>
+<PRE>from vizinfo import colors         access color list
+print colors                       list defined color names and RGB values
+colors["nickname"] = [R,G,B]       set new RGB values from 0 to 255 
+</PRE>
+<PRE>  140 pre-defined colors: red, green, blue, purple, yellow, black, white, etc 
+</PRE>
+<PRE>Settings specific to gl tool: 
+</PRE>
+<PRE>g.q(10)                     set quality of image (def = 5)
+g.axis(0/1)                 turn xyz axes off/on
+g.ortho(0/1)                perspective (0) vs orthographic (1) view
+g.clip('xlo',0.25)          clip in xyz from lo/hi at box fraction (0-1)
+g.reload()                  force all data to be reloaded
+g.cache = 0/1               turn off/on GL cache lists (def = on)
+theta,phi,x,y,scale,up = g.gview()   grab all current view parameters
+g.sview(theta,phi,x,y,scale,up)      set all view parameters 
+</PRE>
+<PRE>  data reload is necessary if dump selection is used to change the data
+  cache lists usually improve graphics performance
+  gview returns values to use in other commands:
+    theta,phi are args to rotate()
+    x,y are args to shift()
+    scale is arg to zoom()
+    up is a 3-vector arg to sview() 
+</PRE>
+<P><B>Related tools:</B>
+</P>
+<P><A HREF = "dump.html">dump</A>, <A HREF = "rasmol.html">rasmol</A>, <A HREF = "raster.html">raster</A>,
+<A HREF = "svg.html">svg</A>, <A HREF = "vcr.html">vcr</A>, <A HREF = "vmd.html">vmd</A>
+</P>
+<P><B>Prerequisites:</B>
+</P>
+<P>Python PyOpenGL and PIL packages.
+</P>
+</HTML>

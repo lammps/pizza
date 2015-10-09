@@ -1,0 +1,21 @@
+This directory contains a collection of example scripts.  There is one
+test_*.py script for each tool in Pizza.py.  These illustrate how to
+use the tool.  The small data sets used by these scripts are in the
+files sub-directly.
+
+A test_*.py script can be run by launching Pizza.py from this
+directory, e.g.
+
+% pizza.py -f test_animate.py           from the shell
+> @run test_animtate.py                 from Pizza.py
+
+The other scripts in this directory perform specific tasks.  Read the
+comments at the top of the script file for an explanation.  Most of
+these scripts require a data set to operate on, which is not provided.
+These scripts are included simply to illustrate how a particular task
+can be done in Pizza.py.
+
+These scripts create output and temporary files as they operate.
+These are all named tmp*.  Pizza.py does not clean up all the
+temporary files, since they are sometimes useful to look at for
+debugging or other purposes.

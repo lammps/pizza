@@ -1,0 +1,60 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>vmd tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>Control VMD from python.
+</P>
+<P><B>Description:</B>
+</P>
+<P>The vmd tool is a simple wrapper on the <A HREF = "http://www.ks.uiuc.edu/Research/vmd">VMD visualization
+package</A>, a popular tool for visualizing snapshots from molecular
+dynamics simulations.
+</P>
+
+
+<P>The vmd constructor invokes VMD in its own window.  Data can be passed
+to it for visualization via the new(), data(), replace(), and append()
+methods.  The other methods permit more specialized interactions with
+VMD through its command syntax.
+</P>
+<P><B>Usage:</B>
+</P>
+<PRE>v = vmd()		       start up VMD
+v.stop()		       shut down VMD instance
+v.clear()		       delete all visualizations 
+</PRE>
+<PRE>v.rep(style)		       set default representation style. One of
+			       (Lines|VDW|Licorice|DynamicBonds|Points|CPK) 
+v.new(file[,type])   	       load new file (default file type 'lammpstrj')
+v.data(file[,atomstyle])       load new data file (default atom style 'full')
+v.replace(file[,type])	       replace current frames with new file
+v.append(file[,type]) 	       append file to current frame(s)
+v.set(snap,x,y,z,(True|False)) set coordinates from a pizza.py snapshot to new or current frame 
+</PRE>
+<PRE>v.frame(frame)		       set current frame
+v.flush()		       flush pending input to VMD and update GUI
+v.read(file)		       read Tcl script file (e.g. saved state) 
+</PRE>
+<PRE>v.enter()		       enter interactive shell
+v.debug([True|False])	       display generated VMD script commands? 
+</PRE>
+<P><B>Related tools:</B>
+</P>
+<P><A HREF = "gl.html">gl</A>
+</P>
+<P><B>Prerequisites:</B>
+</P>
+<P>Python pexpect package.
+</P>
+</HTML>

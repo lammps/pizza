@@ -1,0 +1,67 @@
+"Pizza.py WWW Site"_pws - "Pizza.py Documentation"_pd - "Pizza.py Tools"_pc :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pc,Section_tools.html)
+
+:line
+
+chain tool :h3
+
+[Purpose:]
+
+Create bead-spring chains for LAMMPS input.
+
+[Description:]
+
+The chain tool creates random, overlapping bead-spring (FENE) chains
+and writes them out as a LAMMPS data file.  They need to be simulated
+with a soft potential in LAMMPS to un-overlap them before they form
+a proper melt.
+
+The chain constructor uses the total number of monomers and the
+Lennard-Jones reduced density to create a simulation box of the
+appropriate size.  Optionally, the box shape can also be specified.
+
+The build() method creates N chains, each with M monomers.  It can be
+invoked multiple times to create sets of chains with different
+properties.  The starting point of each chain is chosen randomly, as
+is the position of subsequent monomers.  The seed value sets the
+random number generator used for coordinate generation.
+
+The mtype, btype, blen, and dmin settings affect how the chain and its
+monomers are created.  Dmin is the minimum distance allowed between a
+new monomer and the monomer two before it, so it determines the
+stiffness of the chain.  Each monomer is assigned a molecule ID as it
+is created, in accord with the id setting.
+
+Once N total monomers have been created, the ensemble of chains is
+written to a LAMMPS data file via the write() method.
+
+[Usage:]
+
+c = chain(N,rho)            setup box with N monomers at reduced density rho
+c = chain(N,rho,1,1,2)	    x,y,z = aspect ratio of box (def = 1,1,1) :pre
+
+c.seed = 48379              set random # seed (def = 12345)
+c.mtype = 2    		    set type of monomers (def = 1)
+c.btype = 1           	    set type of bonds (def = 1)
+c.blen = 0.97               set length of bonds (def = 0.97)
+c.dmin = 1.02               set min dist from i-1 to i+1 site (def = 1.02) :pre
+
+c.id = "chain"              set molecule ID to chain # (default)
+c.id = "end1"               set molecule ID to count from one end of chain
+c.id = "end2"               set molecule ID to count from either end of chain :pre
+
+c.build(100,10)		    create 100 chains, each of length 10 :pre
+
+  can be invoked multiple times interleaved with different settings
+  must fill box with total of N monomers :pre
+
+c.write("data.file")        write out all built chains to LAMMPS data file :pre
+
+[Related tools:]
+
+"data"_data.html, "patch"_patch.html
+
+[Prerequisites:] none

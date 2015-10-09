@@ -1,0 +1,60 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>vec tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>Create numeric vectors from columns in file or list of vecs.
+</P>
+<P><B>Description:</B>
+</P>
+<P>The vec tool creates numeric vectors that can be extracted, written to
+files, or imported into other tools like <A HREF = "plotview.html">plotview</A> for
+plotting.
+</P>
+<P>The vec constructor takes either a file or list argument.  For a file
+argument, columns of numeric data are read from the file.  Blank lines
+or lines that do not start with a numeric character (0123456789.-) are
+skipped.  Each column must have the same number of values.  For a list
+argument, each element of the list is assumed to be a vector of values
+(i.e. the list is a list of lists), as shown in the example below.
+</P>
+<P>The columns of data may be accessed by number (1-N) or by name ("col1"
+thru "colN").
+</P>
+<P>The get() and write() methods extract the numeric vectors of data.
+</P>
+<P><B>Usage:</B>
+</P>
+<PRE>v = vec("file1")                    read in numeric vectors from a file
+v = vec(array)                      array = list of numeric vectors 
+</PRE>
+<PRE>  skip blank lines and lines that start with non-numeric characters
+  example array with 2 vecs = [[1,2,3,4,5], [10,20,30,40,50]]
+  assigns names = "col1", "col2", etc 
+</PRE>
+<PRE>nvec = v.nvec                       # of vectors
+nlen = v.nlen		            lengths of vectors
+names = v.names		            list of vector names
+x,y,... = l.get(1,"col2",...)       return one or more vectors of values
+l.write("file.txt")	            write all vectors to a file
+l.write("file.txt","col1",7,...)    write listed vectors to a file 
+</PRE>
+<PRE>  get and write allow abbreviated (uniquely) vector names or digits (1-Nvec) 
+</PRE>
+<P><B>Related tools:</B>
+</P>
+<P><A HREF = "data.html">data</A>, <A HREF = "dump.html">dump</A>
+</P>
+<P><B>Prerequisites:</B> none
+</P>
+</HTML>

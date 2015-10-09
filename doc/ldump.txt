@@ -1,0 +1,116 @@
+"Pizza.py WWW Site"_pws - "Pizza.py Documentation"_pd - "Pizza.py Tools"_pc :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pc,Section_tools.html)
+
+:line
+
+ldump tool :h3
+
+[Purpose:]
+
+Read dump files with line segment info.
+
+[Description:]
+
+The ldump tool reads one or more LAMMPS dump files, and stores their
+contents as a series of snapshots with 2d arrays of atom attributes.
+It is assumed that each atom contains line segment info from a 2d
+LAMMPS simulation using atom_style line.  Other tools use ldump
+objects to extract line segment info for visualization, like the dump
+tool via its extra() method.
+
+The constructor method is passed a string containing one or more dump
+filenames.  They can be listed in any order since snapshots are sorted
+by timestep after they are read and duplicate snapshots (with the same
+time stamp) are deleted.  If a 2nd argument is specified, the files
+are not immediately read, but snapshots can be read one-at-a-time by
+the next() method.
+
+The map() method assigns names to columns of atom attributes. 
+The id,type,end1x,end1y,end2x,end2y names must be assigned
+in order for line segment info to be extracted.
+
+The viz() method is called by Pizza.py tools that visualize snapshots
+of atoms (e.g. gl, raster, svg tools).
+
+:line
+
+Normally, "LAMMPS"_http://lammps.sandia.gov creates the dump files
+read in by this tool. If you want to create them yourself, the format
+of LAMMPS dump files is simple.  Each snapshot is formatted as
+follows:
+
+ITEM: TIMESTEP
+100
+ITEM: NUMBER OF ATOMS
+32
+ITEM: BOX BOUNDS
+0 3.35919
+0 3.35919
+0 7.50
+ITEM: ATOMS
+1 1 0 0 0 
+2 1 0.25 0.25 0
+3 1 0.25 0 0.25
+...
+N 3 0.7 0.5 0.6 :pre
+
+The box bounds are listed as xlo xhi on the 1st line, ylo yhi on the
+next line, zlo zhi on the last.  There are N lines following "ITEM:
+ATOMS" where N is the number of atoms.  Atoms do not have to be listed
+in any particular order.  There can be a different number of atoms in
+each snapshot.  Each line must contain the atom ID, type, and the end
+points of the associated line segment, as specified by the map()
+command.
+
+:line
+
+[Usage:]
+
+l = ldump("dump.one")             read in one or more dump files
+l = ldump("dump.1 dump.2.gz")	  can be gzipped
+l = ldump("dump.*")		  wildcard expands to multiple files
+l = ldump("dump.*",0)		  two args = store filenames, but don't read :pre
+
+  incomplete and duplicate snapshots are deleted
+  no column name assignment is performed :pre
+
+time = l.next()             	  read next snapshot from dump files :pre
+
+  used with 2-argument constructor to allow reading snapshots one-at-a-time
+  snapshot will be skipped only if another snapshot has same time stamp
+  return time stamp of snapshot read
+  return -1 if no snapshots left or last snapshot is incomplete
+  no column name assignment is performed :pre
+
+l.map(1,"id",3,"x")               assign names to atom columns (1-N) :pre
+
+  must assign id,type,end1x,end1y,end2x,end2y :pre
+
+time,box,atoms,bonds,tris,lines = l.viz(index)   return list of viz objects :pre
+
+  viz() returns line info for specified timestep index
+    can also call as viz(time,1) and will find index of preceding snapshot
+    time = timestep value
+    box = \\[xlo,ylo,zlo,xhi,yhi,zhi\\]
+    atoms = NULL
+    bonds = NULL
+    tris = NULL
+    lines = id,type,x1,y1,z1,x2,y2,z2 for each line as 2d array
+      id,type are from associated atom :pre
+
+l.owrap(...)		          wrap lines to same image as their atoms :pre
+
+  owrap() is called by dump tool's owrap()
+  useful for wrapping all molecule's atoms/lines the same so it is contiguous :pre
+
+[Related tools:]
+
+"dump"_dump.html, "gl"_gl.html, "raster"_raster.html, "svg"_svg.html
+
+[Prerequisites:]
+
+Numeric or NumPy Python packages.  Gunzip command (if you want to read
+gzipped files).

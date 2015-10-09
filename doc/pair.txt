@@ -1,0 +1,63 @@
+"Pizza.py WWW Site"_pws - "Pizza.py Documentation"_pd - "Pizza.py Tools"_pc :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pc,Section_tools.html)
+
+:line
+
+pair tool :h3
+
+[Purpose:]
+
+Compute LAMMPS pairwise energies.
+
+[Description:]
+
+The pair tool computes a pairwise energy between 2 particles using a
+LAMMPS molecular dynamics force field.  Thus it can be used in an
+analysis script to compute energies between groups of atoms from a
+LAMMPS snapshot file.
+
+The pair constructor specifies the force field style.  Only some of
+the LAMMPS pair styles are currently included in this tool, but new
+styles can easily be added.  Code from the LAMMPS pair*.cpp file needs
+to be re-coded in Python to make this work.
+
+The coeff() method reads the pairwise coefficients for the force field
+from a data file object (see the "data"_data.html tool).  The init()
+method does pre-computations for the force field parameters needed by
+the single() method which does a pairwise computation between two
+atoms of type = itype,jtype separated by a squared distance rsq.  The
+arguments for init() and single() can be different for a particular
+force field style.  When you write the init() and single() methods for
+a new style, you can define what arguments are needed.
+
+[Usage:]
+
+p = pair("lj/charmm/coul/charmm")   create pair object for specific pair style :pre
+
+  available styles: lj/cut, lj/cut/coul/cut, lj/charmm/coul/charmm :pre
+
+p.coeff(d)			    extract pairwise coeffs from data object
+p.init(cut1,cut2,...)		    setup based on coeffs and cutoffs :pre
+
+  init args are specific to pair style:
+    lj/cut = cutlj
+    lj/cut/coul/cut = cutlj,cut_coul (cut_coul optional)
+    lj/charmm/coul/charmm = cutlj_inner,cutlj,cutcoul_inner,cut_coul
+      (last 2 optional) :pre
+
+e_vdwl,e_coul = p.single(rsq,itype,jtype,q1,q2,...)   compute LJ/Coul energy :pre
+
+  pairwise energy between 2 atoms at distance rsq with their attributes
+  args are specific to pair style:
+    lj/cut = rsq,itype,jtype
+    lj/cut/coul/cut = rsq,itype,jtype,q1,q2
+    lj/charmm/coul/charmm = rsq,itype,jtype,q1,q2 :pre
+
+[Related tools:]
+
+"data"_data.html
+
+[Prerequisites:] none
