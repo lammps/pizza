@@ -54,10 +54,7 @@ l.write("file.txt","Time","PE",...)  write listed vectors to a file
 # Imports and external programs
 
 import sys, re, glob
-from os import popen
-
-try: tmp = PIZZA_GUNZIP
-except: PIZZA_GUNZIP = "gunzip"
+import gzip
 
 # Class definition
 
@@ -102,7 +99,7 @@ class log:
 
     # sort entries by timestep, cull duplicates
     
-    self.data.sort(self.compare)
+    self.data.sort(key=lambda x: x[0])
     self.cull()
     self.nlen = len(self.data)
     print("read %d log entries" % self.nlen)
@@ -127,10 +124,10 @@ class log:
     if len(keys) == 0:
       raise Exception("no log vectors specified")
 
-    map = []
+    m = []
     for key in keys:
       if self.ptr.has_key(key):
-        map.append(self.ptr[key])
+        m.append(self.ptr[key])
       else:
         count = 0
         for i in range(self.nvec):
@@ -138,7 +135,7 @@ class log:
             count += 1
             index = i
         if count == 1:
-          map.append(index)
+          m.append(index)
         else:
           raise Exception("unique log vector %s not found" % key)
 
@@ -146,7 +143,7 @@ class log:
     for i in range(len(keys)):
       vecs.append(self.nlen * [0])
       for j in range(self.nlen):
-        vecs[i][j] = self.data[j][map[i]]
+        vecs[i][j] = self.data[j][m[i]]
 
     if len(keys) == 1: return vecs[0]
     else: return vecs
@@ -155,10 +152,10 @@ class log:
 
   def write(self,filename,*keys):
     if len(keys):
-      map = []
+      m = []
       for key in keys:
         if self.ptr.has_key(key):
-          map.append(self.ptr[key])
+          m.append(self.ptr[key])
         else:
           count = 0
           for i in range(self.nvec):
@@ -166,28 +163,18 @@ class log:
               count += 1
               index = i
           if count == 1:
-            map.append(index)
+            m.append(index)
           else:
             raise Exception("unique log vector %s not found" % key)
     else:
-      map = range(self.nvec)
+      m = list(range(self.nvec))
 
     f = open(filename,"w")
     for i in range(self.nlen):
-      for j in range(len(map)):
-        print(self.data[i][map[j]], end='', file=f)
+      for x in m:
+        print(self.data[i][x], end='', file=f)
       print(file=f)
     f.close()
-
-  # --------------------------------------------------------------------
-
-  def compare(self,a,b):
-    if a[0] < b[0]:
-      return -1
-    elif a[0] > b[0]:
-      return 1
-    else:
-      return 0
 
   # --------------------------------------------------------------------
 
@@ -199,14 +186,14 @@ class log:
 
   # --------------------------------------------------------------------
 
-  def read_header(self,file):
+  def read_header(self,filename):
     str_multi = "----- Step"
     str_one = "Step "
 
-    if file[-3:] == ".gz":
-      txt = popen("%s -c %s" % (PIZZA_GUNZIP,file),'r').read()
+    if filename[-3:] == ".gz":
+      txt = gzip.open(filename, 'rt').read()
     else:
-      txt = open(file).read()
+      txt = open(filename, 'rt').read()
 
     if txt.find(str_multi) >= 0:
       self.firststr = str_multi
@@ -243,20 +230,20 @@ class log:
 
   # --------------------------------------------------------------------
 
-  def read_one(self,*list):
+  def read_one(self,*args):
 
     # if 2nd arg exists set file ptr to that value
     # read entire (rest of) file into txt
 
-    file = list[0]
-    if file[-3:] == ".gz":
-      f = popen("%s -c %s" % (PIZZA_GUNZIP,file),'rb')
+    filename = args[0]
+    if filename[-3:] == ".gz":
+      f = gzip.open(filename, 'rt')
     else:
-      f = open(file,'rb')
+      f = open(filename,'rt')
 
-    if len(list) == 2: f.seek(list[1])
+    if len(args) == 2: f.seek(args[1])
     txt = f.read()
-    if file[-3:] == ".gz": eof = 0
+    if filename[-3:] == ".gz": eof = 0
     else: eof = f.tell()
     f.close()
 
@@ -320,12 +307,12 @@ class log:
           word1 = [re.search(pat1,section).group(1)]
           word2 = re.findall(pat2,section)
           words = word1 + word2
-          self.data.append(map(float,words))
+          self.data.append(list(map(float,words)))
       else:
         lines = chunk.split("\n")
         for line in lines:
           words = line.split()
-          self.data.append(map(float,words))
+          self.data.append(list(map(float,words)))
 
       # print last timestep of chunk
 
