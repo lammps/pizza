@@ -171,7 +171,7 @@ class log:
 
     with open(filename,"w") as f:
       for i in range(self.nlen):
-        print(' '.join(map(str, [self.data[i][x] for x in m])), file=f)
+        print(*[self.data[i][x] for x in m], file=f)
 
   # --------------------------------------------------------------------
 
