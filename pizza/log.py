@@ -126,7 +126,7 @@ class log:
 
     m = []
     for key in keys:
-      if self.ptr.has_key(key):
+      if key in self.ptr:
         m.append(self.ptr[key])
       else:
         count = 0
@@ -154,7 +154,7 @@ class log:
     if len(keys):
       m = []
       for key in keys:
-        if self.ptr.has_key(key):
+        if key in self.ptr:
           m.append(self.ptr[key])
         else:
           count = 0
@@ -169,12 +169,9 @@ class log:
     else:
       m = list(range(self.nvec))
 
-    f = open(filename,"w")
-    for i in range(self.nlen):
-      for x in m:
-        print(self.data[i][x], end='', file=f)
-      print(file=f)
-    f.close()
+    with open(filename,"w") as f:
+      for i in range(self.nlen):
+        print(' '.join(map(str, [self.data[i][x] for x in m])), file=f)
 
   # --------------------------------------------------------------------
 
