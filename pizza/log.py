@@ -307,7 +307,9 @@ class log:
           self.data.append(list(map(float,words)))
       else:
         lines = chunk.split("\n")
+        alpha = re.compile('[a-zA-Z]')
         for line in lines:
+          if alpha.search(line): continue
           words = line.split()
           self.data.append(list(map(float,words)))
 
