@@ -17,8 +17,13 @@ c = chain(N,rho,1,1,2)	    x,y,z = aspect ratio of box (def = 1,1,1)
 c.seed = 48379              set random # seed (def = 12345)
 c.mtype = 2    		    set type of monomers (def = 1)
 c.btype = 1           	    set type of bonds (def = 1)
+c.angtype = 1               set type of angles (def = 1); only used if do_angles
+                              set to True
+c.do_angles = True          add Angles section (def = False)
+
 c.blen = 0.97               set length of bonds (def = 0.97)
 c.dmin = 1.02               set min dist from i-1 to i+1 site (def = 1.02)
+
 
 c.id = "chain"              set molecule ID to chain # (default)
 c.id = "end1"               set molecule ID to count from one end of chain
@@ -43,11 +48,13 @@ c.write("data.file")        write out all built chains to LAMMPS data file
 #   seed = 12345
 #   mtype = type of monomers
 #   btype = type of bonds
+#   angtype = type of angles
 #   blen = length of bonds
 #   dmin = minimum distance from i-1 to i+1
 #   id = "chain","end1",or "end2"
 #   atoms = list of atoms
 #   bonds = list of bonds
+#   angles = list of angles
 #   xprd,yprd,zprd = x,y,z box size
 #   xlo,ylo,zlo = -xyz prd / 2
 #   xhi,yhi,zhi = x,y,zprd /2
@@ -74,11 +81,14 @@ class chain:
     self.seed = 12345
     self.mtype = 1
     self.btype = 1
+    self.angtype = 1
     self.blen = 0.97
     self.dmin = 1.02
     self.id = "chain"
     self.atoms = []
     self.bonds = []
+    self.angles = []
+    self.do_angles = False
 
     volume = n/rhostar
     prd = pow(volume/xaspect/yaspect/zaspect,1.0/3.0)
@@ -100,12 +110,16 @@ class chain:
     for ichain in xrange(n):
       atoms = []
       bonds = []
+      angles = []
       id_atom_prev = id_mol_prev = id_bond_prev = 0
+      id_angle_prev = -1
       if len(self.atoms):
         id_atom_prev = self.atoms[-1][0]
         id_mol_prev = self.atoms[-1][1]
       if len(self.bonds):
         id_bond_prev = self.bonds[-1][0]
+      if len(self.angles):
+        id_angle_prev = self.angles[-2][0]
 
       for imonomer in xrange(nper):
         if imonomer == 0:
@@ -152,9 +166,13 @@ class chain:
         if imonomer:
 	  bondid = id_bond_prev + imonomer
           bonds.append([bondid,self.btype,idatom-1,idatom])
+        if imonomer > 1 and self.do_angles:
+	  angleid = id_angle_prev + imonomer
+          angles.append([angleid,self.angtype,idatom-2,idatom-1,idatom])
         
       self.atoms += atoms
       self.bonds += bonds
+      self.angles += angles
 
   # --------------------------------------------------------------------
 
@@ -171,14 +189,23 @@ class chain:
       list = [bond[1] for bond in self.bonds]
       btypes = max(list)
 
+    angtypes = 0
+    if len(self.angles):
+      list = [angle[1] for angle in self.angles]
+      angtypes = max(list)
+
     # create the data file
 
     d = data()
     d.title = "LAMMPS FENE chain data file"
     d.headers["atoms"] = len(self.atoms)
     d.headers["bonds"] = len(self.bonds)
+    if self.do_angles:
+        d.headers["angles"] = len(self.angles)
     d.headers["atom types"] = atypes
     d.headers["bond types"] = btypes
+    if self.do_angles:
+        d.headers["angle types"] = angtypes
     d.headers["xlo xhi"] = (self.xlo,self.xhi)
     d.headers["ylo yhi"] = (self.ylo,self.yhi)
     d.headers["zlo zhi"] = (self.zlo,self.zhi)
@@ -200,6 +227,14 @@ class chain:
       line = "%d %d %d %d\n" % (bond[0], bond[1], bond[2], bond[3])
       lines.append(line)
     d.sections["Bonds"] = lines
+
+    if self.do_angles:
+        lines = []
+        for angle in self.angles:
+          line = "%d %d %d %d %d\n" % (angle[0], angle[1], angle[2], angle[3],
+                  angle[4])
+          lines.append(line)
+        d.sections["Angles"] = lines
 
     d.write(file)
 
