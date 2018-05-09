@@ -58,13 +58,7 @@ outfile = argv[6]
 files = ' '.join(argv[7:])
 
 # get the angles from the data file
-if == "dihedrals":
- angle = dt.get("Dihedrals")
-else if == "impropers":
- angle = dt.get("Impropers") 
-else: 
- raise StandardError, "The second keyword is neither 'dihedrals' nor 'impropers' "
- sys.exit()
+angle = dt.get("Dihedrals")
 
 nangles = len(angle)
 atype = nangles * [0]
