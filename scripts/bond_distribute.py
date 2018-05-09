@@ -62,12 +62,9 @@ while 1:
   time = d.next()
   if time == -1: break
    
-  box = (d.snaps[-1].xlo,d.snaps[-1].ylo,d.snaps[-1].zlo,
-         d.snaps[-1].xhi,d.snaps[-1].yhi,d.snaps[-1].zhi)
-         
-  xprd = box[3] - box[0]
-  yprd = box[4] - box[1] 
-  zprd = box[5] - box[2]
+  xprd = d.snaps[-1].xhi - d.snaps[-1].xlo
+  yprd = d.snaps[-1].yhi - d.snaps[-1].ylo
+  zprd = d.snaps[-1].zhi - d.snaps[-1].zlo
   
   d.unscale() 
   d.sort()
