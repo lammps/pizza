@@ -142,16 +142,16 @@ while 1:
   print time,    
       
 print
-print "Printing normalized angle distributions to",outfile
+print("Printing normalized angle distributions to {}".format(outfile))
     
-fp = open(outfile,"w")
-theta_range = theta_max - theta_min
-for i in xrange(nbins):
-  print >>fp, theta_min + theta_range*float(i)/float(nbins), 
-  for j in xrange(ntypes):
-    if (ncount[j] > 0):
-      print >>fp, float(bin[i][j])/float(ncount[j])/theta_range,
-    else:
-      print >>fp, 0.0,    
-  print >>fp 
-fp.close()
+with open(outfile,"w") as fp:
+  theta_range = theta_max - theta_min
+  for i in xrange(nbins):
+    print >>fp, theta_min + theta_range*float(i)/float(nbins),
+    for j in xrange(ntypes):
+      if (ncount[j] > 0):
+        print >>fp, float(bin[i][j])/float(ncount[j])/theta_range,
+      else:
+        print >>fp, 0.0,    
+    print >>fp 
+
