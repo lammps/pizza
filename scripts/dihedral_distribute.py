@@ -46,9 +46,9 @@ def CrossProduct(Vector1,Vector2): # function to compute the Cross product of tw
 
 # main script
 
-if len(argv) < 8:
+if len(argv) < 7:
   raise StandardError, \
-  "Syntax: dihedral_distribute.py dihedrals/impropers datafile nbin theta_min theta_max outfile files ..."
+  "Syntax: dihedral_distribute.py datafile nbin theta_min theta_max outfile files ..."
 
 dt = data(argv[2])	
 nbins = int(argv[3])
