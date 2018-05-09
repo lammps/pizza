@@ -46,10 +46,19 @@ def CrossProduct(Vector1,Vector2): # function to compute the Cross product of tw
 
 # main script
 
-if len(argv) < 7:
+if len(argv) < 8:
   raise StandardError, \
   "Syntax: dihedral_distribute.py datafile nbin theta_min theta_max outfile files ..."
 
+# get the angles from the data file
+if argv[1] == "dihedrals":
+ angle = dt.get("Dihedrals")
+elif argv[1] == "impropers":
+ angle = dt.get("Impropers") 
+else: 
+ raise StandardError, "The second keyword is neither 'dihedrals' nor 'impropers' "
+ sys.exit()  
+  
 dt = data(argv[2])	
 nbins = int(argv[3])
 theta_min = float(argv[4])
@@ -104,6 +113,7 @@ while 1:
   VectorA = [0] * 3
   VectorB = [0] * 3
   VectorC = [0] * 3
+  VectorD = [0] * 3
   
   for i in xrange(nangles):
     # first vector 
@@ -116,6 +126,10 @@ while 1:
     VectorB[1] = PBC(y[katom[i]] - y[jatom[i]],yprd)
     VectorB[2] = PBC(z[katom[i]] - z[jatom[i]],zprd)
     normVectorB = math.sqrt(InnerProduct(VectorB,VectorB))
+    
+    VectorD[0] = VectorB[0]/normVectorB
+    VectorD[1] = VectorB[1]/normVectorB
+    VectorD[2] = VectorB[2]/normVectorB
 
     # third vector
     VectorC[0] = PBC(x[latom[i]] - x[katom[i]],xprd)
@@ -124,7 +138,7 @@ while 1:
                
     # compute the signed dihedral angle
     HelpVector = CrossProduct(CrossProduct(VectorA,VectorB),CrossProduct(VectorB,VectorC))
-    Argument1 = InnerProduct(HelpVector,VectorB/normVectorB)
+    Argument1 = InnerProduct(HelpVector,VectorD)
     Argument2 = InnerProduct(CrossProduct(VectorA,VectorB),CrossProduct(VectorB,VectorC))
     theta = 180.0*math.atan2(Argument1,Argument2)/math.pi
            
