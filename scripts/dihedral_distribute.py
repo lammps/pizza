@@ -23,7 +23,7 @@ if not globals().has_key("argv"): argv = sys.argv
 
 def PBC(distance,boxlength): # function to compute the minimum image 
 
-  if abs(distance) > 0.5*xprd:
+  if abs(distance) > 0.5*boxlength:
     if distance < 0.0:
       distance += boxlength
     else:
