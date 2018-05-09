@@ -40,7 +40,7 @@ def compute_bond_distribution():
 
  # get the bonds from the data file
  bond = dt.get("Bonds")
- nbonds = len(bond)
+ 
  btype = numpy.asarray(bond[:][1], dtype=int) - 1
  iatom = numpy.asarray(bond[:][2], dtype=int) - 1
  jatom = numpy.asarray(bond[:][3], dtype=int) - 1 
