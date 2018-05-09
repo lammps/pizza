@@ -110,14 +110,13 @@ while 1:
 print
 print "Printing bond distance normalized distribution to",outfile
     
-fp = open(outfile,"w")
-rrange = rmax - rmin
-for i in xrange(nbins):
-  print >>fp, rmin + rrange*float(i)/float(nbins), 
-  for j in xrange(ntypes):
-    if (ncount[j] > 0):
-      print >>fp, float(bin[i][j])/float(ncount[j])/rrange,
-    else:
-      print >>fp, 0.0,    
-  print >>fp 
-fp.close()
+with open(outfile,"w") as fp:
+  rrange = rmax - rmin
+  for i in xrange(nbins):
+    print >>fp, rmin + rrange*float(i)/float(nbins),
+    for j in xrange(ntypes):
+      if (ncount[j] > 0):
+        print >>fp, float(bin[i][j])/float(ncount[j])/rrange,
+      else:
+        print >>fp, 0.0,
+    print >>fp
