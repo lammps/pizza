@@ -3,7 +3,7 @@
 # Script:  dihedral_distribute.py 
 # Purpose: binned signed dihedral distributions by dihedral type
 # Syntax:  dihedral_distribute.py dihedral/improper datafile nbin theta_min theta_max outfile files ...
-#          dihedral/improper = either dihedral or improper keyword to compute the respective distribution
+#          dihedrals/impropers = either dihedral or improper keyword to compute the respective distribution
 #          datafile = lammps data file
 #          nbin = # of bins per dihedral type
 #          theta_min = min expected angle
@@ -49,7 +49,7 @@ def CrossProduct(Vector1,Vector2): # function to compute the Cross product of tw
 
 if len(argv) < 8:
   raise StandardError, \
-  "Syntax: dihedral_distribute.py datafile nbin theta_min theta_max outfile files ..."
+  "Syntax: dihedral_distribute.py dihedrals/impropers datafile nbin theta_min theta_max outfile files ..."
  
 dt = data(argv[2])	
 nbins = int(argv[3])
