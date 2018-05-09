@@ -16,6 +16,7 @@
 
 import sys
 import math 
+from data import data
 from dump import dump
 
 if not globals().has_key("argv"): argv = sys.argv
