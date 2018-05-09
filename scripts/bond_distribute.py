@@ -88,6 +88,9 @@ def compute_bond_distribution():
 
    for itype in range(0, ntypes):
     xx, hist_edge = numpy.histogram(r[btype == itype],bins=args.nbins, range=(args.rmin, args.rmax))
+    if numpy.sum(xx) != ncount[itype]:
+      print("Warning: bond distance outside specified range ")
+      print("Bond type: {}".format(itype+1))
     bin[:][itype] += xx
     
    print("{} ".format(time))    
