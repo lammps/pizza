@@ -16,6 +16,7 @@
 
 import sys
 from dump import dump
+from data import data
 from math import sqrt,acos,atan
 if not globals().has_key("argv"): argv = sys.argv
 
