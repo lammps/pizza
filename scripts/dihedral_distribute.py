@@ -2,7 +2,8 @@
 
 # Script:  dihedral_distribute.py 
 # Purpose: binned signed dihedral distributions by dihedral type
-# Syntax:  dihedral_distribute.py datafile nbin theta_min theta_max outfile files ...
+# Syntax:  dihedral_distribute.py dihedral/improper datafile nbin theta_min theta_max outfile files ...
+#          dihedral/improper = either dihedral or improper keyword to compute the respective distribution
 #          datafile = lammps data file
 #          nbin = # of bins per dihedral type
 #          theta_min = min expected angle
@@ -49,16 +50,7 @@ def CrossProduct(Vector1,Vector2): # function to compute the Cross product of tw
 if len(argv) < 8:
   raise StandardError, \
   "Syntax: dihedral_distribute.py datafile nbin theta_min theta_max outfile files ..."
-
-# get the angles from the data file
-if argv[1] == "dihedrals":
- angle = dt.get("Dihedrals")
-elif argv[1] == "impropers":
- angle = dt.get("Impropers") 
-else: 
- raise StandardError, "The second keyword is neither 'dihedrals' nor 'impropers' "
- sys.exit()  
-  
+ 
 dt = data(argv[2])	
 nbins = int(argv[3])
 theta_min = float(argv[4])
@@ -67,7 +59,13 @@ outfile = argv[6]
 files = ' '.join(argv[7:])
 
 # get the angles from the data file
-angle = dt.get("Dihedrals")
+if argv[1] == "dihedrals":
+ angle = dt.get("Dihedrals")
+elif argv[1] == "impropers":
+ angle = dt.get("Impropers") 
+else: 
+ raise StandardError, "The second keyword is neither 'dihedrals' nor 'impropers' "
+ sys.exit()
 
 nangles = len(angle)
 atype = nangles * [0]
@@ -153,8 +151,11 @@ while 1:
   print time,    
       
 print
-print "Printing normalized dihedral distributions to",outfile
-    
+if argv[1] == "dihedrals":
+ print "Printing normalized dihedral distributions to",outfile
+else:
+ print "Printing normalized improper distributions to",outfile 
+
 fp = open(outfile,"w")
 theta_range = theta_max - theta_min
 for i in xrange(nbins):
