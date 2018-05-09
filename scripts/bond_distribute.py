@@ -100,7 +100,7 @@ def compute_bond_distribution():
     print >>fp, args.rmin + rrange*float(i)/float(args.nbins),
     for j in range(0, ntypes):
       if (ncount[j] > 0):
-        print >>fp, float(bin[i][j])/float(ncount[j]*nconfs),
+        print >>fp, float(bin[i][j])/float(ncount[j]*nconfs)/rrange,
       else:
         print >>fp, 0.0,
     print >>fp
