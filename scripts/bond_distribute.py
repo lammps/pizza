@@ -94,16 +94,16 @@ def compute_bond_distribution():
       
  print("Printing bond distance normalized distribution to {}".format(args.output_file))
     
- with open(args.output_file,"w") as fp:
+ with open(args.output_file,"w") as output_file:
   rrange = args.rmax - args.rmin
   for i in range(0, args.nbins):
-    print >>fp, args.rmin + rrange*float(i)/float(args.nbins),
+    output_file.write("{} ".format(args.rmin + rrange*float(i)/float(args.nbins)))
     for j in range(0, ntypes):
       if (ncount[j] > 0):
-        print >>fp, float(bin[i][j])/float(ncount[j]*nconfs)/rrange,
+        output_file.write("{} ".format(float(bin[i][j])/float(ncount[j]*nconfs)/rrange))
       else:
-        print >>fp, 0.0,
-    print >>fp
+        output_file.write("{} ".format(0.0))
+    output_file.write("\n")
 
 if __name__ == "__main__":
   compute_bond_distribution()
