@@ -1,19 +1,20 @@
 #!/usr/bin/python 
+"""
+Script:  dihedral_distribute.py 
+Purpose: binned signed dihedral distributions by dihedral type
+Syntax:  dihedral_distribute.py dihedral/improper datafile nbin theta_min theta_max outfile files ...
+         dihedrals/impropers = either dihedral or improper keyword to compute the respective distribution
+         datafile = lammps data file
+         nbin = # of bins per dihedral type
+         theta_min = min expected angle
+         theta_max = max expected angle length
+         outfile = file to write stats to
+         files = series of dump files
+Example: dihedral_distribute.py pore.data 1000 110. 120. angles.out pore.dump.1
+Author:  Evangelos Voyiatzis (TU Darmstadt)
 
-# Script:  dihedral_distribute.py 
-# Purpose: binned signed dihedral distributions by dihedral type
-# Syntax:  dihedral_distribute.py dihedral/improper datafile nbin theta_min theta_max outfile files ...
-#          dihedrals/impropers = either dihedral or improper keyword to compute the respective distribution
-#          datafile = lammps data file
-#          nbin = # of bins per dihedral type
-#          theta_min = min expected angle
-#          theta_max = max expected angle length
-#          outfile = file to write stats to
-#          files = series of dump files
-# Example: dihedral_distribute.py pore.data 1000 110. 120. angles.out pore.dump.1
-# Author:  Evangelos Voyiatzis (TU Darmstadt)
-
-# enable script to run from Python directly w/out Pizza.py
+enable script to run from Python directly w/out Pizza.py
+"""
 
 import sys
 import math 
@@ -152,9 +153,9 @@ while 1:
       
 print
 if argv[1] == "dihedrals":
- print "Printing normalized dihedral distributions to",outfile
+ print("Printing normalized dihedral distributions to {}".format(outfile)
 else:
- print "Printing normalized improper distributions to",outfile 
+ print("Printing normalized improper distributions to {}".format(outfile) 
 
 fp = open(outfile,"w")
 theta_range = theta_max - theta_min
