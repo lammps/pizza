@@ -1,157 +1,130 @@
 #!/usr/bin/python 
+"""
+Script:  angle_distribute.py 
+Purpose: binned angle distributions by angle type
+Syntax:  angle_distribute.py datafile nbin theta_min theta_max outfile files ...
+         datafile = lammps data file
+         nbin = # of bins per angle type
+         theta_min = min expected angle
+         theta_max = max expected angle length
+         outfile = file to write stats to
+         files = series of dump files
+Example: angle_distribute.py pore.data 1000 110. 120. angles.out pore.dump.1
+Author:  Paul Crozier (Sandia)
 
-# Script:  angle_distribute.py 
-# Purpose: binned angle distributions by angle type
-# Syntax:  angle_distribute.py datafile nbin theta_min theta_max outfile files ...
-#          datafile = lammps data file
-#          nbin = # of bins per angle type
-#          theta_min = min expected angle
-#          theta_max = max expected angle length
-#          outfile = file to write stats to
-#          files = series of dump files
-# Example: angle_distribute.py pore.data 1000 110. 120. angles.out pore.dump.1
-# Author:  Paul Crozier (Sandia)
+enable script to run from Python directly w/out Pizza.py
+"""
 
-# enable script to run from Python directly w/out Pizza.py
-
-import sys
+from argparse import ArgumentParser
+import numpy
 from dump import dump
 from data import data
-from math import sqrt,acos,atan
-if not globals().has_key("argv"): argv = sys.argv
 
 # main script
+def compute_angle_distribution():
+ """The function doing the actual calculation of the bond distribution"""
+ 
+ parser = ArgumentParser(description='A python script to compute bond distribution using pizza.py')
 
-if len(argv) < 7:
-  raise StandardError, \
-  "Syntax: angle_distribute.py datafile nbin theta_min theta_max outfile files ..."
+ parser.add_argument("input_data_file", help="The name of the lammps input data file")
+ parser.add_argument("nbins", type=int, help="# of bins per bond type")
+ parser.add_argument("theta_min", type=float, help="min expected angle")
+ parser.add_argument("theta_max", type=float, help="max expected angle")
+ parser.add_argument("output_file", help="The name of the file to write stats")
+ parser.add_argument("dump_files", nargs='+', help="series of dump files")
 
-dt = data(argv[1])	
-nbins = int(argv[2])
-theta_min = float(argv[3])
-theta_max = float(argv[4])
-outfile = argv[5]
-files = ' '.join(argv[6:])
+ args = parser.parse_args() 
+  
+ dt = data(args.input_data_file)	
+ files = ' '.join(args.dump_files[:])
 
-# get the angles from the data file
+ # get the angles from the data file
+ angle = dt.get("Angles")
+ nangles = len(angle)
+ atype = numpy.asarray(angle[:][1], dtype=int) - 1
+ iatom = numpy.asarray(angle[:][2], dtype=int) - 1
+ jatom = numpy.asarray(angle[:][3], dtype=int) - 1 
+ katom = numpy.asarray(angle[:][4], dtype=int) - 1
+ 
+ ntypes = int(numpy.max(btype)) + 1
+ bin = numpy.zeros((args.nbins, ntypes), dtype=int)
+ 
+ ncount = numpy.zeros(ntypes, dtype=int)
+ for itype in range(0, ntypes):
+  ncount[itype] = numpy.sum(atype==itype)
 
-angle = dt.get("Angles")
-nangles = len(angle)
-atype = nangles * [0]
-iatom = nangles * [0]
-jatom = nangles * [0]
-katom = nangles * [0]
-for i in xrange(nangles):
-  atype[i] = int(angle[i][1] - 1)
-  iatom[i] = int(angle[i][2] - 1)
-  jatom[i] = int(angle[i][3] - 1)
-  katom[i] = int(angle[i][4] - 1)
+ # read snapshots one-at-a-time
 
-ntypes = 0
-for i in xrange(nangles): ntypes = max(angle[i][1],ntypes)
-ntypes = int(ntypes)
-ncount = ntypes * [0]
-bin = nbins * [0]
-for i in xrange(nbins): 
-  bin[i] = ntypes * [0] 
+ d = dump(files,0)
+ d.map(1,"id",2,"type",3,"x",4,"y",5,"z")
 
-# read snapshots one-at-a-time
-
-d = dump(files,0)
-d.map(1,"id",2,"type",3,"x",4,"y",5,"z")
-
-PI = 4.0*atan(1.0)
-
-while 1:
+ while True:
   time = d.next()
-  if time == -1: break
-   
-  box = (d.snaps[-1].xlo,d.snaps[-1].ylo,d.snaps[-1].zlo,
-         d.snaps[-1].xhi,d.snaps[-1].yhi,d.snaps[-1].zhi)
-         
-  xprd = box[3] - box[0]
-  yprd = box[4] - box[1] 
-  zprd = box[5] - box[2]
+  if time == -1: 
+    break
+            
+  xprd = d.snaps[-1].xhi - d.snaps[-1].xlo
+  yprd = d.snaps[-1].yhi - d.snaps[-1].ylo 
+  zprd = d.snaps[-1].zhi - d.snaps[-1].zlo
   
   d.unscale() 
   d.sort()
   x,y,z = d.vecs(time,"x","y","z")
-   
-  for i in xrange(nangles):
   
-    delx1 = x[iatom[i]] - x[jatom[i]]
-    dely1 = y[iatom[i]] - y[jatom[i]]
-    delz1 = z[iatom[i]] - z[jatom[i]]
-        
-    if abs(delx1) > 0.5*xprd:
-      if delx1 < 0.0:
-        delx1 += xprd
-      else:
-        delx1 -= xprd
-    if abs(dely1) > 0.5*yprd:
-      if dely1 < 0.0:
-        dely1 += yprd
-      else:
-        dely1 -= yprd
-    if abs(delz1) > 0.5*zprd:
-      if delz1 < 0.0:
-        delz1 += zprd
-      else:
-        delz1 -= zprd
-        
-    r1 = sqrt(delx1*delx1 + dely1*dely1 + delz1*delz1)
+  x = numpy.asarray(x)
+  y = numpy.asarray(y)
+  z = numpy.asarray(z)
     
-    delx2 = x[katom[i]] - x[jatom[i]]
-    dely2 = y[katom[i]] - y[jatom[i]]
-    delz2 = z[katom[i]] - z[jatom[i]]
+  delx = x[iatom[:]] - x[jatom[:]]
+  dely = y[iatom[:]] - y[jatom[:]]
+  delz = z[iatom[:]] - z[jatom[:]]
+  
+  delx -= xprd*numpy.rint((x[iatom[:]] - x[jatom[:]])/xprd)
+  dely -= yprd*numpy.rint((y[iatom[:]] - y[jatom[:]])/yprd)
+  delz -= zprd*numpy.rint((z[iatom[:]] - z[jatom[:]])/zprd)
         
-    if abs(delx2) > 0.5*xprd:
-      if delx2 < 0.0:
-        delx2 += xprd
-      else:
-        delx2 -= xprd
-    if abs(dely2) > 0.5*yprd:
-      if dely2 < 0.0:
-        dely2 += yprd
-      else:
-        dely2 -= yprd
-    if abs(delz2) > 0.5*zprd:
-      if delz2 < 0.0:
-        delz2 += zprd
-      else:
-        delz2 -= zprd
-        
-    r2 = sqrt(delx2*delx2 + dely2*dely2 + delz2*delz2)
+  r1 = numpy.sqrt(delx*delx + dely*dely + delz*delz)
     
-    c = delx1*delx2 + dely1*dely2 + delz1*delz2
-    c /= r1*r2
-        
-    if (c > 1.0): c = 1.0
-    if (c < -1.0): c = -1.0
-        
-    theta = 180.0*acos(c)/PI
-    
-    ibin = int(nbins*(theta - theta_min)/(theta_max - theta_min) + 0.5)
-    if ((ibin >= 0) and (ibin <= nbins-1)): 
-      bin[ibin][atype[i]] += nbins
-      ncount[atype[i]] += 1
-    else:
-      print "Warning: angle outside specified range"
-      print "angle type:", atype[i]+1
-      print "angle number:", i
-  print time,    
-      
-print
-print("Printing normalized angle distributions to {}".format(outfile))
-    
-with open(outfile,"w") as fp:
-  theta_range = theta_max - theta_min
-  for i in xrange(nbins):
-    print >>fp, theta_min + theta_range*float(i)/float(nbins),
-    for j in xrange(ntypes):
-      if (ncount[j] > 0):
-        print >>fp, float(bin[i][j])/float(ncount[j])/theta_range,
-      else:
-        print >>fp, 0.0,    
-    print >>fp 
+  delx2 = x[katom[:]] - x[jatom[:]]
+  dely2 = y[katom[:]] - y[jatom[:]]
+  delz2 = z[katom[:]] - z[jatom[:]]
 
+  delx2 -= xprd*numpy.rint((x[katom[:]] - x[jatom[:]])/xprd)
+  dely2 -= yprd*numpy.rint((y[katom[:]] - y[jatom[:]])/yprd)
+  delz2 -= zprd*numpy.rint((z[katom[:]] - z[jatom[:]])/zprd)
+        
+  r2 = numpy.sqrt(delx2*delx2 + dely2*dely2 + delz2*delz2)
+    
+  c = delx1*delx2 + dely1*dely2 + delz1*delz2
+  c /= r1*r2
+        
+  if (c > 1.0): c = 1.0
+  if (c < -1.0): c = -1.0
+        
+  theta = 180.0*numpy.arccos(c)/numpy.pi
+
+  for itype in range(0, ntypes):
+    xx, hist_edge = numpy.histogram(theta[atype == itype],bins=args.nbins, range=(args.theta_min, args.theta_max))
+    if numpy.sum(xx) != ncount[itype]:
+      print("Warning: angle distance outside specified range ")
+      print("Angle type: {}".format(itype+1))
+    bin[:][itype] += xx
+  
+  print("{} ".format(time))    
+      
+ print
+ print("Printing normalized angle distributions to {}".format(args.output_file))
+    
+ with open(args.output_file,"w") as output_file:
+  theta_range = args.theta_max - args.theta_min
+  for i in range(0, args.nbins):
+    output_file.write("{} ".format(theta_min + theta_range*float(i)/float(nbins)))
+    for j in range(0, ntypes):
+      if (ncount[j] > 0):
+        output_file.write("{} ".format(float(bin[i][j])/float(ncount[j]*nconfs)/theta_range))
+      else:
+        output_file.write("{} ".format(0.0))    
+    output_file.write("\n") 
+
+if __name__ == "__main__":
+  compute_angle_distribution()
