@@ -53,7 +53,7 @@ import sys, os, commands, re, glob
 from math import *
 from Tkinter import *
 import Pmw
-import Image,ImageTk
+from PIL import Image,ImageTk
 
 try: from DEFAULTS import PIZZA_CONVERT
 except: PIZZA_CONVERT = "convert"
