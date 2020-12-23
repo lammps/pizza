@@ -55,7 +55,8 @@ p.build(100,"hex2",1,2,3)  create 100 "hex2" particles with params 1,2,3
     sphere3d: Nlo,Nhi,m = 3d hollow spheres with random N beads/cube-edge 
                           from Nlo to Nhi
     tritet: A,m = 4-tri tet with edge length A, tri type m
-    tribox: Alo,Ahi,Blo,Bhi,Clo,Chi,m = 12-tri box with side lengths A,B,C & m
+    tribox: Alo,Ahi,Blo,Bhi,Clo,Chi,m = 12-tri box with side lengths A,B,C
+                                        tri type m, built of triangle particles
     linebox: Alo,Ahi,Blo,Bhi,m = 4-line 2d rectangle with random side lengths
                                  from Alo to Ahi and Blo to Bhi, line type m
                                  built of line particles

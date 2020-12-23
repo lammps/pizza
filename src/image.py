@@ -70,7 +70,7 @@ class image:
     if filestr == None: return
     self.view(filestr,sortflag)
 
-  def view(self,filestr,sortflag):
+  def view(self,filestr,sortflag=0):
 
     # convert filestr into full list of files
 
@@ -80,7 +80,7 @@ class image:
     for file in list: files += glob.glob(file)
     if len(files) == 0: raise StandardError, "no image files to load"
     if sortflag: files.sort()
-
+    
     # grab Tk instance from main
 
     from __main__ import tkroot
