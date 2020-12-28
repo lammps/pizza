@@ -3,9 +3,10 @@ import csv
 import os
 from pizza.log import log
 
+TESTS_DIR=os.path.dirname(os.path.abspath(__file__))
 
 class TestLog(unittest.TestCase):
-    EXAMPLE_FILE = "../examples/files/log.obstacle"
+    EXAMPLE_FILE = os.path.join(TESTS_DIR, "../examples/files/log.obstacle")
 
     def test_read_log(self):
         lg = log(TestLog.EXAMPLE_FILE)
