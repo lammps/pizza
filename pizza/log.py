@@ -188,9 +188,11 @@ class log:
     str_one = "Step "
 
     if filename[-3:] == ".gz":
-      txt = gzip.open(filename, 'rt').read()
+      with gzip.open(filename, 'rt') as f:
+        txt = f.read()
     else:
-      txt = open(filename, 'rt').read()
+      with open(filename, 'rt') as f:
+        txt = f.read()
 
     if txt.find(str_multi) >= 0:
       self.firststr = str_multi
