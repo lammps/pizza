@@ -127,7 +127,7 @@ class data:
       found = 0
       for pair in skeywords:
         keyword,length = pair[0],pair[1]
-        if keyword == line:
+        if keyword == line.split('#')[0].strip():
 	  found = 1
           if not headers.has_key(length):
             raise StandardError, \
