@@ -76,16 +76,17 @@ by SPARTA to track particle motion.
 [Usage:]
 
 s = sdata()			   create a surf data object
-s = sdata(ID,"mem.surf")           read in one or more SPARTA surf files
+s = sdata(ID,"mem.surf")           read in one or more surf files
 s = sdata(ID,"mem.part.gz mem.surf")  can be gzipped
 s = sdata(ID,"mem.*")		   wildcard expands to multiple files
 s.read(ID,"mem.surf")		   read in one or more data files :pre
 
   all surf data in files becomes one surf with ID
-  surf files contain the following kinds of entries in SPARTA format
+  surf files contain the following kinds of entries in SPARTA or LAMMPS format
     points and lines (for 2d), points and triangles (for 3d)
   read() has same argument options as constructor :pre
 
+s.mode = "SPARTA" or "LAMMPS"      set format of in/out files (def = "SPARTA")
 s.seed = 48379                     set random # seed (def = 12345)
 s.circle(ID,x,y,r,n)               create a 2d circle with N lines and ID
 s.rect(ID,x1,y1,x2,y2,nx,ny)       create a 2d rect, 2 corner pts, Nx,Ny segs 
@@ -116,13 +117,20 @@ s.invert(ID) 	                   invert normal direction of surf :pre
   default center for read-in surf is center of bounding box of all points
   rotation and scaling of surf are relative to its center point :pre
 
-s.join(ID,id1,id2,...)		   combine id1,id2,etc into new surf with ID
-s.delete(id1,id2,...)              delete one or more surfs
-s.rename(ID,IDnew)                 rename a surf
-s.copy(ID,IDnew) 	           create a new surf as copy of old surf :pre
+s.join(ID,id1,id2,...)		   combine id1,id2,etc into new surf with ID :pre
 
   join does not delete id1,id2,etc
   center for joined surf becomes center of bounding box of all points :pre
+
+s.refine(ID,size)                  refine surf to lines/tris less than size :pre
+
+  lines are halved recursively into 2 lines
+  triangles are split by longest edge, inducing split in neighbor tri
+    builds tri connectivity list to do this :pre
+
+s.delete(id1,id2,...)              delete one or more surfs
+s.rename(ID,IDnew)                 rename a surf
+s.copy(ID,IDnew) 	           create a new surf as copy of old surf :pre
 
 s.select(id1,id2,...)              select one or more surfs
 s.select()                         select all surfs
@@ -131,13 +139,16 @@ s.unselect()                       unselect all surfs :pre
 
   selection applies to write() and viz()
   surfs are selected by default when read or created :pre
+  
+s.write("file",pflag=1,nfile=0,ids=[])	    write all selected surfs to file
+s.write("file",pflag=1,nfile=0,ids=[id1,id2,...])  write only listed & selected :pre
 
-s.write("file")			   write all selected surfs to SPARTA file
-s.write("file",id1,id2,...)	   write only listed & selected surfs to file :pre
+  pflag = 1/0 to include/exclude Points section, default = 1
+  nfile = write SPARTA multiproc-format file to Nfile >= 1 files :pre
 
 s.grid(xlo,xhi,ylo,yhi,ny,ny)      bounding box and Nx by Ny grid
 s.grid(xlo,xhi,ylo,yhi,zlo,zhi,ny,ny,nz)   ditto for 3d
-s.gridfile(xlo,xhi,ylo,yhi,file)   bbox and SPARTA-formatted parent grid file
+s.gridfile(xlo,xhi,ylo,yhi,file)   bbox and SPARTA-format parent grid file
 s.gridfile(xlo,xhi,ylo,yhi,zlo,zhi,file)   ditto for 3d :pre
 
   grid command superpose a grid, for viz only
@@ -153,7 +164,7 @@ time,box,atoms,bonds,tris,lines = s.viz(index)   return list of viz objects :pre
     flag = -1 when iteration is done, 1 otherwise
   viz() returns info for selected objs for specified timestep index (must be 0)
     time = 0
-    box = \[xlo,ylo,zlo,xhi,yhi,zhi\] = bounding box
+    box = [xlo,ylo,zlo,xhi,yhi,zhi] = bounding box
     atoms = NULL
     bonds = NULL
     tris = id,type,x1,y1,z1,x2,y2,z2,x3,y3,z3,nx,ny,nz for each tri as 2d array

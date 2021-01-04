@@ -1,4 +1,4 @@
-#!/usr/local/bin/python -i
+#!/usr/bin/env python -i
 
 # Pizza.py toolkit, www.cs.sandia.gov/~sjplimp/pizza.html
 # Steve Plimpton, sjplimp@sandia.gov, Sandia National Laboratories

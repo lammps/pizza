@@ -17,12 +17,21 @@ l = log("file*")                     wildcard expands to multiple files
 l = log("log.lammps",0)              two args = store filename, but don't read
 
   incomplete and duplicate thermo entries are deleted
+  skip applied within individual files, def = 1 (no skip)
 
 time = l.next()                      read new thermo info from file
 
   used with 2-argument constructor to allow reading thermo incrementally
   return time stamp of last thermo read
   return -1 if no new thermo since last read
+
+l.skip = 2                           only keep log data for every Nth run (def=1)
+
+  applied within single log files
+  use as follows:
+    l = log(file,0)
+    l.skip = 2
+    l.read_all()
 
 nvec = l.nvec                        # of vectors of thermo info
 nlen = l.nlen                        length of each vectors
@@ -45,7 +54,7 @@ l.write("file.txt","Time","PE",...)  write listed vectors to a file
 #   names = list of vector names
 #   ptr = dictionary, key = name, value = index into data for which column
 #   data[i][j] = 2d array of floats, i = 0 to # of entries, j = 0 to nvecs-1
-#   style = style of LAMMPS log file, 1 = multi, 2 = one, 3 = gran
+#   style = style of LAMMPS log file, 1 = multi, 2 = one
 #   firststr = string that begins a thermo section in log file
 #   increment = 1 if log file being read incrementally
 #   eof = ptr into incremental file for where to start next read
@@ -69,6 +78,7 @@ class log:
     self.names = []
     self.ptr = {}
     self.data = []
+    self.skip = 1
 
     # flist = list of all log file names
 
@@ -260,7 +270,7 @@ class log:
     else: eof = f.tell()
     f.close()
 
-    start = last = 0
+    start = last = nchunk = 0
     while not last:
 
       # chunk = contiguous set of thermo entries (line or multi-line)
@@ -309,9 +319,12 @@ class log:
       chunk = txt[s1:s2-1]
       start = s2
 
+      nchunk += 1
+      if (nchunk-1) % self.skip: continue
+      
       # split chunk into entries
       # parse each entry for numeric fields, append to data
-  
+
       if self.style == 1:
         sections = chunk.split("\n--")
         pat1 = re.compile("Step\s*(\S*)\s")

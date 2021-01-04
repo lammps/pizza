@@ -37,13 +37,22 @@ l = log("log1 log2.gz")              can be gzipped
 l = log("file*")                     wildcard expands to multiple files
 l = log("log.lammps",0)              two args = store filename, but don't read 
 </PRE>
-<PRE>  incomplete and duplicate thermo entries are deleted 
+<PRE>  incomplete and duplicate thermo entries are deleted
+  skip applied within individual files, def = 1 (no skip) 
 </PRE>
 <PRE>time = l.next()                      read new thermo info from file 
 </PRE>
 <PRE>  used with 2-argument constructor to allow reading thermo incrementally
   return time stamp of last thermo read
   return -1 if no new thermo since last read 
+</PRE>
+<PRE>l.skip = 2                           only keep log data for every Nth run (def=1) 
+</PRE>
+<PRE>  applied within single log files
+  use as follows:
+    l = log(file,0)
+    l.skip = 2
+    l.read_all() 
 </PRE>
 <PRE>nvec = l.nvec                        # of vectors of thermo info
 nlen = l.nlen                        length of each vectors

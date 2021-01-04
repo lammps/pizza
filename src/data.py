@@ -373,4 +373,6 @@ skeywords = [["Masses","atom types"],
              ["AngleAngleTorsion Coeffs","dihedral types"],
              ["BondBond13 Coeffs","dihedral types"],
              ["AngleAngle Coeffs","improper types"],
-             ["Molecules","atoms"]]
+             ["Molecules","atoms"],
+             ["Tinker Types","atoms"]]
+             
