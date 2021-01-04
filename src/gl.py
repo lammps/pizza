@@ -127,7 +127,7 @@ g.sview(theta,phi,x,y,scale,up)      set all view parameters
 from math import sin,cos,sqrt,pi,acos
 from OpenGL.Tk import *
 from OpenGL.GLUT import *
-import Image
+from PIL import Image
 from vizinfo import vizinfo
 
 # Class definition

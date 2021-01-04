@@ -50,7 +50,7 @@ a.delay(0.4)     	      set delay slider
 
 import sys, os, commands, re, glob
 from Tkinter import *
-from ImageTk import PhotoImage
+from PIL import ImageTk
 
 # Class definition
 
