@@ -19,23 +19,24 @@ open-source code, distributed freely under the terms of the GNU Public
 License (GPL).
 
 The maintainer of Pizza.py is Steve Plimpton, who can be emailed at
-sjplimp@sandia.gov.  The Pizza.py WWW site
-(www.cs.sandia.gov/~sjplimp/lammps.html) and LAMMPS WWW Site
-(www.cs.sandia.gov/~sjplimp/lammps.html) have more information about
+sjplimp@sandia.gov.  The Pizza.py [WWW site](https://pizza.sandia.gov/)
+and LAMMPS [WWW Site](https://lammps.sandia.gov/)
+have more information about
 the code and its uses.
 
 The Pizza.py (1 Oct 2006) distribution includes the following files
 and directories:
 
-README			   this file
-LICENSE			   the GNU open-source license
-doc			   HTML documentation for Pizza.py
-examples		   scripts and data sets that exercise Pizza.py tools
-scripts			   various Pizza.py script files
-src			   source code for Pizza.py and its tools
+|Directory|Contents|
+|---|---|
+|[README](/README.md)|this file|
+|[LICENSE](/LICENSE)|the GNU open-source license|
+|[doc](/doc)|HTML documentation for Pizza.py|
+|[examples](/examples)|scripts and data sets that exercise Pizza.py tools|
+|[scripts](/scripts)|various Pizza.py script files|
+|[src](/src)|source code for Pizza.py and its tools|
 
 Point your browser at any of these files to get started:
-
-doc/Manual.html	           the Pizza.py manual
-doc/Section_intro.html	   hi-level introduction to Pizza.py
-doc/Section_install.html   how to install Pizza.py
+* [Manual](doc/Manual.html) - the Pizza.py manual
+* [Intro](doc/Section_intro.html) - hi-level introduction to Pizza.py
+* [Install](doc/Section_install.html) - how to install Pizza.py
