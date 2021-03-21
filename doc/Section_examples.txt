@@ -14,7 +14,7 @@ The Pizza.py distribution includes 2 sets of example scripts.  A
 listing of included scripts is given on the "Pizza.py WWW
 site"_scripts.
 
-:link(scripts,http://www.cs.sandia.gov/~sjplimp/pizza/scripts.html)
+:link(scripts,https://pizza.sandia.gov/scripts.html)
 
 (A) The examples directory has a README file and a variety of scripts.
 For each tool in Pizza.py there is a test_tool.py script that invokes

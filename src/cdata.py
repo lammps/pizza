@@ -1,4 +1,4 @@
-# Pizza.py toolkit, www.cs.sandia.gov/~sjplimp/pizza.html
+# Pizza.py toolkit, https://pizza.sandia.gov/
 # Steve Plimpton, sjplimp@sandia.gov, Sandia National Laboratories
 #
 # Copyright (2005) Sandia Corporation.  Under the terms of Contract
