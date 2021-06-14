@@ -1,0 +1,45 @@
+<HTML>
+<CENTER><A HREF = "index.html">Pizza.py WWW Site</A> 
+</CENTER>
+
+
+<HR>
+
+<H3>Pizza.py Scripts 
+</H3>
+<P>The Pizza.py distribution includes a collection of scripts written by
+Pizza.py users.  Those in the scripts directory are generically
+useful; you may wish to use them directly or modify them for your own
+purposes.  Those in the examples directory either illustrate how to
+use a particular tool or were written to perform a specfic task.
+</P>
+<P>Here is the list of scripts from the scripts directory.  Clicking on
+the script name will display the text of the script.
+</P>
+<DIV ALIGN=center><TABLE  BORDER=1 >
+<TR><TD ><A HREF = "scripts/angle_distribute.py">angle_distribute.py</A></TD><TD > distribution of angles from LAMMPS dump file</TD></TR>
+<TR><TD ><A HREF = "scripts/block.py">block.py</A></TD><TD > thermodynamic block averages from LAMMPS log files</TD></TR>
+<TR><TD ><A HREF = "scripts/bond_distribute.py">bond_distribute.py</A></TD><TD > distribution of bonds from LAMMPS dump file</TD></TR>
+<TR><TD ><A HREF = "scripts/clogview.py">clogview.py</A></TD><TD > plots of ChemCell log-file time courses</TD></TR>
+<TR><TD ><A HREF = "scripts/cluster.py">cluster.py</A></TD><TD > histogram of cluster size of type2 atoms near type1</TD></TR>
+<TR><TD ><A HREF = "scripts/density.py">density.py</A></TD><TD > binned atom density by atom type</TD></TR>
+<TR><TD ><A HREF = "scripts/distance.py">distance.py</A></TD><TD > check on atom pair distances</TD></TR>
+<TR><TD ><A HREF = "scripts/dview.py">dview.py</A></TD><TD > launch vcr tool on LAMMPS dump files</TD></TR>
+<TR><TD ><A HREF = "scripts/flux.py">flux.py</A></TD><TD > flux of atoms through a user-defined plane</TD></TR>
+<TR><TD ><A HREF = "scripts/iview.py">iview.py</A></TD><TD > launch animate tool on series of image files</TD></TR>
+<TR><TD ><A HREF = "scripts/logview.py">logview.py</A></TD><TD > plots of LAMMPS log-file thermodynamic data</TD></TR>
+<TR><TD ><A HREF = "scripts/movie.py">movie.py</A></TD><TD > create images from LAMMPS dump snapshots</TD></TR>
+<TR><TD ><A HREF = "scripts/plot.py">plot.py</A></TD><TD > create series of plots from a file of vector data  
+</TD></TR></TABLE></DIV>
+
+<P>Running any of these scripts is as simple as typing a line appropriate
+to the script's syntax, e.g.
+</P>
+<PRE>% pizza.py -f movie.py svg 60 135 dump.*       from the shell
+> @run movie.py svg 60 135 dump.*              from Pizza.py 
+</PRE>
+<P>The top of each script file describes its purpose and syntax.  That
+information can be be accessed from within Pizza.py by typing "??" or
+"? name.py" or "?? name.py".
+</P>
+</HTML>

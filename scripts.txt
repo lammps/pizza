@@ -1,0 +1,39 @@
+"Pizza.py WWW Site"_pws :c
+:link(pws,index.html)
+
+:line
+
+Pizza.py Scripts :h3
+
+The Pizza.py distribution includes a collection of scripts written by
+Pizza.py users.  Those in the scripts directory are generically
+useful; you may wish to use them directly or modify them for your own
+purposes.  Those in the examples directory either illustrate how to
+use a particular tool or were written to perform a specfic task.
+
+Here is the list of scripts from the scripts directory.  Clicking on
+the script name will display the text of the script.
+
+"angle_distribute.py"_scripts/angle_distribute.py: distribution of angles from LAMMPS dump file
+"block.py"_scripts/block.py: thermodynamic block averages from LAMMPS log files
+"bond_distribute.py"_scripts/bond_distribute.py: distribution of bonds from LAMMPS dump file
+"clogview.py"_scripts/clogview.py: plots of ChemCell log-file time courses
+"cluster.py"_scripts/cluster.py: histogram of cluster size of type2 atoms near type1
+"density.py"_scripts/density.py: binned atom density by atom type
+"distance.py"_scripts/distance.py: check on atom pair distances
+"dview.py"_scripts/dview.py: launch vcr tool on LAMMPS dump files
+"flux.py"_scripts/flux.py: flux of atoms through a user-defined plane
+"iview.py"_scripts/iview.py: launch animate tool on series of image files
+"logview.py"_scripts/logview.py: plots of LAMMPS log-file thermodynamic data
+"movie.py"_scripts/movie.py: create images from LAMMPS dump snapshots
+"plot.py"_scripts/plot.py: create series of plots from a file of vector data  :tb(s=:)
+
+Running any of these scripts is as simple as typing a line appropriate
+to the script's syntax, e.g.
+
+% pizza.py -f movie.py svg 60 135 dump.*       from the shell
+> @run movie.py svg 60 135 dump.*              from Pizza.py :pre
+
+The top of each script file describes its purpose and syntax.  That
+information can be be accessed from within Pizza.py by typing "??" or
+"? name.py" or "?? name.py".

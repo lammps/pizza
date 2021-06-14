@@ -1,0 +1,187 @@
+<HTML>
+<CENTER><A HREF = "index.html">Pizza.py WWW Site</A> 
+</CENTER>
+
+
+<HR>
+
+<H3>Pizza.py Movies 
+</H3>
+<P>These are various animations created with Pizza.py for output data
+from the <A HREF = "../lammps.html">LAMMPS</A> molecular dynamics simulator.  Some
+are from 3d simulations; others are from simpler 2d systems that
+illustrate the kinds of problems LAMMPS can easily be setup to run.
+</P>
+
+
+<P>For each problem, Pizza.py was used to create a series of images.  I
+use the ImageMagick convert program to make lo-resolution MPEG movies
+and QuickTime Pro (on a Mac laptop) to make hi-resolution QuickTime
+movies.  The lo-res MPEG movies are posted here; a single hi-res image
+frame is also shown so you can see what the QuickTime movie looks
+like.  Links to the Pizza.py scripts that created the image sequences
+are also given.
+</P>
+<P>For all movies on this page, click on the small image to trigger the
+animation.  You may need to slow-down/speed-up the MPEG playback on
+your machine.  If your browser uses the "xanim" program to view MPEG
+movies, the speed-up key is "-" and the slow-down key is "=".
+</P>
+<DIV ALIGN=center><TABLE  BORDER=1 >
+<TR><TD ><A HREF = "#bucky">bucky</A></TD><TD >	      decorated bucky-ball particle self-assembly</TD></TR>
+<TR><TD ><A HREF = "#dipole">dipole</A></TD><TD >     dipolar particle melt</TD></TR>
+<TR><TD ><A HREF = "#flow">flow</A></TD><TD >	      2d flow around an obstacle</TD></TR>
+<TR><TD ><A HREF = "#grain">grain</A></TD><TD >	      2d grain growth via Potts model</TD></TR>
+<TR><TD ><A HREF = "#melt">melt</A></TD><TD >	      melt of Lennard-Jones solid</TD></TR>
+<TR><TD ><A HREF = "#micelle">micelle</A></TD><TD >   2d micelle self-assembly</TD></TR>
+<TR><TD ><A HREF = "#peptide">peptide</A></TD><TD >   small peptide in solution</TD></TR>
+<TR><TD ><A HREF = "#tri">tri</A></TD><TD >	      decorated triangular particle self-assembly 
+</TD></TR></TABLE></DIV>
+
+<HR>
+
+<H4><A NAME = "bucky"></A>Decorated bucky-ball particle self-assembly 
+</H4>
+<P>Each particle is a rigid C60 molecule with two patches of attractive
+atoms on each end that induce ordering with nearby particles.  These
+images were made with the Pizza.py raster tool wrapping Raster3d.
+</P>
+<P>See <A HREF = "#Glotzer">this paper</A> from <A HREF = "http://www.engin.umich.edu/dept/che/research/glotzer">Sharon Glotzer's group</A> (U
+Michigan) for more examples of macro-particle self-assembly and phase
+behavior.
+</P>
+
+
+<P><A HREF = "scripts/movie_bucky.py">Pizza.py script</A> to create images.
+<A HREF = "images/bucky.png">Hi-resolution image</A> from QuickTime movie.
+</P>
+<A HREF = "movies/bucky.mpg"><IMG SRC = "images/bucky_small.png"></A>
+
+<P>1.7 Mb lo-resolution MPEG movie
+</P>
+<HR>
+
+<H4><A NAME = "dipole"></A>Dipolar particle melt 
+</H4>
+<P>Two overlapping spheres per particle to indicate dipole orientation.
+These images were made with the Pizza.py raster tool wrapping
+Raster3d.
+</P>
+<P><A HREF = "images/dipole.png">Hi-resolution image</A> from QuickTime movie.
+</P>
+<A HREF = "movies/dipole.mpg"><IMG SRC = "images/dipole_small.png"></A>
+
+<P>1.2 Mb lo-resolution MPEG movie
+</P>
+<HR>
+
+<H4><A NAME = "flow"></A>2d flow around an obstacle 
+</H4>
+<P>Two spherical voids in a flowing atomic fluid.  The flow images were
+made with the Pizza.py raster tool wrapping Raster3d.  The movie with
+plots was made using the mplot() method of the <A HREF = "doc/gnu.html">gnu tool</A>
+(or <A HREF = "doc/matlab.html">matlab tool</A>) and then combining the flow and
+plot images with the montage() method of the <A HREF = "doc/image.html">image
+tool</A> (calls ImageMagick montage command).
+</P>
+<P><A HREF = "scripts/movie_flow.py">Pizza.py script</A> to create flow images.
+<A HREF = "scripts/movie_flow_plot.py">Pizza.py script</A> to create plots and
+combine them with flow images.  <A HREF = "images/flow.png">Hi-resolution image</A>
+from 1st QuickTime movie.  <A HREF = "images/flow_plot.png">Hi-resolution image</A>
+from 2nd QuickTime movie.
+</P>
+<A HREF = "movies/flow.mpg"><IMG SRC = "images/flow_small.png"></A>
+
+<A HREF = "movies/flow_plot.mpg"><IMG SRC = "images/flow_plot_small.png"></A>
+
+<P>Flow only = 1.5 Mb lo-resolution MPEG movie.
+</P>
+<P>Flow + plots = 1.5 Mb lo-resolution MPEG movie.
+</P>
+<HR>
+
+<H4><A NAME = "grain"></A>2d grain growth via Potts model 
+</H4>
+<P>Each pixel is a lattice site in a 2d Potts model formulated to model
+grain growth via Monte Carlo sweeps of the lattice.  These images were
+made with the Pizza.py raster tool wrapping Raster3d reading a mesh
+file with the <A HREF = "doc/mdump.html">mdump</A> tool.  Thanks to Aidan Thompson
+for implementation of the Potts model in a kinetic Monte Carlo code we
+are developing at Sandia.
+</P>
+<P><A HREF = "scripts/movie_grain.py">Pizza.py script</A> to create images.
+<A HREF = "images/grain.png">Hi-resolution image</A> from QuickTime movie.
+</P>
+<A HREF = "movies/grain.mov"><IMG SRC = "images/grain_small.png"></A>
+
+<P>185 Kb QuickTime movie
+</P>
+<HR>
+
+<H4><A NAME = "melt"></A>Melt of Lennard-Jones solid 
+</H4>
+<P>Atoms are colored to visualize the melt process.  These images were
+made with the Pizza.py raster tool wrapping Raster3d.
+</P>
+<P><A HREF = "scripts/movie_melt.py">Pizza.py script</A> to create images.
+<A HREF = "images/melt.png">Hi-resolution image</A> from QuickTime movie.
+</P>
+<A HREF = "movies/melt.mpg"><IMG SRC = "images/melt_small.png"></A>
+
+<P>1.5 Mb lo-resolution MPEG movie
+</P>
+<HR>
+
+<H4><A NAME = "micelle"></A>2d micelle self-assembly 
+</H4>
+<P>The 3-atom lipids have a hydrophyllic head that likes solvent and a
+hydrophobic tail that doesn't like solvent.  These images were made
+with the Pizza.py svg tool.
+</P>
+<P><A HREF = "scripts/movie_micelle.py">Pizza.py script</A> to create images.
+<A HREF = "images/micelle.png">Hi-resolution image</A> from QuickTime movie.
+</P>
+<A HREF = "movies/micelle.mpg"><IMG SRC = "images/micelle_small.png"></A>
+
+<P>4.3 Mb lo-resolution MPEG movie
+</P>
+<HR>
+
+<H4><A NAME = "peptide"></A>Small peptide in solution 
+</H4>
+<P>These images were made with the Pizza.py rasmol tool wrapping RasMol.
+</P>
+<P><A HREF = "scripts/movie_peptide.py">Pizza.py script</A> to create images.
+<A HREF = "images/peptide.png">Hi-resolution image</A> from QuickTime movie.
+</P>
+<A HREF = "movies/peptide.mpg"><IMG SRC = "images/peptide_small.gif"></A>
+
+<P>1.2 Mb lo-resolution MPEG movie
+</P>
+<HR>
+
+<H4><A NAME = "tri"></A>Decorated triangular particle self-assembly 
+</H4>
+<P>Each particle is a rigid 3-layer triangular-shaped molecule an inner
+layer of attractive atoms that induces ordering with nearby particles.
+These images were made with the Pizza.py raster tool wrapping
+Raster3d.
+</P>
+<P>See <A HREF = "#Glotzer">this paper</A> from <A HREF = "http://www.engin.umich.edu/dept/che/research/glotzer">Sharon Glotzer's group</A> (U
+Michigan) for more examples of macro-particle self-assembly and phase
+behavior.
+</P>
+<P><A HREF = "scripts/movie_tri.py">Pizza.py script</A> to create images.
+<A HREF = "images/tri.png">Hi-resolution image</A> from QuickTime movie.
+</P>
+<A HREF = "movies/tri.mpg"><IMG SRC = "images/tri_small.png"></A>
+
+<P>3.1 Mb lo-resolution MPEG movie
+</P>
+<HR>
+
+<A NAME = "Glotzer"></A>
+
+<P><B>(Glotzer)</B> Zhang and Glotzer, NanoLetters, 4, 1407-1413 (2004).
+</P>
+</HTML>

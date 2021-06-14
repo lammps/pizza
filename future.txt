@@ -1,0 +1,20 @@
+"Pizza.py WWW Site"_pws :c
+:link(pws,index.html)
+
+:line
+
+Future plans for Pizza.py :h3
+
+Some ideas for extensions to existing tools are listed as "ToDo" items
+at the top of each src/*.py file in the Pizza.py distribution.
+
+Here is a list of new tools we're thinking about adding to Pizza.py.
+We've worked on some of these ideas, but they're are not yet ready to
+release.
+
+atom/molecule builder for LAMMPS to setup problem geometries
+GUI to setup a LAMMPS input script
+run LAMMPS interactively with real-time plotting and viz
+wrapper for CHARMM to LAMMPS conversion/solvation Perl script currently in LAMMPS
+text to HTML converter, a la "txt2html"_../download.html
+pre- and post-processing tools for our ChemCell cell modeling program :ul

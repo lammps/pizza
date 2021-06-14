@@ -1,0 +1,67 @@
+"Pizza.py WWW Site"_pws :c
+:link(pws,index.html)
+
+:line
+
+Pizza.py Features :h3
+
+The top-level of Pizza.py extends the Python interpreter in a few
+simple ways, to make it easier to:
+
+invoke shell commands, !ls -l
+launch scripts, @run test.py 1 dump.*
+use command-line options to automate tasks, pizza.py -f movie.py raster dump.*
+query help for tools and scripts, ? gnu :tb()
+
+The rest of Pizza.py is a collection of tools which can be invoked by
+typing interactively, from scripts, or in some cases from GUIs.  Some
+tools are useful by themselves; others work together.
+
+Several of the tools wrap stand-alone applications, so they can be
+driven from within Pizza.py and scripted.  These applications include
+"GnuPlot"_gnuplot, "MatLab"_matlab, "Raster3d"_raster3d, and
+"RasMol"_rasmol.
+
+The "FAQ"_FAQ.html lists typical tasks that can be performed with
+various tools.  Here's the list of tools in Pizza.py:
+
+"animate.py"_doc/animate.html; Animate a series of image files
+"bdump.py"_doc/bdump.html; Read LAMMPS dump local files with bond info
+"cdata.py"_doc/cdata.html; Read, write, manipulate "Chemcell"_ccell data files
+"chain.py"_doc/chain.html; Create bead-spring chains for LAMMPS input
+"clog.py"_doc/clog.html; Read "ChemCell"_ccell log files and extract species data
+"data.py"_doc/data.html; Read, write, manipulate LAMMPS data files
+"dump.py"_doc/dump.html; Read, write, manipulate LAMMPS dump files and atom attributes
+"ensight.py"_doc/ensight.html; Convert LAMMPS snapshots to "Ensight"_ensight format
+"gl.py"_doc/gl.html; 3d interactive visualization via OpenGL
+"gnu.py"_doc/gnu.html; Create plots via "GnuPlot"_gnuplot plotting program
+"histo.py"_doc/histo.html; Particle density histogram from a dump
+"image.py"_doc/image.html; View and manipulate images
+"ldump.py"_doc/ldump.html; Read LAMMPS dump files with line info
+"log.py"_doc/log.html; Read LAMMPS log files and extract thermodynamic data
+"matlab.py"_doc/matlab.html; Create plots via "MatLab"_matlab numerical analysis program
+"mdump.py"_doc/ldump.html; Read, write, manipulate mesh dump files
+"pair.py"_doc/pair.html; Compute LAMMPS pairwise energies
+"patch.py"_doc/patch.html; Create patchy Lennard-Jones particles for LAMMPS input
+"pdbfile.py"_doc/pdbfile.html; Read, write PDB files in combination with LAMMPS snapshots
+"plotview.py"_doc/plotview.html; Plot multiple vectors from a data set
+"rasmol.py"_doc/rasmol.html; 3d visualization via "RasMol"_rasmol program
+"raster.py"_doc/raster.html; 3d visualization via "Raster3d"_raster3d program
+"sdata.py"_doc/sdata.html; Read, write, manipulate "SPARTA"_sparta surface files
+"svg.py"_doc/svg.html; 3d visualization via "SVG"_svg files
+"tdump.py"_doc/tdump.html; Read LAMMPS dump files with triangle info
+"vcr.py"_doc/vcr.html; VCR-style GUI for 3d interactive OpenGL visualization
+"vec.py"_doc/vec.html; Create numeric vectors from columns in file or list of vecs
+"vtk.py"_doc/vtk.html; Convert LAMMPS snapshots to VTK format
+"vmd.py"_doc/vmd.html; Wrapper on "VMD visualization package"_vmd
+"xyz.py"_doc/xyz.html; Convert LAMMPS snapshots to XYZ format :tb(s=;)
+
+:link(gnuplot,http://www.gnuplot.info)
+:link(matlab,http://www.mathworks.com)
+:link(rasmol,http://openrasmol.org)
+:link(raster3d,http://www.bmsc.washington.edu/raster3d/raster3d.html)
+:link(svg,http://www.w3.org/Graphics/SVG)
+:link(ensight,http://www.ensight.com)
+:link(ccell,http://chemcell.sandia.gov)
+:link(sparta,http://sparta.sandia.gov)
+:link(vmd,http://www.ks.uiuc.edu/Research/vmd)

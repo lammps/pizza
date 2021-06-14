@@ -1,0 +1,105 @@
+"Pizza.py WWW Site"_pws :c
+:link(pws,index.html)
+
+:line
+
+Pizza.py Screenshots :h3
+
+The screenshots and images on this page are from various Pizza.py
+tools.  Click on any small-size image to view a larger version.
+
+"animate"_#animate: image and GUI from animate tool
+"gnu"_#gnu: GnuPlot plots from gnu tool
+"image"_#image: image thumbnails from image tool
+"matlab"_#matlab: MatLab plots from matlab tool
+"mdump"_#mdump: mesh file displayed from mdump,gl,vcr tools
+"multi"_#multi: multiple tools active simultaneously
+"plotview"_#plotview: plots and GUI from plotview tool
+"rasmol"_#rasmol: RasMol images from rasmol tool
+"raster"_#raster: Raster3d image from raster tool
+"svg"_#svg: SVG image from svg tool
+"gl"_#gl: GL image from gl tool
+"vcr"_#gl: images and GUI from vcr tool :tb(s=:)
+
+:line
+
+Image and GUI from animate tool: :link(animate),p
+
+:image(images/animate_small.jpg,images/animate.jpg)
+
+:line
+
+GnuPlot plots from gnu tool: :link(gnu),p
+
+:image(images/gnu_small.png,images/gnu.png)
+
+:line
+
+Image thumbnails from image tool: :link(image),p
+
+:image(images/image_small.jpg,images/image.jpg)
+
+:line
+
+MatLab plots from matlab tool :link(matlab),p
+
+:image(images/matlab_small.png,images/matlab.png)
+:image(images/matlab_lj_small.jpg,images/matlab_lj.jpg)
+
+:line
+
+Mesh file displayed from mdump,gl,vcr tools :link(mdump),p
+
+:image(images/mesh_small.jpg,images/mesh.jpg)
+
+:line
+
+Multiple tools active simultaneously :link(multi),p
+
+:image(images/multi_small.jpg,images/multi.jpg)
+
+:line
+
+Plots and GUI from plotview tool :link(plotview),p
+
+:image(images/plotview_small.jpg,images/plotview.jpg)
+
+:line
+
+RasMol images from rasmol tool :link(rasmol),p
+
+3 views of same protein.
+
+:image(images/rasmol1_small.jpg,images/rasmol1.jpg)
+:image(images/rasmol2_small.jpg,images/rasmol2.jpg)
+:image(images/rasmol3_small.jpg,images/rasmol3.jpg)
+
+:line
+
+Raster3d image from raster tool :link(raster),p
+
+Same data set as SVG and GL images below.
+
+:image(images/raster_small.png,images/raster.png)
+
+:line
+
+SVG image from svg tool :link(svg),p
+
+Same data set as Raster3d image above.
+
+:image(images/svg_small.png,images/svg.png)
+
+:line
+
+GL image from gl tool :link(gl),p
+
+Same data set as Raster3d image above.
+
+:image(images/gl_small.png,images/gl.png)
+
+:line
+
+Images and GUI from vcr tool: :link(vcr),p
+
+:image(images/vcr_small.png,images/vcr.png)

@@ -1,0 +1,83 @@
+"Pizza.py WWW Site"_pws :c
+:link(pws,index.html)
+
+:line
+
+Pizza.py Thanks :h3
+
+This page acknowledges our funding, contributors to Pizza.py, and the
+various software packages wrapped and accessed by Pizza.py.
+
+:line
+
+Pizza.py has been developed at "Sandia National Laboratories"_sandia
+which is a multiprogram laboratory operated by Sandia Corporation, a
+Lockheed Martin Company, for the United States Department of Energy's
+National Nuclear Security Administration under contract
+DE-AC04-94AL85000.
+
+Funding for Pizza.py development has come from the US Department of
+Energy ("DOE"_doe), through its LDRD and Genomes-to-Life programs.
+The latter effort has been funded by DOE's "ASCR"_oascr and "BER"_ober
+offices as part of the US Department of Energy's Genomics:GTL program
+("www.doegenomestolife.org"_gtl) under the "project"_ourgtl, "Carbon
+Sequestration in Synechococcus Sp.: From Molecular Machines to
+Hierarchical Modeling".
+
+:link(sandia,http://www.sandia.gov)
+:link(doe,http://www.doe.gov)
+:link(gtl,http://www.doegenomestolife.org)
+:link(ourgtl,http://www.genomes2life.org)
+:link(oascr,http://www.sc.doe.gov/ascr/home.html)
+:link(ober,http://www.er.doe.gov/production/ober/ober_top.html)
+
+:line
+
+The chief author of Pizza.py is "Steve Plimpton"_sjp who can be
+contacted at sjplimp at sandia.gov.
+
+:link(sjp,http://www.cs.sandia.gov/~sjplimp)
+
+Matt Jones, a BYU student who was a summer intern at Sandia, wrote
+several of the coolest tools in Pizza.py and about half the code in
+the initial version.  Considering Matt didn't even know Python when he
+started, his contribution is a kudo to Matt's abilities and to the
+ease with which Python enables people to do complex stuff quickly!
+
+These folks have contributed code for tools or scripts that
+are part of the Pizza.py distribution:
+
+pair tool: Paul Crozier (Sandia)
+block.py script: Paul Crozier (Sandia)
+density.py script: Paul Crozier (Sandia)
+flux.py script: Paul Crozier (Sandia)
+group_energy.py script: Paul Crozier (Sandia) :tb(s=:)
+
+:line
+
+I also wish to thank the following individuals and their
+software, without which Pizza.py would not be very useful:
+
+Rick Muller at Sandia for Python advice and encouragement and his
+"Vimes"_vimes (Visual Interface to Materials Simulation) package
+written in Python that shares a common vision with Pizza.py.
+
+:link(vimes,http://vimes.sourceforge.net)
+
+Nathan Gray, who wrote "LazyPython.py"_gray, which showed me how to
+make the top-level of Pizza.py both simple and functional.
+
+:link(gray,http://www.idyll.org/~n8gray/code/index.html)
+
+Mike Fletcher, the head of the "PyOpenGL"_pyopengl project, which
+allows Pizza.py to do 3d interactive OpenGL visualization.
+
+:link(pyopengl,http://pyopengl.sourceforge.net)
+
+Authors of great, freely-available software that Pizza.py is able to
+wrap and use to good effect - "RasMol"_rasmol, "Raster3d"_raster3d,
+"GnuPlot"_gnuplot.
+
+:link(gnuplot,http://www.gnuplot.info)
+:link(rasmol,http://openrasmol.org)
+:link(raster3d,http://www.bmsc.washington.edu/raster3d/raster3d.html)

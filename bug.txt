@@ -1,0 +1,568 @@
+"Pizza.py WWW Site"_pws :c
+:link(pws,index.html)
+
+:line
+
+Latest Features and Bug Fixes in Pizza.py :h3
+
+This page is a continuous listing of new features and bug fixes for
+the Pizza.py toolkit.
+
+To stay up-to-date with the current Pizza.py, you can download the
+current tarball from the "download page"_download.html at any time,
+which will include all the features/fixes listed below.
+
+:line
+
+What version of Pizza.py do you have? :h4,link(version)
+
+A Pizza.py "version" is the date when it was released, such as 1 Sept
+2010.  Pizza.py is updated continuously.  Every time we fix a bug or
+add a feature, we release it immediately, as listed below.  Each dated
+copy of Pizza.py contains all the features and bug-fixes up to and
+including that version date.  The version date is printed to the
+screen every time you run Pizza.py.  It is also in the file
+src/pizza.py and in the Pizza.py directory name created when you
+unpack a tarball.
+
+If you browse the HTML or PDF doc pages on the Pizza.py WWW site, they
+always describe the most current version of Pizza.py. :ulb,l
+
+If you browse the HTML or PDF doc pages included in your tarball, they
+describe the version you have. :ule,l
+
+:line
+:line
+
+[9 Oct 2015]
+
+Maintentance patch.  A few small feature updates and bug fixes.
+
+This is the "list of changed files"_patches/files.9Oct15 from the 2
+Jul 2014 version.
+
+:line
+
+[2 Jul 2014]
+
+Changed the name of the clog tool to "olog"_doc/olog.html to stand for
+reading of other log files.  This is because the log files can now
+come from a variety of other programs: ChemCell, SPPARKS, SPARTA.
+
+This is the "list of changed files"_patches/files.2Jul14 from the 30
+Jun 2014 version.
+
+:line
+
+[30 Jun 2014]
+
+New "sdata"_doc/sdata.html tool for reading, creating, and writing out
+surface files used as input to the "SPARTA"_http://sparta.sandia.gov
+Direct Simulation Monte Carlo (DSMC) code.
+
+This is the "list of changed files"_patches/files.30Jun14 from the 7
+Feb 2013 version.
+
+:line
+
+[7 Feb 2014]
+
+Added some logic to the "dump"_doc/dump.html tool to deal more
+correctly with empty snapshots that have no atoms.
+
+This is the "list of changed files"_patches/files.7Feb14 from the 11
+Sep 2013 version.
+
+:line
+
+[11 Sep 2013]
+
+One additional change to the "data"_doc/data.html tool, to
+support the changes to the "patch"_doc/patch.html tool.
+
+This is the "list of changed files"_patches/files.11Sep13 from the 10
+Sep 2013 version.
+
+:line
+
+[10 Sep 2013]
+
+Added some options to the "patch"_doc/patch.html tool, for
+different kinds of patchy and rigid-body particles.
+
+This is the "list of changed files"_patches/files.10Sep13 from the 6
+Aug 2012 version.
+
+:line
+
+[6 Aug 2012]
+
+Made the "dump"_doc/dump.html tool backward compatible with the dump
+file format produced by other codes besides LAMMPS, specifically with
+respect to the BOX BOUNDS info in the dump file.
+
+This is the "list of changed files"_patches/files.5Aug12 from the 14
+Jun 2012 version.
+
+:line
+
+[14 Jun 2012]
+
+Added more support to the "dump"_doc/dump.html tool for triclinic
+(non-orthogonal) boxes.  Removed the size() method from the
+"gl"_doc/gl.html tool, and made it part of the constructor, so that
+the window size can be selected one time at launch.  Dynamic resizing
+does not seem to work in some windowing systems.
+
+This is the "list of changed files"_patches/files.14Jun12 from the 22
+May 2012 version.
+
+:line
+
+[22 May 2012]
+
+Forgot to include some data files used by the example scripts
+in yesterday's patch.
+
+This is the "list of changed files"_patches/files.22May12 from the 21
+May 2012 version.
+
+:line
+
+[21 May 2012]
+
+Made some updates to the test scripts in the examples dir,
+to make them compatible with the current version of Pizza.py.
+
+This is the "list of changed files"_patches/files.21May12 from the 9
+Feb 2012 version.
+
+:line
+
+[9 Feb 2012]
+
+Made the "dump"_doc/dump.html tool scale and unscale atom coordinates
+correctly for triclinic geometries, which is indicated by extra BOX
+BOUNDS fields in the dump file.
+
+Also made some minor changes for how mesh dump files and the
+"mdump"_doc/mdump.html tool are treated by the "dump"_doc/dump.html
+tool.
+
+This is the "list of changed files"_patches/files.9Feb12 from the 8
+Dec 2011 version.
+
+:line
+
+[8 Dec 2011]
+
+Upgraded the write commmand for the "dump"_doc/dump.html tool
+to write out ints for the "id" and "type" columns of dump
+data, but floats for everything else.  Previously it assumed
+the 1st 2 columns were int and the rest float, but custom
+dump files are often not formatted that way.
+
+This is the "list of changed files"_patches/files.8Dec11 from the 7
+Oct 2011 version.
+
+:line
+
+[7 Oct 2011]
+
+Added a glutInit() call to the "gl"_doc/gl.html tool since some
+versions of freeglut seem to require this.
+
+This is the "list of changed files"_patches/files.7Oct11 from the 15
+Sep 2011 version.
+
+:line
+
+[15 Sep 2011]
+
+Added the "tdump"_doc/tdump.html tool which can work with the
+"dump"_doc/dump.html tool to visualze triangles from a LAMMPS
+simulation.  Also added some options to the "patch"_doc/patch.html
+tool to enable creation of rigid bodies built out of triangles.
+
+Also made the auto-unscaling feature of the "dump"_doc/dump.html tool
+be up-to-date with the current self-documenting format of LAMMPS dump
+files.
+
+This is the "list of changed files"_patches/files.15Sep11 from the 27
+May 2011 version.
+
+:line
+
+[27 May 2011]
+
+Updated the PDF manual.
+
+This is the "list of changed files"_patches/files.27May11 from the 19
+May 2011 version.
+
+:line
+
+[19 May 2011]
+
+David Hart (Sandia) added some start-up logic to insure the
+GL tool does not cause problems when running without a display.
+
+This is the "list of changed files"_patches/files.19May11 from the 18
+May 2011 version.
+
+:line
+
+[18 May 2011]
+
+Changed to continuous updating of versions, rather than increments
+to an occasionally released version.
+
+This is the "list of changed files"_patches/files.18May11 from the 24
+Nov 2010 version.
+
+:line
+
+[24 Nov 2010]
+
+Axel Kohlmeyer (Temple U) added a "vmd"_doc/vmd.html tool that is a
+wrapper on the popular "VMD visualization package"_vmd, which allows
+it to be controlled from Python and Pizza.py scripts.  In particular
+it allows the interactive visualization of molecular dynamics
+snapshots as generated from "LAMMPS"_http://lammps.sandia.gov.  See
+the python directory in the LAMMPS distribution for examples of
+scripts that do this.
+
+:link(vmd,http://www.ks.uiuc.edu/Research/vmd)
+
+This is the "list of changed files"_patches/files.24Nov10 from the 23
+Nov 2010 version.
+
+:line
+
+[23 Nov 2010]
+
+Added the "ldump"_doc/ldump.html and "bdump"_doc/bdump.html tools
+which can work with the "dump"_doc/dump.html tool to visualze line
+segments and bonds from a LAMMPS simulation.  Also added some options
+to the "patch"_doc/patch.html tool to enable creation of 2d rigid
+bodies built out of line segments.
+
+This is the "list of changed files"_patches/files.23Nov10 from the 1
+Oct 2010 version.
+
+:line
+
+[1 Oct 2010]
+
+Jeff Greathouse (Sandia) added a density_area.py script to the scripts
+dir, which allows integrating the area under the density profile.
+
+This is the "list of changed files"_patches/files.1Oct10 from the 19
+Apr 2010 version.
+
+:line
+
+[19 Apr 2010]
+
+Added setv() method to "dump"_doc/dump.html tool, and new options on
+write() method.  This is to allow easier manipulation of a set of dump
+files for nudged elastic band (NEB) calculation in LAMMPS, to produce
+snapshots that contain atoms from multiple replicas.
+
+This is the "list of changed files"_patches/files.19Apr10 from the 8
+Dec 2009 version.
+
+:line
+
+[8 Dec 2009]
+
+David Hart (Sandia) added a density2d.py script.  He also added an
+error check for running without a display, so that Tkinter will do the
+right thing and not try to create GUI windows for certain tools.
+
+This is the "list of changed files"_patches/files.8Dec09 from the 7
+Dec 2009 version.
+
+:line
+
+[7 Dec 2009]
+
+David Hart (Sandia) enhanced the "dump"_doc/dump.html and
+"mdump"_doc/mdump.html tools to allow use of the NumPy Python package.
+This means Pizza.py can now use either NumPy or the older Numeric
+pacakge.
+
+This is the "list of changed files"_patches/files.7Dec09 from the 22
+Nov 2009 version.
+
+:line
+
+[22 Nov 2009]
+
+Enhanced the "dump"_doc/dump.html tool write and scatter commands to
+write self-describing LAMMPS dump files, with atom column info.
+
+This is the "list of changed files"_patches/files.22Nov09 from the 21
+Nov 2009 version.
+
+:line
+
+[21 Nov 2009]
+
+Changed some file opens to include a binary-mode flag, so that
+they will open and can be seeked correctly under Windows.  Never
+saw this issue on Linux or a Mac.
+
+This is the "list of changed files"_patches/files.21Nov09 from the 3
+Jun 2009 version.
+
+Thanks to Ting Li (KULeuven) for flagging this issue.
+
+:line
+
+[3 Jun 2009]
+
+Another upgrade to the "dump"_doc/dump.html tool to allow it to read
+self-describing LAMMPS (or other) dump files that have the names of
+the per-atom columns embedded in the file.  This one insures
+that all versions of coordinates (x,xs,xu) are recognized by
+the dump tool, so you don't have to use the dump.map() method.
+
+This is the "list of changed files"_patches/files.3Jun09 from the 16
+Mar 2009 version.
+
+Thanks to Carolyn Phillips (U Mich) for pointing this out.
+
+:line
+
+[16 Mar 2009]
+
+Upgraded the "dump"_doc/dump.html tool to allow it to read
+self-describing LAMMPS (or other) dump files that have the names of
+the per-atom columns embedded in the file.  If reading this
+format of file, it means you don't have to label the columns
+yourself with the dump.map() method.
+
+This is the "list of changed files"_patches/files.16Mar09 from the 1
+Dec 2008 version.
+
+:line
+
+[1 Dec 2008]
+
+Added a reorder command to the "data"_doc/data.html tool to allow data
+files for different LAMMPS atom styles to more easily be created.
+
+Also added some options to the "patch"_doc/patch.html tool to allow it
+to create 2d systems, and 2d stars and boxes and dimers as output
+composite particles.
+
+This is the "list of changed files"_patches/files.1Dec08 from the 17
+Nov 2007 version.
+
+:line
+
+[17 Nov 2007]
+
+Fixed a one-line glitch in the 15Nov07 patch.
+
+This is the "list of changed files"_patches/files.17Nov07 from the 15
+Nov 2007 version.
+
+:line
+
+[15 Nov 2007]
+
+Added support to the "data"_doc/data.html tool for non-orthogonal
+triclinic boxes in LAMMPS via the "xy xz yz" keyword that can appear
+in the header portion of the data file.
+
+This is the "list of changed files"_patches/files.15Nov07 from the 10
+Aug 2007 version.
+
+Thanks to Krishna Iyengar (Cornell U) for identifying the problem.
+
+:line
+
+[10 Aug 2007]
+
+Added some sync logic to the "gl"_doc/gl.html and "vcr"_doc/vcr.html
+tools to insure GL screenshots are captured correctly to files.  Was
+having trouble with this on a faster graphics box.
+
+Also updated the Pizza.py install directions substantially,
+to give details of how to install all the various Python
+packages used by all the Pizza.py tools on a Linux box.
+
+In particular, the latest 3.0 version of PyOpenGL and the Tkinter
+graphics lib seem much easier to install, so if that was a problem for
+you before, try out the new instructions.
+
+This is the "list of changed files"_patches/files.10Aug07 from the 17
+Jun 2007 version.
+
+:line
+
+[17 June 2007]
+
+Fixed some one-line bugs with opening gzipped files by various
+tools.
+
+This is the "list of changed files"_patches/files.17Jun07 from the 3
+May 2007 version.
+
+Thanks to Vladimir Stegailov for identifying the problem.
+
+:line
+
+[3 May 2007]
+
+Added class 2 fields to the "data"_doc/data.html tool so it
+can deal with LAMMPS data files that contain class 2 potential info.
+
+Also added an option to the "plotview"_doc/plotview.html tool
+to set which vector is treated as the x-axis.
+
+This is the "list of changed files"_patches/files.3May07 from the 14
+Apr 2007 version.
+
+Thanks to James Palko for pointing out the data tool deficiency.
+
+:line
+
+[14 Apr 2007]
+
+Added a "mdump"_doc/mdump.html tool to read in mesh files and allow
+them to be converted to Ensight format or visualized directly with
+other Pizza.py tools such as the "gl"_doc/gl.html and
+"raster"_doc/raster.html tools.
+
+The mesh file format is described on the "mdump"_doc/mdump.html doc
+page.  2d triangular and 3d tetrahedral meshes are currently
+supported.  Meshes can be static or dynamic and have nodal and/or
+element quantities defined.
+
+This is the "list of changed files"_patches/files.14Apr07 from the 13
+Apr 2007 version.
+
+:line
+
+[13 Apr 2007]
+
+Added a sort option to the "dump"_doc/dump.html tool to allow
+sorting of atom snapshots by any column (e.g. x or type) rather
+than the default which is by atom ID.
+
+This is the "list of changed files"_patches/files.13Apr07 from the 12
+Apr 2007 version.
+
+:line
+
+[12 Apr 2007]
+
+Aidan Thompson (Sandia) has written a new file conversion tool, called
+"cfg"_doc/cfg.html, which converts LAMMPS snapshots to the CFG format
+used by the "AtomEye"_http://164.107.79.177/Archive/Graphics/A
+visualization package.
+
+This is the "list of changed files"_patches/files.12Apr07 from the 16
+Mar 2007 version.
+
+:line
+
+[16 Mar 2007]
+
+Upgraded the "ensight"_doc/ensight.html tool to allow for empty
+snapshots and consistency of the number of particle types across
+snapshots, which Ensight seems to like.
+
+This is the "list of changed files"_patches/files.16Mar07 from the 31
+Jan 2007 version.
+
+:line
+
+[31 Jan 2007]
+
+Fixed a couple bugs in the new "ensight"_doc/ensight.html tool, as
+well as made some other minor tweaks to various files.
+
+This is the "list of changed files"_patches/files.31Jan07 from the 3
+Nov 2006 version.
+
+:line
+
+[3 Nov 2006]
+
+Added a capability for the "vec"_doc/vec.html tool to accept a list of
+numeric vectors as input.  They can then be plotted interactively via
+the "plotview"_doc/plotview.html tool.
+
+This is the "list of changed files"_patches/files.3Nov06 from the 10
+Oct 2006 version.
+
+:line
+
+[10 Oct 2006]
+
+Added an "ensight"_doc/ensight.html tool that can convert LAMMPS or
+ChemCell data/dump files to the file format used as input to the
+"Ensight visualization package"_ensight.  Ensight is a widely-used
+commercial package with a GUI front-end that can perform high-quality
+viz and animation.
+
+:link(ensight,http://www.ensight.com)
+
+This is the "list of changed files"_patches/files.10Oct06 from the 1
+Oct 2006 version.
+
+Thanks to Greg Wagner and Jon Zimmerman (SNL) for explaining
+the Ensight format and testing out this new tool.
+
+:line
+
+[1 Oct 2006] :link(1Oct06)
+
+New release of Pizza.py.  12367 lines of code in src dir.
+
+These are the most significant features added since the 7 Nov 2005
+version.  People who contributed to the features are listed in
+parentheses:
+
+"clog tool"_doc/clog.html which reads ChemCell log files for plotting
+"cdata tool"_doc/cdata.html which creates ChemCell \
+  geometries and populates them with particles
+"histo tool"_doc/histo.html which can create histograms of \
+  particle densities from dump snapshots
+changed name of pdb tool to "pdbfile"_doc/pdbfile.html to avoid \
+  conflicts with another Python internal
+new scripts: distance.py, bond_distribute.py, angle_distribute.py \
+  (Paul Crozier, SNL) :ul
+
+Descriptions of all these enhancements and other bug fixes can be
+viewed on "this page"_bug.7Nov05.html.
+
+:line
+
+[7 Nov 2005] :link(7Nov05)
+
+New release of Pizza.py.  9129 lines of code in src dir.  These are
+the most significant features added since the 7 Sept 2005 version:
+
+added a "gl tool"_doc/gl.html which enables 3d interactive viz of LAMMPS snapshots via OpenGL
+added a "vcr tool"_doc/vcr.html which provides a VCR-style GUI wrapper for the gl tool
+added a color table with 140 pre-defined colors to viz tools ("gl"_doc/gl.html, "raster"_doc/raster.html, "svg"_doc/svg.html)
+multiple incremental plots option for "gnu"_doc/gnu.html and "matlab"_doc/matlab.html tools
+added convert and montage methods to "image tool"_doc/image.html
+allow type=0 setting for atom/bond/etc color/radii/etc in viz tools ("gl"_doc/gl.html, "raster"_doc/raster.html, "svg"_doc/svg.html)
+set default view to (60,30) in viz tools ("gl"_doc/gl.html, "raster"_doc/raster.html, "svg"_doc/svg.html)
+changed trans() method to shift() in viz tools and its arguments are now pixels ("gl"_doc/gl.html, "raster"_doc/raster.html, "svg"_doc/svg.html) :ul
+
+Descriptions of all these enhancements and other bug fixes can be
+viewed on "this page"_bug.7Sept05.html.
+
+:line
+
+[7 Sept 2005]
+
+Initial public release of Pizza.py.  6896 lines of Python code in src
+dir.

@@ -1,0 +1,83 @@
+<HTML>
+<CENTER><A HREF = "index.html">Pizza.py WWW Site</A> 
+</CENTER>
+
+
+<HR>
+
+<H3>Pizza.py Features 
+</H3>
+<P>The top-level of Pizza.py extends the Python interpreter in a few
+simple ways, to make it easier to:
+</P>
+<DIV ALIGN=center><TABLE  BORDER=1 >
+<TR><TD >invoke shell commands</TD><TD > !ls -l</TD></TR>
+<TR><TD >launch scripts</TD><TD > @run test.py 1 dump.*</TD></TR>
+<TR><TD >use command-line options to automate tasks</TD><TD > pizza.py -f movie.py raster dump.*</TD></TR>
+<TR><TD >query help for tools and scripts</TD><TD > ? gnu 
+</TD></TR></TABLE></DIV>
+
+<P>The rest of Pizza.py is a collection of tools which can be invoked by
+typing interactively, from scripts, or in some cases from GUIs.  Some
+tools are useful by themselves; others work together.
+</P>
+<P>Several of the tools wrap stand-alone applications, so they can be
+driven from within Pizza.py and scripted.  These applications include
+<A HREF = "http://www.gnuplot.info">GnuPlot</A>, <A HREF = "http://www.mathworks.com">MatLab</A>, <A HREF = "http://www.bmsc.washington.edu/raster3d/raster3d.html">Raster3d</A>, and
+<A HREF = "http://openrasmol.org">RasMol</A>.
+</P>
+<P>The <A HREF = "FAQ.html">FAQ</A> lists typical tasks that can be performed with
+various tools.  Here's the list of tools in Pizza.py:
+</P>
+<DIV ALIGN=center><TABLE  BORDER=1 >
+<TR><TD ><A HREF = "doc/animate.html">animate.py</A></TD><TD > Animate a series of image files</TD></TR>
+<TR><TD ><A HREF = "doc/bdump.html">bdump.py</A></TD><TD > Read LAMMPS dump local files with bond info</TD></TR>
+<TR><TD ><A HREF = "doc/cdata.html">cdata.py</A></TD><TD > Read, write, manipulate <A HREF = "http://chemcell.sandia.gov">Chemcell</A> data files</TD></TR>
+<TR><TD ><A HREF = "doc/chain.html">chain.py</A></TD><TD > Create bead-spring chains for LAMMPS input</TD></TR>
+<TR><TD ><A HREF = "doc/clog.html">clog.py</A></TD><TD > Read <A HREF = "http://chemcell.sandia.gov">ChemCell</A> log files and extract species data</TD></TR>
+<TR><TD ><A HREF = "doc/data.html">data.py</A></TD><TD > Read, write, manipulate LAMMPS data files</TD></TR>
+<TR><TD ><A HREF = "doc/dump.html">dump.py</A></TD><TD > Read, write, manipulate LAMMPS dump files and atom attributes</TD></TR>
+<TR><TD ><A HREF = "doc/ensight.html">ensight.py</A></TD><TD > Convert LAMMPS snapshots to <A HREF = "http://www.ensight.com">Ensight</A> format</TD></TR>
+<TR><TD ><A HREF = "doc/gl.html">gl.py</A></TD><TD > 3d interactive visualization via OpenGL</TD></TR>
+<TR><TD ><A HREF = "doc/gnu.html">gnu.py</A></TD><TD > Create plots via <A HREF = "http://www.gnuplot.info">GnuPlot</A> plotting program</TD></TR>
+<TR><TD ><A HREF = "doc/histo.html">histo.py</A></TD><TD > Particle density histogram from a dump</TD></TR>
+<TR><TD ><A HREF = "doc/image.html">image.py</A></TD><TD > View and manipulate images</TD></TR>
+<TR><TD ><A HREF = "doc/ldump.html">ldump.py</A></TD><TD > Read LAMMPS dump files with line info</TD></TR>
+<TR><TD ><A HREF = "doc/log.html">log.py</A></TD><TD > Read LAMMPS log files and extract thermodynamic data</TD></TR>
+<TR><TD ><A HREF = "doc/matlab.html">matlab.py</A></TD><TD > Create plots via <A HREF = "http://www.mathworks.com">MatLab</A> numerical analysis program</TD></TR>
+<TR><TD ><A HREF = "doc/ldump.html">mdump.py</A></TD><TD > Read, write, manipulate mesh dump files</TD></TR>
+<TR><TD ><A HREF = "doc/pair.html">pair.py</A></TD><TD > Compute LAMMPS pairwise energies</TD></TR>
+<TR><TD ><A HREF = "doc/patch.html">patch.py</A></TD><TD > Create patchy Lennard-Jones particles for LAMMPS input</TD></TR>
+<TR><TD ><A HREF = "doc/pdbfile.html">pdbfile.py</A></TD><TD > Read, write PDB files in combination with LAMMPS snapshots</TD></TR>
+<TR><TD ><A HREF = "doc/plotview.html">plotview.py</A></TD><TD > Plot multiple vectors from a data set</TD></TR>
+<TR><TD ><A HREF = "doc/rasmol.html">rasmol.py</A></TD><TD > 3d visualization via <A HREF = "http://openrasmol.org">RasMol</A> program</TD></TR>
+<TR><TD ><A HREF = "doc/raster.html">raster.py</A></TD><TD > 3d visualization via <A HREF = "http://www.bmsc.washington.edu/raster3d/raster3d.html">Raster3d</A> program</TD></TR>
+<TR><TD ><A HREF = "doc/sdata.html">sdata.py</A></TD><TD > Read, write, manipulate <A HREF = "http://sparta.sandia.gov">SPARTA</A> surface files</TD></TR>
+<TR><TD ><A HREF = "doc/svg.html">svg.py</A></TD><TD > 3d visualization via <A HREF = "http://www.w3.org/Graphics/SVG">SVG</A> files</TD></TR>
+<TR><TD ><A HREF = "doc/tdump.html">tdump.py</A></TD><TD > Read LAMMPS dump files with triangle info</TD></TR>
+<TR><TD ><A HREF = "doc/vcr.html">vcr.py</A></TD><TD > VCR-style GUI for 3d interactive OpenGL visualization</TD></TR>
+<TR><TD ><A HREF = "doc/vec.html">vec.py</A></TD><TD > Create numeric vectors from columns in file or list of vecs</TD></TR>
+<TR><TD ><A HREF = "doc/vtk.html">vtk.py</A></TD><TD > Convert LAMMPS snapshots to VTK format</TD></TR>
+<TR><TD ><A HREF = "doc/vmd.html">vmd.py</A></TD><TD > Wrapper on <A HREF = "http://www.ks.uiuc.edu/Research/vmd">VMD visualization package</A></TD></TR>
+<TR><TD ><A HREF = "doc/xyz.html">xyz.py</A></TD><TD > Convert LAMMPS snapshots to XYZ format 
+</TD></TR></TABLE></DIV>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</HTML>

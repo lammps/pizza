@@ -1,0 +1,39 @@
+"Pizza.py WWW Site"_pws :c
+:link(pws,index.html)
+
+:line
+
+Open-Source Rules :h3
+
+Pizza.py comes with no warranty of any kind.  As each source file
+states in its header, it is a copyrighted code that is distributed
+free-of-charge, under the terms of the "GNU Public License"_gnu (GPL).
+This is often referred to as open-source distribution - see
+"www.gnu.org"_gnuorg or "www.opensource.org"_opensource for more
+information.  The legal text of the GPL is in the LICENSE file that is
+included in the Pizza.py distribution.
+
+:link(gnu,http://www.gnu.org/copyleft/gpl.html)
+:link(gnuorg,http://www.gnu.org)
+:link(opensource,http://www.opensource.org)
+
+Here is a summary of what the GPL means for Pizza.py users:
+
+(1) Anyone is free to use, modify, or extend Pizza.py in any way they
+choose, including for commercial purposes.
+
+(2) If you distribute a modified version of Pizza.py, it must remain
+open-source, meaning you distribute it under the terms of the GPL.
+You should clearly annotate such a code as a derivative version of
+Pizza.py.
+
+(3) If you release any code that includes Pizza.py source code, then
+it must also be open-sourced, meaning you distribute it under the
+terms of the GPL.
+
+(4) If you give Pizza.py files to someone else, the GPL LICENSE file
+and source file headers (including the copyright and GPL notices)
+should remain part of the code.
+
+"This page"_contribute.html describes how you can contribute to an
+open-source code like Pizza.py.

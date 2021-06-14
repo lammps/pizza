@@ -1,0 +1,569 @@
+<HTML>
+<CENTER><A HREF = "index.html">Pizza.py WWW Site</A> 
+</CENTER>
+
+
+<HR>
+
+<H3>Latest Features and Bug Fixes in Pizza.py 
+</H3>
+<P>This page is a continuous listing of new features and bug fixes for
+the Pizza.py toolkit.
+</P>
+<P>To stay up-to-date with the current Pizza.py, you can download the
+current tarball from the <A HREF = "download.html">download page</A> at any time,
+which will include all the features/fixes listed below.
+</P>
+<HR>
+
+<H4><A NAME = "version"></A>What version of Pizza.py do you have? 
+</H4>
+<P>A Pizza.py "version" is the date when it was released, such as 1 Sept
+2010.  Pizza.py is updated continuously.  Every time we fix a bug or
+add a feature, we release it immediately, as listed below.  Each dated
+copy of Pizza.py contains all the features and bug-fixes up to and
+including that version date.  The version date is printed to the
+screen every time you run Pizza.py.  It is also in the file
+src/pizza.py and in the Pizza.py directory name created when you
+unpack a tarball.
+</P>
+<UL><LI>If you browse the HTML or PDF doc pages on the Pizza.py WWW site, they
+always describe the most current version of Pizza.py. 
+
+<LI>If you browse the HTML or PDF doc pages included in your tarball, they
+describe the version you have. 
+</UL>
+<HR>
+
+<HR>
+
+<P><B>9 Oct 2015</B>
+</P>
+<P>Maintentance patch.  A few small feature updates and bug fixes.
+</P>
+<P>This is the <A HREF = "patches/files.9Oct15">list of changed files</A> from the 2
+Jul 2014 version.
+</P>
+<HR>
+
+<P><B>2 Jul 2014</B>
+</P>
+<P>Changed the name of the clog tool to <A HREF = "doc/olog.html">olog</A> to stand for
+reading of other log files.  This is because the log files can now
+come from a variety of other programs: ChemCell, SPPARKS, SPARTA.
+</P>
+<P>This is the <A HREF = "patches/files.2Jul14">list of changed files</A> from the 30
+Jun 2014 version.
+</P>
+<HR>
+
+<P><B>30 Jun 2014</B>
+</P>
+<P>New <A HREF = "doc/sdata.html">sdata</A> tool for reading, creating, and writing out
+surface files used as input to the <A HREF = "http://sparta.sandia.gov">SPARTA</A>
+Direct Simulation Monte Carlo (DSMC) code.
+</P>
+<P>This is the <A HREF = "patches/files.30Jun14">list of changed files</A> from the 7
+Feb 2013 version.
+</P>
+<HR>
+
+<P><B>7 Feb 2014</B>
+</P>
+<P>Added some logic to the <A HREF = "doc/dump.html">dump</A> tool to deal more
+correctly with empty snapshots that have no atoms.
+</P>
+<P>This is the <A HREF = "patches/files.7Feb14">list of changed files</A> from the 11
+Sep 2013 version.
+</P>
+<HR>
+
+<P><B>11 Sep 2013</B>
+</P>
+<P>One additional change to the <A HREF = "doc/data.html">data</A> tool, to
+support the changes to the <A HREF = "doc/patch.html">patch</A> tool.
+</P>
+<P>This is the <A HREF = "patches/files.11Sep13">list of changed files</A> from the 10
+Sep 2013 version.
+</P>
+<HR>
+
+<P><B>10 Sep 2013</B>
+</P>
+<P>Added some options to the <A HREF = "doc/patch.html">patch</A> tool, for
+different kinds of patchy and rigid-body particles.
+</P>
+<P>This is the <A HREF = "patches/files.10Sep13">list of changed files</A> from the 6
+Aug 2012 version.
+</P>
+<HR>
+
+<P><B>6 Aug 2012</B>
+</P>
+<P>Made the <A HREF = "doc/dump.html">dump</A> tool backward compatible with the dump
+file format produced by other codes besides LAMMPS, specifically with
+respect to the BOX BOUNDS info in the dump file.
+</P>
+<P>This is the <A HREF = "patches/files.5Aug12">list of changed files</A> from the 14
+Jun 2012 version.
+</P>
+<HR>
+
+<P><B>14 Jun 2012</B>
+</P>
+<P>Added more support to the <A HREF = "doc/dump.html">dump</A> tool for triclinic
+(non-orthogonal) boxes.  Removed the size() method from the
+<A HREF = "doc/gl.html">gl</A> tool, and made it part of the constructor, so that
+the window size can be selected one time at launch.  Dynamic resizing
+does not seem to work in some windowing systems.
+</P>
+<P>This is the <A HREF = "patches/files.14Jun12">list of changed files</A> from the 22
+May 2012 version.
+</P>
+<HR>
+
+<P><B>22 May 2012</B>
+</P>
+<P>Forgot to include some data files used by the example scripts
+in yesterday's patch.
+</P>
+<P>This is the <A HREF = "patches/files.22May12">list of changed files</A> from the 21
+May 2012 version.
+</P>
+<HR>
+
+<P><B>21 May 2012</B>
+</P>
+<P>Made some updates to the test scripts in the examples dir,
+to make them compatible with the current version of Pizza.py.
+</P>
+<P>This is the <A HREF = "patches/files.21May12">list of changed files</A> from the 9
+Feb 2012 version.
+</P>
+<HR>
+
+<P><B>9 Feb 2012</B>
+</P>
+<P>Made the <A HREF = "doc/dump.html">dump</A> tool scale and unscale atom coordinates
+correctly for triclinic geometries, which is indicated by extra BOX
+BOUNDS fields in the dump file.
+</P>
+<P>Also made some minor changes for how mesh dump files and the
+<A HREF = "doc/mdump.html">mdump</A> tool are treated by the <A HREF = "doc/dump.html">dump</A>
+tool.
+</P>
+<P>This is the <A HREF = "patches/files.9Feb12">list of changed files</A> from the 8
+Dec 2011 version.
+</P>
+<HR>
+
+<P><B>8 Dec 2011</B>
+</P>
+<P>Upgraded the write commmand for the <A HREF = "doc/dump.html">dump</A> tool
+to write out ints for the "id" and "type" columns of dump
+data, but floats for everything else.  Previously it assumed
+the 1st 2 columns were int and the rest float, but custom
+dump files are often not formatted that way.
+</P>
+<P>This is the <A HREF = "patches/files.8Dec11">list of changed files</A> from the 7
+Oct 2011 version.
+</P>
+<HR>
+
+<P><B>7 Oct 2011</B>
+</P>
+<P>Added a glutInit() call to the <A HREF = "doc/gl.html">gl</A> tool since some
+versions of freeglut seem to require this.
+</P>
+<P>This is the <A HREF = "patches/files.7Oct11">list of changed files</A> from the 15
+Sep 2011 version.
+</P>
+<HR>
+
+<P><B>15 Sep 2011</B>
+</P>
+<P>Added the <A HREF = "doc/tdump.html">tdump</A> tool which can work with the
+<A HREF = "doc/dump.html">dump</A> tool to visualze triangles from a LAMMPS
+simulation.  Also added some options to the <A HREF = "doc/patch.html">patch</A>
+tool to enable creation of rigid bodies built out of triangles.
+</P>
+<P>Also made the auto-unscaling feature of the <A HREF = "doc/dump.html">dump</A> tool
+be up-to-date with the current self-documenting format of LAMMPS dump
+files.
+</P>
+<P>This is the <A HREF = "patches/files.15Sep11">list of changed files</A> from the 27
+May 2011 version.
+</P>
+<HR>
+
+<P><B>27 May 2011</B>
+</P>
+<P>Updated the PDF manual.
+</P>
+<P>This is the <A HREF = "patches/files.27May11">list of changed files</A> from the 19
+May 2011 version.
+</P>
+<HR>
+
+<P><B>19 May 2011</B>
+</P>
+<P>David Hart (Sandia) added some start-up logic to insure the
+GL tool does not cause problems when running without a display.
+</P>
+<P>This is the <A HREF = "patches/files.19May11">list of changed files</A> from the 18
+May 2011 version.
+</P>
+<HR>
+
+<P><B>18 May 2011</B>
+</P>
+<P>Changed to continuous updating of versions, rather than increments
+to an occasionally released version.
+</P>
+<P>This is the <A HREF = "patches/files.18May11">list of changed files</A> from the 24
+Nov 2010 version.
+</P>
+<HR>
+
+<P><B>24 Nov 2010</B>
+</P>
+<P>Axel Kohlmeyer (Temple U) added a <A HREF = "doc/vmd.html">vmd</A> tool that is a
+wrapper on the popular <A HREF = "http://www.ks.uiuc.edu/Research/vmd">VMD visualization package</A>, which allows
+it to be controlled from Python and Pizza.py scripts.  In particular
+it allows the interactive visualization of molecular dynamics
+snapshots as generated from <A HREF = "http://lammps.sandia.gov">LAMMPS</A>.  See
+the python directory in the LAMMPS distribution for examples of
+scripts that do this.
+</P>
+
+
+<P>This is the <A HREF = "patches/files.24Nov10">list of changed files</A> from the 23
+Nov 2010 version.
+</P>
+<HR>
+
+<P><B>23 Nov 2010</B>
+</P>
+<P>Added the <A HREF = "doc/ldump.html">ldump</A> and <A HREF = "doc/bdump.html">bdump</A> tools
+which can work with the <A HREF = "doc/dump.html">dump</A> tool to visualze line
+segments and bonds from a LAMMPS simulation.  Also added some options
+to the <A HREF = "doc/patch.html">patch</A> tool to enable creation of 2d rigid
+bodies built out of line segments.
+</P>
+<P>This is the <A HREF = "patches/files.23Nov10">list of changed files</A> from the 1
+Oct 2010 version.
+</P>
+<HR>
+
+<P><B>1 Oct 2010</B>
+</P>
+<P>Jeff Greathouse (Sandia) added a density_area.py script to the scripts
+dir, which allows integrating the area under the density profile.
+</P>
+<P>This is the <A HREF = "patches/files.1Oct10">list of changed files</A> from the 19
+Apr 2010 version.
+</P>
+<HR>
+
+<P><B>19 Apr 2010</B>
+</P>
+<P>Added setv() method to <A HREF = "doc/dump.html">dump</A> tool, and new options on
+write() method.  This is to allow easier manipulation of a set of dump
+files for nudged elastic band (NEB) calculation in LAMMPS, to produce
+snapshots that contain atoms from multiple replicas.
+</P>
+<P>This is the <A HREF = "patches/files.19Apr10">list of changed files</A> from the 8
+Dec 2009 version.
+</P>
+<HR>
+
+<P><B>8 Dec 2009</B>
+</P>
+<P>David Hart (Sandia) added a density2d.py script.  He also added an
+error check for running without a display, so that Tkinter will do the
+right thing and not try to create GUI windows for certain tools.
+</P>
+<P>This is the <A HREF = "patches/files.8Dec09">list of changed files</A> from the 7
+Dec 2009 version.
+</P>
+<HR>
+
+<P><B>7 Dec 2009</B>
+</P>
+<P>David Hart (Sandia) enhanced the <A HREF = "doc/dump.html">dump</A> and
+<A HREF = "doc/mdump.html">mdump</A> tools to allow use of the NumPy Python package.
+This means Pizza.py can now use either NumPy or the older Numeric
+pacakge.
+</P>
+<P>This is the <A HREF = "patches/files.7Dec09">list of changed files</A> from the 22
+Nov 2009 version.
+</P>
+<HR>
+
+<P><B>22 Nov 2009</B>
+</P>
+<P>Enhanced the <A HREF = "doc/dump.html">dump</A> tool write and scatter commands to
+write self-describing LAMMPS dump files, with atom column info.
+</P>
+<P>This is the <A HREF = "patches/files.22Nov09">list of changed files</A> from the 21
+Nov 2009 version.
+</P>
+<HR>
+
+<P><B>21 Nov 2009</B>
+</P>
+<P>Changed some file opens to include a binary-mode flag, so that
+they will open and can be seeked correctly under Windows.  Never
+saw this issue on Linux or a Mac.
+</P>
+<P>This is the <A HREF = "patches/files.21Nov09">list of changed files</A> from the 3
+Jun 2009 version.
+</P>
+<P>Thanks to Ting Li (KULeuven) for flagging this issue.
+</P>
+<HR>
+
+<P><B>3 Jun 2009</B>
+</P>
+<P>Another upgrade to the <A HREF = "doc/dump.html">dump</A> tool to allow it to read
+self-describing LAMMPS (or other) dump files that have the names of
+the per-atom columns embedded in the file.  This one insures
+that all versions of coordinates (x,xs,xu) are recognized by
+the dump tool, so you don't have to use the dump.map() method.
+</P>
+<P>This is the <A HREF = "patches/files.3Jun09">list of changed files</A> from the 16
+Mar 2009 version.
+</P>
+<P>Thanks to Carolyn Phillips (U Mich) for pointing this out.
+</P>
+<HR>
+
+<P><B>16 Mar 2009</B>
+</P>
+<P>Upgraded the <A HREF = "doc/dump.html">dump</A> tool to allow it to read
+self-describing LAMMPS (or other) dump files that have the names of
+the per-atom columns embedded in the file.  If reading this
+format of file, it means you don't have to label the columns
+yourself with the dump.map() method.
+</P>
+<P>This is the <A HREF = "patches/files.16Mar09">list of changed files</A> from the 1
+Dec 2008 version.
+</P>
+<HR>
+
+<P><B>1 Dec 2008</B>
+</P>
+<P>Added a reorder command to the <A HREF = "doc/data.html">data</A> tool to allow data
+files for different LAMMPS atom styles to more easily be created.
+</P>
+<P>Also added some options to the <A HREF = "doc/patch.html">patch</A> tool to allow it
+to create 2d systems, and 2d stars and boxes and dimers as output
+composite particles.
+</P>
+<P>This is the <A HREF = "patches/files.1Dec08">list of changed files</A> from the 17
+Nov 2007 version.
+</P>
+<HR>
+
+<P><B>17 Nov 2007</B>
+</P>
+<P>Fixed a one-line glitch in the 15Nov07 patch.
+</P>
+<P>This is the <A HREF = "patches/files.17Nov07">list of changed files</A> from the 15
+Nov 2007 version.
+</P>
+<HR>
+
+<P><B>15 Nov 2007</B>
+</P>
+<P>Added support to the <A HREF = "doc/data.html">data</A> tool for non-orthogonal
+triclinic boxes in LAMMPS via the "xy xz yz" keyword that can appear
+in the header portion of the data file.
+</P>
+<P>This is the <A HREF = "patches/files.15Nov07">list of changed files</A> from the 10
+Aug 2007 version.
+</P>
+<P>Thanks to Krishna Iyengar (Cornell U) for identifying the problem.
+</P>
+<HR>
+
+<P><B>10 Aug 2007</B>
+</P>
+<P>Added some sync logic to the <A HREF = "doc/gl.html">gl</A> and <A HREF = "doc/vcr.html">vcr</A>
+tools to insure GL screenshots are captured correctly to files.  Was
+having trouble with this on a faster graphics box.
+</P>
+<P>Also updated the Pizza.py install directions substantially,
+to give details of how to install all the various Python
+packages used by all the Pizza.py tools on a Linux box.
+</P>
+<P>In particular, the latest 3.0 version of PyOpenGL and the Tkinter
+graphics lib seem much easier to install, so if that was a problem for
+you before, try out the new instructions.
+</P>
+<P>This is the <A HREF = "patches/files.10Aug07">list of changed files</A> from the 17
+Jun 2007 version.
+</P>
+<HR>
+
+<P><B>17 June 2007</B>
+</P>
+<P>Fixed some one-line bugs with opening gzipped files by various
+tools.
+</P>
+<P>This is the <A HREF = "patches/files.17Jun07">list of changed files</A> from the 3
+May 2007 version.
+</P>
+<P>Thanks to Vladimir Stegailov for identifying the problem.
+</P>
+<HR>
+
+<P><B>3 May 2007</B>
+</P>
+<P>Added class 2 fields to the <A HREF = "doc/data.html">data</A> tool so it
+can deal with LAMMPS data files that contain class 2 potential info.
+</P>
+<P>Also added an option to the <A HREF = "doc/plotview.html">plotview</A> tool
+to set which vector is treated as the x-axis.
+</P>
+<P>This is the <A HREF = "patches/files.3May07">list of changed files</A> from the 14
+Apr 2007 version.
+</P>
+<P>Thanks to James Palko for pointing out the data tool deficiency.
+</P>
+<HR>
+
+<P><B>14 Apr 2007</B>
+</P>
+<P>Added a <A HREF = "doc/mdump.html">mdump</A> tool to read in mesh files and allow
+them to be converted to Ensight format or visualized directly with
+other Pizza.py tools such as the <A HREF = "doc/gl.html">gl</A> and
+<A HREF = "doc/raster.html">raster</A> tools.
+</P>
+<P>The mesh file format is described on the <A HREF = "doc/mdump.html">mdump</A> doc
+page.  2d triangular and 3d tetrahedral meshes are currently
+supported.  Meshes can be static or dynamic and have nodal and/or
+element quantities defined.
+</P>
+<P>This is the <A HREF = "patches/files.14Apr07">list of changed files</A> from the 13
+Apr 2007 version.
+</P>
+<HR>
+
+<P><B>13 Apr 2007</B>
+</P>
+<P>Added a sort option to the <A HREF = "doc/dump.html">dump</A> tool to allow
+sorting of atom snapshots by any column (e.g. x or type) rather
+than the default which is by atom ID.
+</P>
+<P>This is the <A HREF = "patches/files.13Apr07">list of changed files</A> from the 12
+Apr 2007 version.
+</P>
+<HR>
+
+<P><B>12 Apr 2007</B>
+</P>
+<P>Aidan Thompson (Sandia) has written a new file conversion tool, called
+<A HREF = "doc/cfg.html">cfg</A>, which converts LAMMPS snapshots to the CFG format
+used by the <A HREF = "http://164.107.79.177/Archive/Graphics/A">AtomEye</A>
+visualization package.
+</P>
+<P>This is the <A HREF = "patches/files.12Apr07">list of changed files</A> from the 16
+Mar 2007 version.
+</P>
+<HR>
+
+<P><B>16 Mar 2007</B>
+</P>
+<P>Upgraded the <A HREF = "doc/ensight.html">ensight</A> tool to allow for empty
+snapshots and consistency of the number of particle types across
+snapshots, which Ensight seems to like.
+</P>
+<P>This is the <A HREF = "patches/files.16Mar07">list of changed files</A> from the 31
+Jan 2007 version.
+</P>
+<HR>
+
+<P><B>31 Jan 2007</B>
+</P>
+<P>Fixed a couple bugs in the new <A HREF = "doc/ensight.html">ensight</A> tool, as
+well as made some other minor tweaks to various files.
+</P>
+<P>This is the <A HREF = "patches/files.31Jan07">list of changed files</A> from the 3
+Nov 2006 version.
+</P>
+<HR>
+
+<P><B>3 Nov 2006</B>
+</P>
+<P>Added a capability for the <A HREF = "doc/vec.html">vec</A> tool to accept a list of
+numeric vectors as input.  They can then be plotted interactively via
+the <A HREF = "doc/plotview.html">plotview</A> tool.
+</P>
+<P>This is the <A HREF = "patches/files.3Nov06">list of changed files</A> from the 10
+Oct 2006 version.
+</P>
+<HR>
+
+<P><B>10 Oct 2006</B>
+</P>
+<P>Added an <A HREF = "doc/ensight.html">ensight</A> tool that can convert LAMMPS or
+ChemCell data/dump files to the file format used as input to the
+<A HREF = "http://www.ensight.com">Ensight visualization package</A>.  Ensight is a widely-used
+commercial package with a GUI front-end that can perform high-quality
+viz and animation.
+</P>
+
+
+<P>This is the <A HREF = "patches/files.10Oct06">list of changed files</A> from the 1
+Oct 2006 version.
+</P>
+<P>Thanks to Greg Wagner and Jon Zimmerman (SNL) for explaining
+the Ensight format and testing out this new tool.
+</P>
+<HR>
+
+<A NAME = "1Oct06"></A><B>1 Oct 2006</B> 
+
+<P>New release of Pizza.py.  12367 lines of code in src dir.
+</P>
+<P>These are the most significant features added since the 7 Nov 2005
+version.  People who contributed to the features are listed in
+parentheses:
+</P>
+<UL><LI><A HREF = "doc/clog.html">clog tool</A> which reads ChemCell log files for plotting
+<LI><A HREF = "doc/cdata.html">cdata tool</A> which creates ChemCell   geometries and populates them with particles
+<LI><A HREF = "doc/histo.html">histo tool</A> which can create histograms of   particle densities from dump snapshots
+<LI>changed name of pdb tool to <A HREF = "doc/pdbfile.html">pdbfile</A> to avoid   conflicts with another Python internal
+<LI>new scripts: distance.py, bond_distribute.py, angle_distribute.py   (Paul Crozier, SNL) 
+</UL>
+<P>Descriptions of all these enhancements and other bug fixes can be
+viewed on <A HREF = "bug.7Nov05.html">this page</A>.
+</P>
+<HR>
+
+<A NAME = "7Nov05"></A><B>7 Nov 2005</B> 
+
+<P>New release of Pizza.py.  9129 lines of code in src dir.  These are
+the most significant features added since the 7 Sept 2005 version:
+</P>
+<UL><LI>added a <A HREF = "doc/gl.html">gl tool</A> which enables 3d interactive viz of LAMMPS snapshots via OpenGL
+<LI>added a <A HREF = "doc/vcr.html">vcr tool</A> which provides a VCR-style GUI wrapper for the gl tool
+<LI>added a color table with 140 pre-defined colors to viz tools (<A HREF = "doc/gl.html">gl</A>, <A HREF = "doc/raster.html">raster</A>, <A HREF = "doc/svg.html">svg</A>)
+<LI>multiple incremental plots option for <A HREF = "doc/gnu.html">gnu</A> and <A HREF = "doc/matlab.html">matlab</A> tools
+<LI>added convert and montage methods to <A HREF = "doc/image.html">image tool</A>
+<LI>allow type=0 setting for atom/bond/etc color/radii/etc in viz tools (<A HREF = "doc/gl.html">gl</A>, <A HREF = "doc/raster.html">raster</A>, <A HREF = "doc/svg.html">svg</A>)
+<LI>set default view to (60,30) in viz tools (<A HREF = "doc/gl.html">gl</A>, <A HREF = "doc/raster.html">raster</A>, <A HREF = "doc/svg.html">svg</A>)
+<LI>changed trans() method to shift() in viz tools and its arguments are now pixels (<A HREF = "doc/gl.html">gl</A>, <A HREF = "doc/raster.html">raster</A>, <A HREF = "doc/svg.html">svg</A>) 
+</UL>
+<P>Descriptions of all these enhancements and other bug fixes can be
+viewed on <A HREF = "bug.7Sept05.html">this page</A>.
+</P>
+<HR>
+
+<P><B>7 Sept 2005</B>
+</P>
+<P>Initial public release of Pizza.py.  6896 lines of Python code in src
+dir.
+</P>
+</HTML>

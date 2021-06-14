@@ -1,0 +1,312 @@
+"Pizza.py WWW Site"_pws :c
+:link(pws,index.html)
+
+:line
+
+Pizza.py FAQ (Frequently Asked Questions) :h3
+
+This is a simple FAQ for the Pizza.py toolkit.  More complete
+information is given in the "Pizza.py documentation"_doc/Manual.html.
+
+:line
+
+1.1 "What is Pizza.py?"_#1_1
+1.2 "How can I use Pizza.py?"_#1_2
+1.3 "What is the philosophy behind Pizza.py?"_#1_3
+1.4 "Why Python?"_#1_4 :all(b)
+
+:p
+
+2.1 "What can I do with LAMMPS log files (thermodynamic data)?"_#2_1
+2.2 "What can I do with LAMMPS dump files (atom snapshots)?"_#2_2
+2.3 "What can I do with OpenGL from within Pizza.py?"_#2_3
+2.4 "What can I do with RasMol from within Pizza.py?"_#2_3
+2.5 "What can I do with Raster3d from within Pizza.py?"_#2_4
+2.6 "What can I do with SVG (scalable vector graphics) via Pizza.py?"_#2_5
+2.7 "What can I do with GnuPlot from within Pizza.py?"_#2_6
+2.8 "What can I do with MatLab from within Pizza.py?"_#2_7
+2.9 "What can I do with image files from within Pizza.py?"_#2_8 :all(b)
+
+:line
+
+{[1.1 What is Pizza.py?]} :link(1_1)
+
+Pizza.py is a loosely integrated collection of tools written in
+Python, many of which provide pre- and post-processing capability for
+the "LAMMPS"_../lammps.html molecular dynamics package.  There are
+tools to create input files, convert between file formats, process log
+and dump files, create plots, and visualize and animate simulation
+snapshots.  Eventually it will include tools for other simulations as
+well.
+
+More generally, Pizza.py is two things.  The top-level of Pizza.py
+extends the Python interpreter in a few simple ways to make it easier
+to invoke shell commands, launch scripts, and query help on tools.
+Secondly, the Pizza.py tools are Python modules designed with
+interfaces that allow them to interact with and/or replace each other
+in simple, yet powerful ways.
+
+:line
+
+{[1.2 How can I use Pizza.py?]} :link(1_2)
+
+Pizza.py can be used in several different ways:
+
+via interactive typing, to examine simulation data sets
+via scripts to perform analysis with Pizza.py tools
+via scripts to automate repetitive tasks
+via tool GUIs to interact with simulation data :ul
+
+Other than a few basic syntax rules, you do not need to know any
+Python to use Pizza.py tools.  However, if you are familiar with
+Python, you will be able to use the tools in more sophisticated ways,
+write your own scripts for analysis purposes, add methods to existing
+tools, or even create new tools of your own.
+
+A Pizza.py tool (just a *.py file) can be used directly in Python,
+without the rest of Pizza.py.  Pizza.py scripts can be run by others,
+who don't have Pizza.py, to run in their Python (so long as you also
+give them any tool files the script uses).
+
+New tools you write need not have anything to do with LAMMPS.  They
+could be a stand-alone tool or interact with existing Pizza.py tools
+in various ways.  For example, you could write a new tool that
+
+reads your files and creates plots via Pizza.py plotting tools
+reads your simulation output and creates images via Pizza.py viz tools
+creates an atomisitc geometry and creates a LAMMPS data file via the data tool :ul
+
+:line
+
+{[1.3 What is the philosophy behind Pizza.py?]} :link(1_3)
+
+In the pizza metaphor ...
+
+toppings = tools
+crust = Pizza.py extensions to the Python interpreter
+cheese = Python :ul
+
+A "tool", as implemented in Pizza.py, has the following
+characteristics:
+
+can be controlled by typing or script or GUI (if it has one)
+does not take over the desktop
+has an interface identical to other functionally similar tools :ul
+
+The 1st point means that GUI operations can also be done at the
+commmand line, so any tool's capabilities can be scripted.  The 2nd
+point means that if a tool opens a GUI window, it does not lock the
+mouse to it; multiple instances of the same tool or of other tools can
+be operational at the same time.  The 3rd point means that groups of
+tools share identical (or at least similar) methods so they be used
+interchangeably.  Examples of this are:
+
+plotting tools: gnu, matlab
+visualization tools: gl, rasmol, raster, svg (partially)
+file format tools: ensight, pdb, xyz, vtk, pdb (partially)
+vector processing: clog, log, vec :tb(s=:)
+
+:line
+
+{[1.4 Why Python?]} :link(1_4)
+
+Sometimes a toolkit like Pizza.py is called a framework.  My view is
+that Python itself is the ideal framework for glueing together various
+tools and third-party applications.  Aside from its snake-like ability
+to wrap other software, Python is a powerful object-oriented
+programming language in its own right.
+
+I've dabbled in other scripting languages (Perl, Tcl/Tk, shell) but
+Python is my favorite.  For non-parallel, non-CPU-intensive
+programming, it's my language of choice, for these reasons:
+
+clean, simple pseudo-code syntax
+supports object-oriented or functional programming
+extensive built-in and external libraries
+less code to write (often 2-3x less lines than C++)
+portability (all machines run Python) :ul
+
+:line
+:line
+
+{[2.1 What can I do with LAMMPS log files (thermodynamic data)?]} :link(2_1)
+
+With the "log tool"_doc/log.html you can:
+
+read in one or more LAMMPS log files, including incomplete ones
+extract their data as vectors
+write the vectors to files
+plot the vectors (via gnu, matlab, plotview tools) :ul
+
+For example, making a plot of a thermodynamic quantity vs time from
+a series of log files is as simple as:
+
+lg = log("log.*")
+s,t = lg.get("Step","Temp")
+m = matlab()
+m.plot(s,t) :pre
+
+:line
+
+{[2.2 What can I do with LAMMPS dump files (atom snapshots)?]} :link(2_2)
+
+With the "dump tool"_doc/dump.html you can:
+
+read in one or more LAMMPS dump files, including incomplete ones
+wrap/unwrap atom coords across periodic boundaries
+sub-select certain atoms or timesteps
+extract atom attributes as vectors within or across snapshots
+compute and store new atom attributes
+plot vectors (via gnu, matlab)
+visualize one or more snapshots (via raster, rasmol, svg)
+display and animate them in a VCR-style GUI viewer (via gl, vcr)
+convert to other file formats (via ensight, pdb, vtk, xyz) :ul
+
+For example, converting a set of dump file snapshots to XYZ format is
+as simple as:
+
+d = dump("dump.*")
+x = xyz(d)
+x.many() :pre
+
+which could also be written as one line:
+
+xyz(dump("dump.*")).many() :pre
+
+:line
+
+{[2.3 What can I do with OpenGL from within Pizza.py?]} :link(2_3)
+
+The "gl tool"_doc/gl.html in Pizza.py is a wrapper on OpenGL graphics
+via the "PyOpenGL"_http://pyopengl.sourceforge.net package.  The "vcr
+tool"_doc/vcr.html puts a GUI wrapper around one or more OpenGL
+windows.  With these tools you can:
+
+open an interactive window displaying a LAMMPS data file or snapshot
+use the mouse to translate,rotate,zoom the displayed image
+use the VCR-style buttons and sliders to animate/save a sequence of images
+use the clipping sliders to narrow the range of atoms displayed
+animate a fly-by or zoom-in of one or more snapshots
+choose color/radii attributes of atom and bond types :ul
+
+:line
+
+{[2.4 What can I do with RasMol from within Pizza.py?]} :link(2_4)
+
+The "rasmol tool"_doc/rasmol.html in Pizza.py is a wrapper on the
+popular "RasMol"_rasmol molecular visualization program.  With the
+rasmol and "pdb"_doc/pdb.html tools you can:
+
+drive RasMol interactively or via its command-line
+convert LAMMPS snapshots into PDB files
+visualize one or more LAMMPS snapshots
+create an animation (multiple images) of a set of PDB files or snapshots
+download a PDB file from the WWW and view it :ul
+
+For example, to make an MPEG movie from RasMol images of LAMMPS
+snapshots using "peptide.pdb" as a template PDB file, you could type:
+
+d = dump("dump.*")
+p = pdb("peptide",d)
+r = rasmol(p)
+r.all()
+!convert image*gif protein.mpg :pre
+
+The last line is not part of Pizza.py; it simply invokes the
+ImageMagick "convert" program to turn a series of GIF files into an
+MPEG movie.
+
+:line
+
+{[2.5 What can I do with Raster3d from within Pizza.py?]} :link(2_5)
+
+The "raster tool"_doc/raster.html in Pizza.py is a wrapper on the
+"Raster3d"_raster3d molecular visualization program which creates
+ray-traced images of a molecular model.  With the raster tool you can:
+
+run Raster3d and control its settings from Python
+create and view single or multiple images of LAMMPS snapshots
+animate a fly-by or zoom-in of one or more snapshots
+choose color/radii attributes of atom and bond types
+put text labels on snapshot images :ul
+
+For example, to create an image sequence of LAMMPS snapshots from a
+chosen viewpoint, and view them in the "animate
+tool"_doc/animate.html, you could type:
+
+d = dump("dump.*")
+r = raster(d)
+r.rotate(45,120)
+r.all()
+animate("image*.png") :pre
+
+:line
+
+{[2.6 What can I do with SVG (scalable vector graphics) via
+Pizza.py?]} :link(2_6)
+
+"SVG"_svg is a portable file format that can be used to visualize
+many, many things, including atoms and bonds.  It's particularly nice
+for solid-state systems with atoms on lattices.
+
+The "svg tool"_doc/svg.html in Pizza.py creates SVG files from LAMMPS
+snapshots.  The tool's interface is the same as for the raster tool
+discussed in the previous FAQ question.  Thus you can create SVG
+images in place of Raster3d images by changing one line in the example
+above, i.e. "r = svg(d)".
+
+:line
+
+{[2.7 What can I do with GnuPlot from within Pizza.py?]} :link(2_7)
+
+"GnuPlot"_gnuplot is an open-source plotting package from the GNU
+folks.  The "gnuplot tool" in Pizza.py lets you:
+
+pass vectors of Python or LAMMPS data to GnuPlot (via files)
+plot one or more vectors in one or more windows
+set basic plot attributes (range, labels, colors, symbols)
+issue native GnuPlot commands either one-at-a-time or in a GnuPlot shell
+create an animation of a plot (multiple plots of growing vectors)
+save your plots as PostScript files :ul
+
+Only a small subset of GnuPlot commands are wrapped as gnu tool
+methods by Pizza.py, but any GnuPlot operation can be performed from
+within Pizza.py by issuing using native GnuPlot commands.
+
+:line
+
+{[2.8 What can I do with MatLab from within Pizza.py?]} :link(2_8)
+
+"MatLab"_matlab is a commercial numerical analysis program that does
+many, many things, one of which is make nice plots.  The Pizza.py
+"matlab tool"_doc/matlab.html wraps the plotting functionality in
+MatLab with the same interface as it does GnuPlot.  So you can do
+exactly the same things with MatLab plots as listed in the previoue
+FAQ question for GnuPlot, i.e. creating MatLab plots instead of
+GnuPlot plots is as simple as changing one line in your script.
+
+As with GnuPlot, you can drive MatLab interactively either
+one-command-at-a-time or via the MatLab shell (as if you were typing
+at the MatLab prompt).  This means your Python and LAMMPS data can be
+exported to MatLab (as a file), and you can then operate on it with
+any MatLab commands or functions you wish.
+
+:line
+
+{[2.9 What can I do with image files from within Pizza.py?]} :link(2_9)
+
+The "image tool"_doc/image.html in Pizza.py displays thumbnails for a
+set of image files, that can be clicked on to display the full file.
+The tool is also a wrapper on the "ImageMagick"_imagemagick "convert"
+and "montage" commands, so that
+
+a series of images can be converted to an MPG movie
+one series of images can be converted to another series in another format
+two or more series of images can be combined into a new series of montage images :ul
+
+:link(gnuplot,http://www.gnuplot.info)
+:link(matlab,http://www.mathworks.com)
+:link(rasmol,http://openrasmol.org)
+:link(raster3d,http://www.bmsc.washington.edu/raster3d/raster3d.html)
+:link(svg,http://www.w3.org/Graphics/SVG)
+:link(imagemagick,http://www.imagemagick.org/script/index.php)

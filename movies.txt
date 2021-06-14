@@ -1,0 +1,179 @@
+"Pizza.py WWW Site"_pws :c
+:link(pws,index.html)
+
+:line
+
+Pizza.py Movies :h3
+
+These are various animations created with Pizza.py for output data
+from the "LAMMPS"_../lammps.html molecular dynamics simulator.  Some
+are from 3d simulations; others are from simpler 2d systems that
+illustrate the kinds of problems LAMMPS can easily be setup to run.
+
+:link(lammps,http://www.cs.sandia.gov/~sjplimp/lammps.html)
+
+For each problem, Pizza.py was used to create a series of images.  I
+use the ImageMagick convert program to make lo-resolution MPEG movies
+and QuickTime Pro (on a Mac laptop) to make hi-resolution QuickTime
+movies.  The lo-res MPEG movies are posted here; a single hi-res image
+frame is also shown so you can see what the QuickTime movie looks
+like.  Links to the Pizza.py scripts that created the image sequences
+are also given.
+
+For all movies on this page, click on the small image to trigger the
+animation.  You may need to slow-down/speed-up the MPEG playback on
+your machine.  If your browser uses the "xanim" program to view MPEG
+movies, the speed-up key is "-" and the slow-down key is "=".
+
+"bucky"_#bucky:	      decorated bucky-ball particle self-assembly
+"dipole"_#dipole:     dipolar particle melt
+"flow"_#flow:	      2d flow around an obstacle
+"grain"_#grain:	      2d grain growth via Potts model
+"melt"_#melt:	      melt of Lennard-Jones solid
+"micelle"_#micelle:   2d micelle self-assembly
+"peptide"_#peptide:   small peptide in solution
+"tri"_#tri:	      decorated triangular particle self-assembly :tb(s=:)
+
+:line
+
+Decorated bucky-ball particle self-assembly :h4,link(bucky)
+
+Each particle is a rigid C60 molecule with two patches of attractive
+atoms on each end that induce ordering with nearby particles.  These
+images were made with the Pizza.py raster tool wrapping Raster3d.
+
+See "this paper"_#Glotzer from "Sharon Glotzer's group"_glotzer (U
+Michigan) for more examples of macro-particle self-assembly and phase
+behavior.
+
+:link(glotzer,http://www.engin.umich.edu/dept/che/research/glotzer)
+
+"Pizza.py script"_scripts/movie_bucky.py to create images.
+"Hi-resolution image"_images/bucky.png from QuickTime movie.
+
+:image(images/bucky_small.png,movies/bucky.mpg)
+
+1.7 Mb lo-resolution MPEG movie
+
+:line
+
+Dipolar particle melt :h4,link(dipole)
+
+Two overlapping spheres per particle to indicate dipole orientation.
+These images were made with the Pizza.py raster tool wrapping
+Raster3d.
+
+"Hi-resolution image"_images/dipole.png from QuickTime movie.
+
+:image(images/dipole_small.png,movies/dipole.mpg)
+
+1.2 Mb lo-resolution MPEG movie
+
+:line
+
+2d flow around an obstacle :h4,link(flow)
+
+Two spherical voids in a flowing atomic fluid.  The flow images were
+made with the Pizza.py raster tool wrapping Raster3d.  The movie with
+plots was made using the mplot() method of the "gnu tool"_doc/gnu.html
+(or "matlab tool"_doc/matlab.html) and then combining the flow and
+plot images with the montage() method of the "image
+tool"_doc/image.html (calls ImageMagick montage command).
+
+"Pizza.py script"_scripts/movie_flow.py to create flow images.
+"Pizza.py script"_scripts/movie_flow_plot.py to create plots and
+combine them with flow images.  "Hi-resolution image"_images/flow.png
+from 1st QuickTime movie.  "Hi-resolution image"_images/flow_plot.png
+from 2nd QuickTime movie.
+
+:image(images/flow_small.png,movies/flow.mpg)
+:image(images/flow_plot_small.png,movies/flow_plot.mpg)
+
+Flow only = 1.5 Mb lo-resolution MPEG movie.
+
+Flow + plots = 1.5 Mb lo-resolution MPEG movie.
+
+:line
+
+2d grain growth via Potts model :h4,link(grain)
+
+Each pixel is a lattice site in a 2d Potts model formulated to model
+grain growth via Monte Carlo sweeps of the lattice.  These images were
+made with the Pizza.py raster tool wrapping Raster3d reading a mesh
+file with the "mdump"_doc/mdump.html tool.  Thanks to Aidan Thompson
+for implementation of the Potts model in a kinetic Monte Carlo code we
+are developing at Sandia.
+
+"Pizza.py script"_scripts/movie_grain.py to create images.
+"Hi-resolution image"_images/grain.png from QuickTime movie.
+
+:image(images/grain_small.png,movies/grain.mov)
+
+185 Kb QuickTime movie
+
+:line
+
+Melt of Lennard-Jones solid :h4,link(melt)
+
+Atoms are colored to visualize the melt process.  These images were
+made with the Pizza.py raster tool wrapping Raster3d.
+
+"Pizza.py script"_scripts/movie_melt.py to create images.
+"Hi-resolution image"_images/melt.png from QuickTime movie.
+
+:image(images/melt_small.png,movies/melt.mpg)
+
+1.5 Mb lo-resolution MPEG movie
+
+:line
+
+2d micelle self-assembly :h4,link(micelle)
+
+The 3-atom lipids have a hydrophyllic head that likes solvent and a
+hydrophobic tail that doesn't like solvent.  These images were made
+with the Pizza.py svg tool.
+
+"Pizza.py script"_scripts/movie_micelle.py to create images.
+"Hi-resolution image"_images/micelle.png from QuickTime movie.
+
+:image(images/micelle_small.png,movies/micelle.mpg)
+
+4.3 Mb lo-resolution MPEG movie
+
+:line
+
+Small peptide in solution :h4,link(peptide)
+
+These images were made with the Pizza.py rasmol tool wrapping RasMol.
+
+"Pizza.py script"_scripts/movie_peptide.py to create images.
+"Hi-resolution image"_images/peptide.png from QuickTime movie.
+
+:image(images/peptide_small.gif,movies/peptide.mpg)
+
+1.2 Mb lo-resolution MPEG movie
+
+:line
+
+Decorated triangular particle self-assembly :h4,link(tri)
+
+Each particle is a rigid 3-layer triangular-shaped molecule an inner
+layer of attractive atoms that induces ordering with nearby particles.
+These images were made with the Pizza.py raster tool wrapping
+Raster3d.
+
+See "this paper"_#Glotzer from "Sharon Glotzer's group"_glotzer (U
+Michigan) for more examples of macro-particle self-assembly and phase
+behavior.
+
+"Pizza.py script"_scripts/movie_tri.py to create images.
+"Hi-resolution image"_images/tri.png from QuickTime movie.
+
+:image(images/tri_small.png,movies/tri.mpg)
+
+3.1 Mb lo-resolution MPEG movie
+
+:line
+
+:link(Glotzer)
+[(Glotzer)] Zhang and Glotzer, NanoLetters, 4, 1407-1413 (2004).

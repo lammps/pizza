@@ -1,0 +1,36 @@
+"Pizza.py WWW Site"_pws :c
+:link(pws,index.html)
+
+:line
+
+Contributing to Pizza.py :h3
+
+In the spirit of an open-source code, these are various ways you can
+contribute to making Pizza.py better.  You can send email to sjplimp
+at sandia.gov on any of these items.
+
+If you write a Pizza.py script that is generally useful or illustrates
+how to do something cool with Pizza.py, it can be added to the
+Pizza.py script directory.  Ditto for a cool picture or movie that can
+be added to the "Pizza.py WWW site"_pws. :ulb,l
+
+If you add a new method to one of the tools or create a new tool that
+is useful for Pizza.py or LAMMPS users, it can be added to the
+Pizza.py distribution.  See the ToDo list at the top of each src/*.py
+file for features we haven't yet implemented. :l
+
+If you find a bug, report it. :l
+
+Send an email if you find an error or omission in the "Pizza.py
+documentation"_pd, or have a suggestion for something to clarify or
+include. :l
+
+Point prospective users to the "Pizza.py WWW Site"_pws or link to it
+from your WWW site. :l
+
+Cash.  Small denominations, unmarked bills preferred.  Leave in paper
+sack on desk.  "VISA"_email also accepted.  Chocolate chip cookies
+encouraged. :ule,l
+
+:link(pd,doc/Manual.html)
+:link(email,mailto:sjplimp@sandia.gov)
