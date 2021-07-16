@@ -1,0 +1,57 @@
+"Pizza.py WWW Site"_pws - "Pizza.py Documentation"_pd - "Pizza.py Tools"_pc :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pc,Section_tools.html)
+
+:line
+
+animate tool :h3
+
+[Purpose:]
+
+Animate a series of image files.
+
+[Description:]
+
+The animate tool displays a GUI to view and animate a series of image
+files.
+
+The animate constructor creates the GUI.  The animation can be
+controlled by the GUI widgets or by invoking the tool methods: play(),
+stop(), next(), etc.  The frame slider can be dragged to view a
+desired frame.
+
+Image files can be in any format (PNG, GIF, BMP, etc) recognized by
+the Python Image Library (PIL) installed in your Python.  Various
+Pizza.py visualization tools (raster, rasmol, etc) create such image
+files.  If a particular image format fails to load, your PIL
+installation was linked without support for that format.  Rebuild PIL,
+and follow its install instructions.
+
+[Usage:]
+
+a = animate("image*.png")     create GUI to animate set of image files
+a = animate("image*.png",1)   2nd arg = sort filenames, 0 = no sort, def = 1 :pre
+
+Actions (same as GUI widgets): :pre
+
+a.first()		      go to first frame
+a.prev()                      go to previous frame
+a.back()                      play backwards from current frame to start
+a.stop()         	      stop on current frame		
+a.play()                      play from current frame to end
+a.next()		      go to next frame
+a.last()		      go to last frame :pre
+
+a.frame(31)    	              set frame slider
+a.delay(0.4)     	      set delay slider :pre
+
+[Related tools:]
+
+"gl"_gl.html, "raster"_raster.html, "rasmol"_rasmol.html,
+"svg"_svg.html, "vcr"_vcr.html
+
+[Prerequisites:]
+
+Python Tkinter and PIL packages.

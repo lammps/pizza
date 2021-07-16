@@ -1,0 +1,101 @@
+<HTML>
+<CENTER><A HREF = "Section_tools.html">Previous Section</A> - <A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> -
+<A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>6. Extending Pizza.py 
+</H3>
+<P>Pizza.py can easily be extended in several ways:
+</P>
+<OL><LI>fix a bug
+<LI>make a tool method faster or cleaner
+<LI>add a new method or setting to a tool
+<LI>add a new tool
+<LI>add a generically useful script to the scripts dir
+<LI>add a script that does something interesting to the examples dir
+<LI>send a picture or movie you made with Pizza.py for the <A HREF = "http://pizza.sandia.gov">WWW page</A>. 
+</OL>
+<P>You might be able to do (2) because you're better with Python than we
+are!  Note that generally, we've opted for simplicity versus speed in
+writing the tools, unless the operation is very costly.  An example of
+something I'd like to speed up is the reading of large dump files in
+dump.py.
+</P>
+<P>Some of the ideas we've had for (3), but haven't gotten around to, are
+listed at the top of the src/*.py files as ToDo items.
+</P>
+<P>If you think your addition will be useful to other Pizza.py users,
+email it to sjplimp@sandia.gov and it can be added to the distribution
+with an attribution to you, both in the source code and on the
+<A HREF = "http://www.cs.sandia.gov/~sjplimp/pizza/thanks.html">Pizza.py WWW site</A>.
+</P>
+
+
+<HR>
+
+<P>Here are ideas to consider when creating new Pizza.py tools or
+scripts:
+</P>
+<P>(1) For tools, your *.py file should contain a Python class with the
+same name as the *.py file since it will be imported into Pizza.py
+with a statement like
+</P>
+<PRE>from dump import dump 
+</PRE>
+<P>(2) Your scripts can use methods from Pizza.py classes to make data
+analysis easier.  E.g. scripts can be written that use the dump tool
+to read dump files, then use the iterator calls and vecs() method from
+dump.py to loop over snapshots and extract lists of particles for
+further computation.  See the scripts and examples directories for
+examples of this.
+</P>
+<P>(3) To flag an error in your script or tool and exit back to the
+Pizza.py prompt, use a line like:
+</P>
+<PRE>raise StandardError,"error message" 
+</PRE>
+<P>(4) Document your tool be defining the "oneline" and "docstr"
+variables at the top of the file.  This is what will be printed when
+you type "?  dump", for example.
+</P>
+<P>(5) If you intend your tool to interact with other Pizza.py tools, you
+should follow the Pizza.py philosophy of having objects be passed as
+arguments to the tool methods.  If you're creating a tool that is
+similar to an existing tool, but a different flavor (e.g. wrapping
+another plotting package in addition to MatLab or GnuPlot), then try
+to make the interface similar to the others so all the related tools
+can be used interchangeably.
+</P>
+<P>(6) From the Pizza.py perspective, the difference between a script and
+a tool is as follows.  A script typically does a specific operation
+(with or without arguments).  E.g. process a dump file and compute a
+quantity.  A tool version of the same operation would allow it to
+store internal state and persist, or to be packaged in a way that
+other tools or scripts can create instances of it and call its
+methods.  From the Python perspective the code for the 2 cases may not
+look very different.  The tool version might just be some Python
+variables and methods stuck inside a Python class, which is what a
+Pizza.py tool basically is.
+</P>
+<P>(7) The various Pizza.py tools are mostly related to the "LAMMPS"
+molecular dynamics or <A HREF = "http://www.cs.sandia.gov/~sjplimp/chemcell.html">ChemCell</A> cell simulator packages.  But
+of course you can write Pizza.py tools that have nothing to do with
+LAMMPS or ChemCell.  If you think they will still be of general
+interest to Pizza.py users, you can send them to us to include in the
+Pizza.py distribution.  Or you can keep the top-level pizza.py file,
+throw away the LAMMPS and ChemCell tool files, build your own toolkit
+for whatever application you wish, and use or even distribute it
+yourself.  That's the open-source philosophy.
+</P>
+
+
+
+
+</HTML>

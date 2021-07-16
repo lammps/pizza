@@ -1,0 +1,57 @@
+<HTML>
+<CENTER><A HREF = "Section_tools.html">Previous Section</A> - <A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> -
+<A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> - <A HREF = "Section_extend.html">Next
+Section</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>5. Example scripts 
+</H3>
+<P>The Pizza.py distribution includes 2 sets of example scripts.  A
+listing of included scripts is given on the <A HREF = "http://www.cs.sandia.gov/~sjplimp/pizza/scripts.html">Pizza.py WWW
+site</A>.
+</P>
+
+
+<P>(A) The examples directory has a README file and a variety of scripts.
+For each tool in Pizza.py there is a test_tool.py script that invokes
+the tool on a simple data set (from the files sub-directory) and
+exercises various tool methods.  These scripts are meant to illustrate
+how the tool is used.
+</P>
+<P>Assuming pizza.py is in your path, each of the test scripts can be run
+from within the examples directory by typing one of these lines (from
+the shell or from within Pizza.py):
+</P>
+<PRE>% pizza.py -f test_animate.py
+> @run test_animate.py 
+</PRE>
+<P>The remaining scripts in the examples directory illustrate how to do
+various tasks in Pizza.py.  They are not meant to be generically
+useful nor are they well documented.  Rather they are illustrations of
+how to do some specific task quickly and straightforwardly.  Most of
+these scripts are not meant to be run by other users, since their data
+files are not included.
+</P>
+<P>(B) The scripts directory contains several scripts you may find useful
+either to use directly or to modify to create a new script for your
+purposes.
+</P>
+<P>The top of each script file describes its purpose and syntax.  That
+information can be be accessed from within Pizza.py by typing "??" or
+"? name.py" or "?? name.py".
+</P>
+<P>As explained in <A HREF = "Section_basics.html#3_5">this section</A>, any file in
+the scripts directory can be run from the directory where your data
+lives, by typing a line appropriate to the script's syntax, e.g.
+</P>
+<PRE>% pizza.py -f movie.py svg 60 135 dump.protein      from the shell
+> @run movie.py svg 60 135 dump.protein             from Pizza.py 
+</PRE>
+</HTML>

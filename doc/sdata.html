@@ -1,0 +1,172 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>sdata tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>Read, create, manipulate SPARTA surf files.
+</P>
+<P><B>Description:</B>
+</P>
+<P>The cdata tool reads and writes <A HREF = "http://sparta.sandia.gov">SPARTA</A> data files which
+contain surface element information.  It enables the creation of
+geometric surface objects for input to SPARTA.
+</P>
+
+
+<P>The sdata constructor reads in the specified SPARTA surface file.
+With no argument, an empty sdata object is created which can have
+objects added to it later, and then be written out.
+</P>
+<P>An sdata object contains one or more "objects".  Each object has a
+unique user-assigned ID.  2d objects are made of points and line
+segments.  3d objects are made of points and triangles.  When objects
+are written to a SPARTA surface file, the list of points and lines or
+triangles are all that is written.  The IDs are not written, though a
+SPARTA command assigns its own ID to the surface file.
+</P>
+<P>The circle(), rect(), tri(), and spikycircle() methods create 2d
+objects, namely a circle, rectangle, triangle, and spiky circle.  The
+latter is intially a perfect circle with each of its points displaced
+to random radial positions from Rmin to Rmax.  The seed variable can
+be be set to seed the random number generator in a reproducible manner
+if desired.
+</P>
+<P>The sphere(), box(), and spikysphere() methods create 3d objects,
+namely a sphere, rectangular box, and spiky sphere.  The latter is
+intially a perfect sphere with each of its points displaced to random
+radial positions from Rmin to Rmax.  The seed variable can be be set
+to seed the random number generator in a reproducible manner if
+desired.
+</P>
+<P>The surf2d() and surf3d() methods create arbitrary 2d or 3d surface
+objects from lists of points and lists of lines or triangles.  Note
+that to be compatible with SPARTA, objects should be closed and
+"watertight".  This means that in 2d every point has exactly 2 lines
+connected to it.  In 3d, every edge bewteen 2 points is part of
+exactly two triangles.
+</P>
+<P>The center(), trans(), rotate(), and scale() methods are used to
+perform a geometric transformation on the points of an object.  The
+union() method creates a new object with a new ID from a list of
+objects.  The delete(), rename(), and copy() methods manipulate the
+IDs of previously defined objects.
+</P>
+<P>Be default all objects are selected when created.  The select() and
+unselect() methods can be used to select a subset of existing objects.
+The write() and append() methods write out selected objects to a file.
+</P>
+<P>The iterator() and viz() methods are called by Pizza.py tools that
+visualize objects and particles (e.g. gl, raster, svg tools).  Only
+selected objects are returned to the caller.  A sdata file can be
+visualzed similarly to a snapshots from a dump file.  In the case of
+an sdata file, there is only a single snapshot with index 0.
+</P>
+<P>The grid() method can be used to define a 2d or 3d regular grid of
+lines that will be included in the output when the viz() method is
+called by other Pizza.py tools.  This can correspond to the grid used
+by SPARTA to track particle motion.
+</P>
+<P><B>Usage:</B>
+</P>
+<PRE>s = sdata()			   create a surf data object
+s = sdata(ID,"mem.surf")           read in one or more SPARTA surf files
+s = sdata(ID,"mem.part.gz mem.surf")  can be gzipped
+s = sdata(ID,"mem.*")		   wildcard expands to multiple files
+s.read(ID,"mem.surf")		   read in one or more data files 
+</PRE>
+<PRE>  all surf data in files becomes one surf with ID
+  surf files contain the following kinds of entries in SPARTA format
+    points and lines (for 2d), points and triangles (for 3d)
+  read() has same argument options as constructor 
+</PRE>
+<PRE>s.seed = 48379                     set random # seed (def = 12345)
+s.circle(ID,x,y,r,n)               create a 2d circle with N lines and ID
+s.rect(ID,x1,y1,x2,y2,nx,ny)       create a 2d rect, 2 corner pts, Nx,Ny segs 
+s.tri(ID,x1,y1,x2,y2,x3,y3,n1,n2,n3)  create a 2d tri, 3 pts, N1,N2,N3 segs 
+s.sphere(ID,x,y,z,r,n)		   create a 3d sphere with NxN sqs per face
+s.box(ID,x1,y1,z1,x2,y2,z2,nx,ny,nz)  3d box, 2 corner pts, Nx,Ny,Nz per face
+s.spikycircle(ID,x,y,rmin,rmax,n)  2d circle, N lines, Rmin <= rad <= Rmax
+s.spikysphere(ID,x,y,z,rmin,rmax,n)  3d sphere, NxN sqs, Rmin <= rad <= Rmax 
+</PRE>
+<PRE>  tri should be ordered so that (0,0,1) x (pt2-pt1) = outward normal
+  spikycircle is same as circle, with each of N pts at random Rmin < rad < Rmax
+  spikysphere is same as sphere, with each surf pt at random Rmin < rad < Rmax 
+</PRE>
+<PRE>s.surf2d(ID,plist,llist)           create a custom 2d surf
+s.surf3d(ID,plist,tlist)           create a custom 3d surf 
+</PRE>
+<PRE>  each point in plist is (x,y) for 2d or (x,y,z) for 3d
+  each line in llist is (i,j) for C-style indices into plist
+  each triangle in tlist is (i,j,k) for C-style indices into plist 
+</PRE>
+<PRE>s.center(ID,x,y,z)                 set center point of surf
+s.trans(ID,dx,dy,dz)   	 	   translate surf and its center point
+s.rotate(ID,theta,Rx,Ry,Rz)        rotate surf by theta around R vector
+s.scale(ID,sx,sy,sz)		   scale a surf around center point
+s.invert(ID) 	                   invert normal direction of surf 
+</PRE>
+<PRE>  default center for created surfs is the x,y,z or geometric center
+  default center for read-in surf is center of bounding box of all points
+  rotation and scaling of surf are relative to its center point 
+</PRE>
+<PRE>s.join(ID,id1,id2,...)		   combine id1,id2,etc into new surf with ID
+s.delete(id1,id2,...)              delete one or more surfs
+s.rename(ID,IDnew)                 rename a surf
+s.copy(ID,IDnew) 	           create a new surf as copy of old surf 
+</PRE>
+<PRE>  join does not delete id1,id2,etc
+  center for joined surf becomes center of bounding box of all points 
+</PRE>
+<PRE>s.select(id1,id2,...)              select one or more surfs
+s.select()                         select all surfs
+s.unselect(id1,id2,...)            unselect one or more surfs
+s.unselect()                       unselect all surfs 
+</PRE>
+<PRE>  selection applies to write() and viz()
+  surfs are selected by default when read or created 
+</PRE>
+<PRE>s.write("file")			   write all selected surfs to SPARTA file
+s.write("file",id1,id2,...)	   write only listed & selected surfs to file 
+</PRE>
+<PRE>s.grid(xlo,xhi,ylo,yhi,ny,ny)      bounding box and Nx by Ny grid
+s.grid(xlo,xhi,ylo,yhi,zlo,zhi,ny,ny,nz)   ditto for 3d
+s.gridfile(xlo,xhi,ylo,yhi,file)   bbox and SPARTA-formatted parent grid file
+s.gridfile(xlo,xhi,ylo,yhi,zlo,zhi,file)   ditto for 3d 
+</PRE>
+<PRE>  grid command superpose a grid, for viz only
+  also changes bounding box to xyzlo to xyzhi 
+</PRE>
+<PRE>index,time,flag = s.iterator(0/1)          loop over single snapshot
+time,box,atoms,bonds,tris,lines = s.viz(index)   return list of viz objects 
+</PRE>
+<PRE>  iterator() and viz() are compatible with equivalent dump calls
+  iterator() called with arg = 0 first time, with arg = 1 on subsequent calls
+    index = timestep index within dump object (only 0 for data file)
+    time = timestep value (only 0 for data file)
+    flag = -1 when iteration is done, 1 otherwise
+  viz() returns info for selected objs for specified timestep index (must be 0)
+    time = 0
+    box = [xlo,ylo,zlo,xhi,yhi,zhi] = bounding box
+    atoms = NULL
+    bonds = NULL
+    tris = id,type,x1,y1,z1,x2,y2,z2,x3,y3,z3,nx,ny,nz for each tri as 2d array
+      NULL if triangles do not exist
+    lines = id,type,x1,y1,z1,x2,y2,z2 for each line as 2d array
+      NULL if lines do not exist
+    types are assigned to each surf in ascending order 
+</PRE>
+<P><B>Related tools:</B> none
+</P>
+<P><B>Prerequisites:</B> none
+</P>
+</HTML>

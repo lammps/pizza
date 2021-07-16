@@ -1,0 +1,55 @@
+"Pizza.py WWW Site"_pws - "Pizza.py Documentation"_pd - "Pizza.py Tools"_pc :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pc,Section_tools.html)
+
+:line
+
+vec tool :h3
+
+[Purpose:]
+
+Create numeric vectors from columns in file or list of vecs.
+
+[Description:]
+
+The vec tool creates numeric vectors that can be extracted, written to
+files, or imported into other tools like "plotview"_plotview.html for
+plotting.
+
+The vec constructor takes either a file or list argument.  For a file
+argument, columns of numeric data are read from the file.  Blank lines
+or lines that do not start with a numeric character (0123456789.-) are
+skipped.  Each column must have the same number of values.  For a list
+argument, each element of the list is assumed to be a vector of values
+(i.e. the list is a list of lists), as shown in the example below.
+
+The columns of data may be accessed by number (1-N) or by name ("col1"
+thru "colN").
+
+The get() and write() methods extract the numeric vectors of data.
+
+[Usage:]
+
+v = vec("file1")                    read in numeric vectors from a file
+v = vec(array)                      array = list of numeric vectors :pre
+
+  skip blank lines and lines that start with non-numeric characters
+  example array with 2 vecs = \[\[1,2,3,4,5\], \[10,20,30,40,50\]\]
+  assigns names = "col1", "col2", etc :pre
+
+nvec = v.nvec                       # of vectors
+nlen = v.nlen		            lengths of vectors
+names = v.names		            list of vector names
+x,y,... = l.get(1,"col2",...)       return one or more vectors of values
+l.write("file.txt")	            write all vectors to a file
+l.write("file.txt","col1",7,...)    write listed vectors to a file :pre
+
+  get and write allow abbreviated (uniquely) vector names or digits (1-Nvec) :pre
+
+[Related tools:]
+
+"data"_data.html, "dump"_dump.html
+
+[Prerequisites:] none

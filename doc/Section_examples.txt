@@ -1,0 +1,52 @@
+"Previous Section"_Section_tools.html - "Pizza.py WWW Site"_pws -
+"Pizza.py Documentation"_pd - "Pizza.py Tools"_pt - "Next
+Section"_Section_extend.html :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pt,Section_tools.html)
+
+:line
+
+5. Example scripts :h3
+
+The Pizza.py distribution includes 2 sets of example scripts.  A
+listing of included scripts is given on the "Pizza.py WWW
+site"_scripts.
+
+:link(scripts,http://www.cs.sandia.gov/~sjplimp/pizza/scripts.html)
+
+(A) The examples directory has a README file and a variety of scripts.
+For each tool in Pizza.py there is a test_tool.py script that invokes
+the tool on a simple data set (from the files sub-directory) and
+exercises various tool methods.  These scripts are meant to illustrate
+how the tool is used.
+
+Assuming pizza.py is in your path, each of the test scripts can be run
+from within the examples directory by typing one of these lines (from
+the shell or from within Pizza.py):
+
+% pizza.py -f test_animate.py
+> @run test_animate.py :pre
+
+The remaining scripts in the examples directory illustrate how to do
+various tasks in Pizza.py.  They are not meant to be generically
+useful nor are they well documented.  Rather they are illustrations of
+how to do some specific task quickly and straightforwardly.  Most of
+these scripts are not meant to be run by other users, since their data
+files are not included.
+
+(B) The scripts directory contains several scripts you may find useful
+either to use directly or to modify to create a new script for your
+purposes.
+
+The top of each script file describes its purpose and syntax.  That
+information can be be accessed from within Pizza.py by typing "??" or
+"? name.py" or "?? name.py".
+
+As explained in "this section"_Section_basics.html#3_5, any file in
+the scripts directory can be run from the directory where your data
+lives, by typing a line appropriate to the script's syntax, e.g.
+
+% pizza.py -f movie.py svg 60 135 dump.protein      from the shell
+> @run movie.py svg 60 135 dump.protein             from Pizza.py :pre

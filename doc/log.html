@@ -1,0 +1,64 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>log tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>Read LAMMPS log files and extract thermodynamic data.
+</P>
+<P><B>Description:</B>
+</P>
+<P>Read one or more LAMMPS log files and combine their thermodynamic data
+into long, named vectors (versus time).  The vectors can be used in
+Python for further processing and plotting, or they can be output to a
+file.
+</P>
+<P>The log constructor reads one or more log files.  If 2 arguments are
+specified, a single file is specified, and it can be read
+incrementally (e.g. as it is created) by the next() method.
+</P>
+<P>The nvec, nlen, and names values give the # of vectors, their length,
+and names.  The get() method returns one of more vectors as a Python
+list.  The write() method outputs the numeric vectors to a file.
+</P>
+<P><B>Usage:</B>
+</P>
+<PRE>l = log("file1")                     read in one or more log files
+l = log("log1 log2.gz")              can be gzipped
+l = log("file*")                     wildcard expands to multiple files
+l = log("log.lammps",0)              two args = store filename, but don't read 
+</PRE>
+<PRE>  incomplete and duplicate thermo entries are deleted 
+</PRE>
+<PRE>time = l.next()                      read new thermo info from file 
+</PRE>
+<PRE>  used with 2-argument constructor to allow reading thermo incrementally
+  return time stamp of last thermo read
+  return -1 if no new thermo since last read 
+</PRE>
+<PRE>nvec = l.nvec                        # of vectors of thermo info
+nlen = l.nlen                        length of each vectors
+names = l.names                      list of vector names
+t,pe,... = l.get("Time","KE",...)    return one or more vectors of values
+l.write("file.txt")	 	     write all vectors to a file
+l.write("file.txt","Time","PE",...)  write listed vectors to a file 
+</PRE>
+<PRE>  get and write allow abbreviated (uniquely) vector names 
+</PRE>
+<P><B>Related tools:</B>
+</P>
+<P><A HREF = "olog.html">olog</A>, <A HREF = "plotview.html">plotview</A>, <A HREF = "gnu.html">gnu</A>,
+<A HREF = "matlab.html">matlab</A>
+</P>
+<P><B>Prerequisites:</B> none
+</P>
+</HTML>

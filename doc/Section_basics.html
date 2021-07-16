@@ -1,0 +1,301 @@
+<HTML>
+<CENTER><A HREF = "Section_install.html">Previous Section</A> - <A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> -
+<A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> - <A HREF = "Section_tools.html">Next
+Section</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>3. Basics of using Pizza.py 
+</H3>
+<P>The <A HREF = "Section_install.txt">previous section</A> describes how to install
+and run Pizza.py and the various software it uses.  After Pizza.py has
+started you should see a ">" prompt.  The following sections describe
+what comes next:
+</P>
+3.1 <A HREF = "#3_1">Python syntax</A><BR>
+3.2 <A HREF = "#3_2">Pizza.py command line arguments</A><BR>
+3.3 <A HREF = "#3_3">Pizza.py extensions to the Python interpreter</A><BR>
+3.4 <A HREF = "#3_4">Using Pizza.py tools</A><BR>
+3.5 <A HREF = "#3_5">Runnning Pizza.py and Python scripts</A><BR>
+3.6 <A HREF = "#3_6">Error messages</A> <BR>
+
+<HR>
+
+<H4><A NAME = "3_1"></A>3.1 Python syntax 
+</H4>
+<P>Aside from its tools, Pizza.py itself simply adds a bit of
+functionality to the Python interpreter to enable it to more easily
+launch shell commands and scripts and invoke its tools.  Pizza.py's
+">" prompt is different from Python's ">>>" prompt to indicate the
+extra functionality is available, but you can type any Python command
+you would type at the Python prompt.
+</P>
+<P>Python is a powerful scripting and programming language, similar in
+scope and universality to Perl.  This little Pizza.py manual cannot
+attempt to teach you how to use Python, its syntax, or its rich set of
+powerful built-in commands.  If you only use the extra tools provided
+by Pizza.py, you can think of Pizza.py as an application with a
+self-contained set of commands.  However, if you learn more about
+Python, you will be able to write more powerful Pizza.py scripts,
+access and manipulate data stored inside Pizza.py tools, or even add
+your own commands and tools, which need not have anything to do with
+LAMMPS or ChemCell.
+</P>
+<P>You can learn about Python at <A HREF = "python">www.python.org</A>.  My most-used
+Python book is <A HREF = "http://www.amazon.com/exec/obidos/tg/detail/-/0735709017/104-4868532-2659916?v=glance">Essential Python</A> by Dave Beazley which
+assumes some programming experience but covers both the basics of
+Python and its many powerful libraries in a well-written, concise
+manner.
+</P>
+
+
+<HR>
+
+<H4><A NAME = "3_2"></A>3.2 Pizza.py command line arguments 
+</H4>
+<P>When running Pizza.py, several command-line options can be added
+as switches, e.g.
+</P>
+<PRE>pizza.py switch args switch args ... 
+</PRE>
+<DIV ALIGN=center><TABLE  BORDER=1 >
+<TR><TD >  -s</TD><TD >	 	              silent (else print start-up help)</TD></TR>
+<TR><TD >  -t log dump raster</TD><TD >	      load only these tools</TD></TR>
+<TR><TD >  -x raster rasmol</TD><TD >	      load all tools except these</TD></TR>
+<TR><TD >  -f file arg1 arg2</TD><TD >          run script file with args</TD></TR>
+<TR><TD >  -c "vec = range(100)"</TD><TD >      run Python command</TD></TR>
+<TR><TD >  -q</TD><TD > 	   		      quit (else interactive) 
+</TD></TR></TABLE></DIV>
+
+<P>Switches can appear in any order and be used multiple times.  The -f
+scripts and -c commands are executed in the order they appear.  Script
+files are Python files which can contain Python or Pizza.py tool
+commands.  Pizza.py looks for script files in 3 places: your current
+working directory, the pizza/scripts directory, and any extra
+directories you list in the src/DEFAULTS.py file.  This means you can
+add your own scripts to pizza/scripts or to directories of your
+choosing.
+</P>
+<P>Note that the arguments of the -f switch file (arg1,arg2,etc) cannot
+begin with a single "-" or they will be interpreted as arguments to
+Pizza.py.  They can however begin with a double "--".
+</P>
+<P>Also note that the argument of the -c switch will typically need to be
+enclosed in quotes to avoid being interpreted by the shell.  This also
+allows multiple Python commands to be separated by semi-colons, e.g.
+</P>
+<PRE>-c "a = range(100); print a" 
+</PRE>
+<HR>
+
+<H4><A NAME = "3_3"></A>3.3 Pizza.py extensions to the Python interpreter 
+</H4>
+<P>As mentioned above, the standard Python syntax is extended a bit at
+the Pizza.py ">" interactive prompt.  These options were inspired by
+the <A HREF = "http://www.idyll.org/~n8gray/code/index.html">LazyPython.py</A> code of Nathan Gray, which taught me how to
+extend the Python interpreter.  These are the short-cuts:
+</P>
+<DIV ALIGN=center><TABLE  BORDER=1 >
+<TR><TD >  ?</TD><TD >                           print help message</TD></TR>
+<TR><TD >  ??</TD><TD >                          one-line for each tool and script</TD></TR>
+<TR><TD >  ? raster</TD><TD >                    list tool commands or script syntax</TD></TR>
+<TR><TD >  ?? energy.py</TD><TD >                full documentation of tool or script </TD></TR>
+<TR><TD >  !ls -l</TD><TD >                      shell command</TD></TR>
+<TR><TD >  @cd ..</TD><TD >                      cd to a new directory</TD></TR>
+<TR><TD >  @log tmp.log</TD><TD >                log all commands typed so far to file</TD></TR>
+<TR><TD >  @run block.py arg1 arg2</TD><TD >     run script file with args</TD></TR>
+<TR><TD >  @time d = dump("*.dump")</TD><TD >    time a command 
+</TD></TR></TABLE></DIV>
+
+
+
+<P>Shell commands begun with a "!" can include the redirection operators
+"<" or ">".  The shell command "!cd" will not change directories
+permanently; use the "@cd" short-cut instead.  Any short-cut command
+starting with "@" can be abbreviated with one or more letters.
+E.g. "@r" is the same as "@run".  The @log command requires that the
+Python readline library be available on your system.
+</P>
+<P>Each of the above short-cuts can be performed by native Python
+commands; they are just not as simple to type.  Here is how several of
+the short-cuts can be written in Python, which is what you need to do
+in a script, since the above short-cuts only work at the Pizza.py
+interactive prompt:
+</P>
+<DIV ALIGN=center><TABLE  BORDER=1 >
+<TR><TD >Short-cut</TD><TD > Native Python</TD></TR>
+<TR><TD >!ls -l</TD><TD > sys.command("ls -l")</TD></TR>
+<TR><TD >@cd ..</TD><TD > os.chdir("..")</TD></TR>
+<TR><TD >@run myfile.py</TD><TD > execfile("myfile.py")</TD></TR>
+<TR><TD >CTRL-D</TD><TD > sys.exit() 
+</TD></TR></TABLE></DIV>
+
+<HR>
+
+<H4><A NAME = "3_4"></A>3.4 Using Pizza.py tools 
+</H4>
+<P>The tools that Pizza.py adds to Python are each implemented as a
+single Python class (e.g. dump, log, raster), so the first step in
+using a tool is to create an instance of the class (an object).  Each
+class defines a set of methods (functions) that operate on the objects
+you create and their associated data.  Each method, including the
+constructor, takes zero or more arguments, which may be previously
+created objects.  In practical terms, this means that you type
+commands like this:
+</P>
+<PRE>d = dump("dump.*")
+p = pdb("my.pdb",d)
+p.many()
+dnew = dump("dump.all") 
+</PRE>
+<P>The first 2 commands create dump and pdb objects named "d" and "p"
+respectively.  The "d" and "p" are Python variable names; you could
+use any names you wish: "dump12" or "Dump_mine" or whatever.  The 3rd
+line invokes the "many" method within the pdb class for the pdb object
+"p".  This method writes out a series of PDB files using the snapshots
+in "d" which was passed to "p" when it was created.  The final command
+creates a new dump object "dnew" from another dump file.  You can
+create and manage as many objects (of the same or different classes)
+simultaneously as you wish.  If the last line assigned the object to
+"d", the original dump object with the same name would be deleted by
+Python.
+</P>
+<P>Various Pizza.py tools create temporary files as they operate.  These
+are all named tmp.*.  Pizza.py does not clean up all of these files,
+since they are sometimes useful to look at for debugging or other
+purposes.
+</P>
+<P>Python syntax allows for powerful combinations of tools to be invoked
+in one or a few commands.  For example
+</P>
+<PRE>lg = log("log.*")
+m = matlab()
+plotview(lg,m) 
+</PRE>
+<P>could be abbreviated as
+</P>
+<PRE>plotview(log("log.*"),matlab()) 
+</PRE>
+<P>With the -c command line switch, this one-liner could be specified
+when Pizza.py is launched.  This example also illustrates that created
+objects (like the plotview object) do not need to be assigned to
+variables if they will not be accessed in subsequent commands.
+</P>
+<HR>
+
+<H4><A NAME = "3_5"></A>3.5 Running Pizza.py and Python scripts 
+</H4>
+<P>A file containing Python and/or Pizza.py commands can be executed as a
+script and arguments can be passed to it (if desired).  The script can
+be run in several different ways:
+</P>
+<P>(1) From the Pizza.py command line
+</P>
+<PRE>% pizza -f script.sample file.test 10 ... 
+</PRE>
+<P>(2) From the Pizza.py interactive prompt
+</P>
+<PRE>> @run script.sample file.test 10 ... 
+</PRE>
+<P>(3) From the Python command line
+</P>
+<PRE>% python -i script.sample file.test 10 ... 
+</PRE>
+<P>(4) From a shell prompt with #!/usr/local/bin/python -i as 1st line of script
+</P>
+<PRE>% script.sample arg1 arg2 ... 
+</PRE>
+<P>(5) From the Python interactive prompt
+</P>
+<PRE>>>> argv = <B>0,"file.test","10",...</B>
+>>> execfile("script.sample") 
+</PRE>
+<P>(6) As a nested script from within another Python or Pizza.py script file
+</P>
+<PRE>argv = <B>0,"file.test","10",...</B>
+execfile("script.sample") 
+</PRE>
+<P>The Pizza.py interpreter short-cut commands described
+in the next section cannot be used in a script file.
+</P>
+<P>There are 2 additional issues to address in your script files.
+</P>
+<P>(A) First, if the script uses Pizza.py commands and you want to run it
+from Python itself (methods 3,4,5,6), then your script should import
+the necessary Pizza.py tools directly.  E.g. if your script uses the
+log and matlab tools, you would put these lines at the top:
+</P>
+<PRE>from log import log
+from matlab import matlab 
+</PRE>
+<P>This is OK to do even if the script will be run by Pizza.py since it
+doesn't matter that Pizza.py already imported the tools.  Note that if
+you do this, you can then give your script file and the Python tool
+*.py files it uses to someone who doesn't have Pizza.py and they can
+run your script with their Python.
+</P>
+<P>(B) Second, if your script takes arguments and you want the same
+script to run identically for all 6 methods, then you need to include
+this line at the beginning of the script:
+</P>
+<PRE>if not globals().has_key("argv"): argv = sys.argv 
+</PRE>
+<P>This will enable the arguments to be accessed in the script as
+argv<B>1</B> for the 1st argument, argv<B>2</B> for the 2nd, etc.
+</P>
+<P>This works because in methods 3,4 Python stores the script arguments
+in sys.argv and the script name in sys.argv<B>0</B>.  The above line of
+Python code copies sys.argv to argv.  When Pizza.py runs the script
+(methods 1,2) it loads the arguments directly into the "argv"
+variable.  Methods 5,6 load the arguments into argv explicitly before
+executing the script via execfile().  In this case argv<B>0</B> is a dummy
+argument to conform with the Python convention for sys.argv.
+</P>
+<P>Also note in methods 5,6 that all arguments such as "10" must be
+strings even if they are numeric values, since this is the way they
+are passed to the script in methods 1,2,3,4.
+</P>
+<P>As an example of the flexibility enabled by combining scripts,
+arguments, and command-line options in Pizza.py, consider the 3-line
+example of the previous sub-section.  We modify the script as follows
+and save it as logview.py:
+</P>
+<PRE>files = ' '.join(argv<B>1:</B>)   # create one string from list of filenames
+lg = log(files)
+m = matlab()
+plotview(lg,m) 
+</PRE>
+<P>If an alias is defined in your shell start-up file, such as
+</P>
+<PRE>alias logview ~/pizza/src/pizza.py -f logview.py 
+</PRE>
+<P>then you can type the following one-liner at the shell prompt to
+invoke Pizza.py on the logview.py script with a list of files you
+specfiy.
+</P>
+<PRE>% logview log.1 log.2 ... 
+</PRE>
+<P>A set of plots and a control GUI will appear on your screen.
+</P>
+<HR>
+
+<H4><A NAME = "3_6"></A>3.6 Error messages 
+</H4>
+<P>If you mistype a Pizza.py or Python command or pass an invalid
+argument to a tool method, an error message will be printed by Python.
+Usually these will be self-explanatory.  Sometimes they will point to
+a line of code inside a tool which Python was unable to execute
+successfully.  This could be because you passed the wrong arguments to
+the tool, the data the tool is operating on is invalid, or because
+there's a bug in the tool.  In the latter case, please figure out as
+much as you can about the bug and email a description and the
+necessary files to reproduce the bug in the simplest possible way to
+sjplimp@sandia.gov.
+</P>
+</HTML>

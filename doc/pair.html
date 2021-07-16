@@ -1,0 +1,68 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>pair tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>Compute LAMMPS pairwise energies.
+</P>
+<P><B>Description:</B>
+</P>
+<P>The pair tool computes a pairwise energy between 2 particles using a
+LAMMPS molecular dynamics force field.  Thus it can be used in an
+analysis script to compute energies between groups of atoms from a
+LAMMPS snapshot file.
+</P>
+<P>The pair constructor specifies the force field style.  Only some of
+the LAMMPS pair styles are currently included in this tool, but new
+styles can easily be added.  Code from the LAMMPS pair*.cpp file needs
+to be re-coded in Python to make this work.
+</P>
+<P>The coeff() method reads the pairwise coefficients for the force field
+from a data file object (see the <A HREF = "data.html">data</A> tool).  The init()
+method does pre-computations for the force field parameters needed by
+the single() method which does a pairwise computation between two
+atoms of type = itype,jtype separated by a squared distance rsq.  The
+arguments for init() and single() can be different for a particular
+force field style.  When you write the init() and single() methods for
+a new style, you can define what arguments are needed.
+</P>
+<P><B>Usage:</B>
+</P>
+<PRE>p = pair("lj/charmm/coul/charmm")   create pair object for specific pair style 
+</PRE>
+<PRE>  available styles: lj/cut, lj/cut/coul/cut, lj/charmm/coul/charmm 
+</PRE>
+<PRE>p.coeff(d)			    extract pairwise coeffs from data object
+p.init(cut1,cut2,...)		    setup based on coeffs and cutoffs 
+</PRE>
+<PRE>  init args are specific to pair style:
+    lj/cut = cutlj
+    lj/cut/coul/cut = cutlj,cut_coul (cut_coul optional)
+    lj/charmm/coul/charmm = cutlj_inner,cutlj,cutcoul_inner,cut_coul
+      (last 2 optional) 
+</PRE>
+<PRE>e_vdwl,e_coul = p.single(rsq,itype,jtype,q1,q2,...)   compute LJ/Coul energy 
+</PRE>
+<PRE>  pairwise energy between 2 atoms at distance rsq with their attributes
+  args are specific to pair style:
+    lj/cut = rsq,itype,jtype
+    lj/cut/coul/cut = rsq,itype,jtype,q1,q2
+    lj/charmm/coul/charmm = rsq,itype,jtype,q1,q2 
+</PRE>
+<P><B>Related tools:</B>
+</P>
+<P><A HREF = "data.html">data</A>
+</P>
+<P><B>Prerequisites:</B> none
+</P>
+</HTML>

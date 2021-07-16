@@ -1,0 +1,69 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>plotview tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>Plot multiple vectors from a data set.
+</P>
+<P><B>Description:</B>
+</P>
+<P>The plotview tool displays a GUI for showing a series of plots of
+vectors stored in another Pizza.py tool.  Individual plots can be
+displayed or hidden or saved to a file.
+</P>
+<P>The plotview constructor creates the GUI and takes a data object
+(<A HREF = "log.html">log</A>, <A HREF = "vec.html">vec</A>) and a plot object (<A HREF = "gnu.html">gnu</A>,
+<A HREF = "matlab.html">matlab</A>) as arguments.
+</P>
+<P>The vectors in the data object are converted to individual plots.  The
+2nd thru Nth vectors are each plotted against the 1st vector to create
+N-1 plots.  One or more plots can be displayed simultaneously (right
+buttons in GUI), but only one is selected at a time (left buttons in
+GUI).  The yes(), no(), and select() methods perform the same function
+as the GUI buttons.
+</P>
+<P>The currently selected plot can be modified (title, range, etc)
+by the methods of the plot object.
+</P>
+<P>The file() and save() methods (or corresponding GUI widgets) save the
+currently selected plot to a PostScript file.
+</P>
+<P><B>Usage:</B>
+</P>
+<PRE>p = plotview(d,pl)      create GUI for viewing plots 
+</PRE>
+<PRE>  d = Pizza.py object that contains vectors (log, vec)
+  pl = Pizza.py plotting object (gnu, matlab) 
+</PRE>
+<PRE>p.select(2)             select one plot as current (1-N)
+p.yes(3)                toggle one plot's visibility
+p.no(3) 
+</PRE>
+<PRE>  only one plot is selected at a time
+  multiple plots can be visible at same time
+  select is same as clicking on left-side radio-button
+  yes/no is same as clicking on right-side checkbox 
+</PRE>
+<PRE>p.x = "Time"            which vector is X vector (1st vec by default)
+p.file("pressure")      filename prefix for saving a plot
+p.save()                save currently selected plot to file.eps 
+</PRE>
+<P><B>Related tools:</B>
+</P>
+<P><A HREF = "log.html">log</A>, <A HREF = "gnu.html">gnu</A>, <A HREF = "matlab.html">matlab</A>
+</P>
+<P><B>Prerequisites:</B>
+</P>
+<P>Python Tkinter package.
+</P>
+</HTML>

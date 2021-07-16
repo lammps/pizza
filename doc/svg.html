@@ -1,0 +1,158 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>svg tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>3d visualization via SVG files.
+</P>
+<P><B>Description:</B>
+</P>
+<P>The svg tool creates Scalable Vector Graphics
+(<A HREF = "http://www.w3.org/Graphics/SVG">SVG</A>) files from atom or mesh
+snapshots.  The SVG format can be displayed or animated by various
+tools and is a popular format for viewing solid state lattices.
+</P>
+<P>The svg constructor takes a data object containing atom or mesh
+snapshots as an argument (<A HREF = "dump.html">dump</A>, <A HREF = "data.html">data</A>,
+<A HREF = "cdata.html">cdata</A>, <A HREF = "mdump.html">mdump</A>).
+</P>
+<P>The show() method creates an image.svg file for snapshot N.  The all()
+method loops thru all selected snapshots and creates the image files
+image0000.svg, image0001.svg, etc.  The prefix "image" can be changed
+via the file setting.
+</P>
+<P>The bg(), size(), rotate(), trans(), zoom(), box(), label(), and
+nolabel() methods control various aspects of the images produced.
+Without the trans() and zoom() settings, the Raster3d image should
+roughly fill the window and be centered.
+</P>
+<P>Additional movie effects can be produced using the pan() and select()
+methods.  The pan() method specifies an initial and final viewpoint
+that is applied to the images produced by the all() method.  For
+intermediate images, the view parameters will be interpolated between
+their initial and final values.  The pan() method can thus be used to
+rotate a single image or fly-by the simulation as it animates.  The
+select() method performs additional atom selection for each image of
+the all() sequence.  An image-dependent %g variable can be used in the
+select() string.  The select() method can thus be used to slice thru
+the data set.
+</P>
+<P>The acol(), arad(), bcol(), brad(), and tcol() methods change
+attributes of the atoms, bonds, and triangles displayed.  Each atom or
+bond returned from the data object has an integer "type" from 1 to N.
+The type is used to index into a list of RGB colors or radii for atoms
+and bond thickness.  The adef(), bdef(), and tdef() methods setup
+default mappings of types to colors/radii.  The other methods enable
+specific assignments to be made.  The interpolation option (e.g. many
+types assigned to a few colors), enables a smooth rainbow of colors to
+be assigned to a range of types.  Note that the <A HREF = "dump.html">dump</A> tool
+allows any vector to be returned as an atom "type" via its atype
+setting.  Thus displayed colors can be keyed to atom velocity or other
+properties.
+</P>
+<P>Colors are specified with a string, e.g. "red".  There are 140
+pre-defined colors from <A HREF = "http://www.oreilly.com/catalog/wdnut/excerpt/color_names.html">this WWW page</A> which can be
+examined by importing the "colors" variable from "vizinfo".  New
+colors can be defined by assigning a nickname of your choice to an RGB
+triplet, as described below.
+</P>
+
+
+<P><B>Usage:</B>
+</P>
+<PRE>s = svg(d)                  create SVG object for data in d 
+</PRE>
+<PRE>  d = atom snapshot object (dump, data) 
+</PRE>
+<PRE>s.bg("black")               set background color (def = "black")
+s.size(N)		    set image size to NxN
+s.size(N,M)		    set image size to NxM
+s.rotate(60,135)            view from z theta and azimuthal phi (def = 60,30)
+s.shift(x,y)                translate by x,y pixels in view window (def = 0,0)
+s.zoom(0.5)                 scale image by factor (def = 1)
+s.box(0/1/2)                0/1/2 = none/variable/fixed box
+s.box(0/1/2,"green")        set box color
+s.box(0/1/2,"red",4)        set box edge thickness
+s.file = "image"            file prefix for created images (def = "image") 
+</PRE>
+<PRE>s.show(N)                   show image of snapshot at timestep N 
+</PRE>
+<PRE>s.all()                     make images of all selected snapshots
+s.all(P)                    images of all, start file label at P
+s.all(N,M,P)                make M images of snapshot N, start label at P 
+</PRE>
+<PRE>s.pan(60,135,1.0,40,135,1.5)    pan during all() operation
+s.pan()                         no pan during all() (default) 
+</PRE>
+<PRE>  args = z theta, azimuthal phi, zoom factor at beginning and end
+  values at each step are interpolated between beginning and end values 
+</PRE>
+<PRE>s.select = "$x > %g*3.0"    string to pass to d.aselect.test() during all()
+s.select = ""               no extra aselect (default) 
+</PRE>
+<PRE>  %g varies from 0.0 to 1.0 from beginning to end of all() 
+</PRE>
+<PRE>s.label(x,y,"h",size,"red","This is a label")    add label to each image
+s.nolabel()                                      delete all labels 
+</PRE>
+<PRE>  x,y coords = -0.5 to 0.5, "h" or "t" for Helvetica or Times font
+  size = fontsize (e.g. 10), "red" = color of text 
+</PRE>
+<PRE>s.acol(2,"green")		   set atom colors by atom type (1-N)
+s.acol([2,4],["red","blue"])	   1st arg = one type or list of types
+s.acol(0,"blue")          	   2nd arg = one color or list of colors
+s.acol(range(20),["red","blue"])   if list lengths unequal, interpolate
+s.acol(range(10),"loop")           assign colors in loop, randomly ordered 
+</PRE>
+<PRE>  if 1st arg is 0, set all types to 2nd arg
+  if list of types has a 0 (e.g. range(10)), +1 is added to each value
+  interpolate means colors blend smoothly from one value to the next 
+</PRE>
+<PRE>s.arad([1,2],[0.5,0.3])            set atom radii, same rules as acol() 
+</PRE>
+<PRE>s.bcol()			   set bond color, same args as acol()
+s.brad()			   set bond thickness, same args as arad() 
+</PRE>
+<PRE>s.tcol()			   set triangle color, same args as acol()
+s.tfill()			   set triangle fill, 0 fill, 1 line, 2 both 
+</PRE>
+<PRE>s.lcol()                           set line color, same args as acol()
+s.lrad()                           set line thickness, same args as arad() 
+</PRE>
+<PRE>s.adef()                           set atom/bond/tri/line properties to default
+s.bdef()			   default = "loop" for colors, 0.45 for radii
+s.tdef()  			   default = 0.25 for bond/line thickness
+s.ldef()  			   default = 0 fill 
+</PRE>
+<PRE>  by default 100 types are assigned
+  if atom/bond/tri/line has type > # defined properties, is an error 
+</PRE>
+<PRE>from vizinfo import colors         access color list
+print colors                       list defined color names and RGB values
+colors["nickname"] = [R,G,B]       set new RGB values from 0 to 255 
+</PRE>
+<PRE>  140 pre-defined colors: red, green, blue, purple, yellow, black, white, etc 
+</PRE>
+<PRE>Settings specific to svg tool: 
+</PRE>
+<PRE>s.thick = 2.0               pixel thickness of black atom border 
+</PRE>
+<P><B>Related tools:</B>
+</P>
+<P><A HREF = "dump.html">dump</A>, <A HREF = "gl.html">gl</A>, <A HREF = "raster.html">raster</A>, <A HREF = "rasmol.html">rasmol</A>
+</P>
+<P><B>Prerequisites:</B>
+</P>
+<P>Display program for viewing *.svg image files.
+</P>
+</HTML>

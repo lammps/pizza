@@ -1,0 +1,561 @@
+<HTML>
+<CENTER><A HREF = "Section_intro.html">Previous Section</A> - <A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> -
+<A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> - <A HREF = "Section_basics.html">Next
+Section</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>2. Installing Pizza.py 
+</H3>
+<P>Unpack the Pizza.py distribution by typing the following:
+</P>
+<PRE>gunzip pizza.tar.gz
+tar xvf pizza.tar 
+</PRE>
+<P>The Pizza.py main directory should then contain the following
+directories:
+</P>
+<DIV ALIGN=center><TABLE  BORDER=1 >
+<TR><TD >README</TD><TD >			   initial instructions</TD></TR>
+<TR><TD >LICENSE</TD><TD >		   the GNU open-source license</TD></TR>
+<TR><TD >doc</TD><TD >			   HTML documentation for Pizza.py</TD></TR>
+<TR><TD >examples</TD><TD >		   scripts and data sets that exercise Pizza.py tools</TD></TR>
+<TR><TD >scripts</TD><TD >		   various Pizza.py script files</TD></TR>
+<TR><TD >src</TD><TD >			   source code for Pizza.py and its tools 
+</TD></TR></TABLE></DIV>
+
+<P>Because Python is an interpreted language, there is no need to compile
+or "make" Pizza.py.  You run Pizza.py by executing the src/pizza.py
+file directly, as described below.  However there are 3 issues to
+consider: (a) you must have Python installed on your machine, (b) some
+Pizza.py tools require your Python to be extended with additional
+Python packages, and (c) some Pizza.py tools are wrappers on other
+software which needs to be available on your system.
+</P>
+<P>If you don't plan to use a particular Pizza.py tool, you don't need to
+install additional Python packages or other software it requires.
+</P>
+2.1 <A HREF = "#2_1">Installing Python</A><BR>
+2.2 <A HREF = "#2_2">Running Pizza.py</A><BR>
+2.3 <A HREF = "#2_3">Setting up the DEFAULTS.py file</A><BR>
+2.4 <A HREF = "#2_4">Installing additional Python packages</A><BR>
+2.5 <A HREF = "#2_5">Installing other software</A> <BR>
+
+<P>Note that we cannot provide help on installing the various software
+packages described here.  If you have problems, you'll need to talk to
+a local expert who can help you with your machine.  If you find that
+instructions on this page are incorrect or incomplete or you can
+provide a better description of the install procedure, please send an
+email to sjplimp@sandia.gov.
+</P>
+<HR>
+
+<H4><A NAME = "2_1"></A>Installing Python 
+</H4>
+<P>Python is open-source software available for Unix, Macintosh, and
+Windows machines.  If you have a Linux box or Mac it is probably
+already installed.  If the python executable is in your path, typing
+"python" should give you a Python prompt ">>>" and tell you what
+version you are running.  Version 2.4 or newer is sufficiently current
+to run Pizza.py, though older versions may work as well.
+</P>
+<P>If Python is not installed on your machine, go to
+<A HREF = "http://www.python.org">www.python.org</A> to download a binary or
+source-code version and then build and/or install it.
+</P>
+<P>On my Linux box, this was as easy as
+</P>
+<PRE>./configure; make; sudo make install 
+</PRE>
+<P>To use the Pizza.py tools that have GUIs, you need to insure your
+Python supports Tcl/Tk via the Tkinter module.  You can test if this
+is the case by typing the following from your Python prompt:
+</P>
+<PRE>>>> import Tkinter
+>>> Tkinter._test() 
+</PRE>
+<P>If this fails, see further instructions below for Tkinter.
+</P>
+<P>IMPORTANT NOTE: If you are installing a new version of Python, read
+the Tkinter section first, since it describes how to make sure the
+Tcl/Tk and Togl libraries are installed.  If you want to use the
+Pizza.py tools that require them, you need to do this step before
+building Python.
+</P>
+<HR>
+
+<H4><A NAME = "2_2"></A>Running Pizza.py 
+</H4>
+<P>Typically Pizza.py should be run from the directory where your LAMMPS
+or other data files are.  Like any Python program, Pizza.py can be run
+in one of 2 ways, by typing either
+</P>
+<PRE>python -i ~/pizza/src/pizza.py
+~/pizza/src/pizza.py 
+</PRE>
+<P>where the last argument is the full pathname of the pizza.py file.
+</P>
+<P>The -i switch leaves Python in interactive mode (instead of exiting)
+after the pizza.py script is run.  In the 2nd case, if the src dir is
+in your path, just pizza.py could be typed.  For the 2nd case, you
+must also set src/pizza.py to be an executable file (chmod +x
+pizza.py) and edit the 1st line of pizza.py to reflect where Python
+lives on your system (find it by typing "which python"), e.g.
+</P>
+<PRE>#!/usr/local/bin/python -i 
+</PRE>
+<P>Putting a definition like one of the following in your .cshrc file (or
+equivalent syntax for other Unix shell start-up files) will let you
+simply type "pizza" at the command-line to start Pizza.py.
+</P>
+<P>alias pizza python -i ~/pizza/src/pizza.py
+alias pizza ~/pizza/src/pizza.py
+</P>
+<P>Pizza.py accepts several command-line options; they are described in
+<A HREF = "Section_basics.html">this section</A> of the documentation.
+</P>
+<P>When Pizza.py starts, it reads a few values from the src/DEFAULTS.py
+file (described below) and imports the *.py files from the src
+directory as Python modules.  These are the Pizza.py tools.  Error
+messages will be printed if your Python has not been extended with a
+Python package that a tool requires.  If you don't plan to use the
+tool you can ignore the message, or exclude that tool via the
+command-line switch "-x".
+</P>
+<P>Once all tools have been loaded and any initial scripts and commands
+have been run (via command-line arguments) you should see the Pizza.py
+">" prompt.  From this point on, everything you type is a Python
+command.  Python interprets what you type, operates on your data, and
+produces output or error messages, just as if you were typing in
+response to Python's interactive prompt ">>>".
+</P>
+<P>You can also type special commands that have been added to the Python
+interpreter by Pizza.py or commands that invoke Pizza.py tools.  More
+details about these options are explained in <A HREF = "Section_basics.html">this
+section</A> of the documentation.
+</P>
+<P>As with Python, type Ctrl-D to exit Pizza.py at any time.
+</P>
+<HR>
+
+<H4><A NAME = "2_3"></A>Setting up the DEFAULTS.py file 
+</H4>
+<P>When Pizza.py starts it reads 3 values from the src/DEFAULTS.py file:
+</P>
+<DIV ALIGN=center><TABLE  BORDER=1 >
+<TR><TD >PIZZA_TOOLS</TD><TD > directories that contain additional Pizza.py tools</TD></TR>
+<TR><TD >PIZZA_SCRIPTS</TD><TD > directories that contain additional Pizza.py scripts</TD></TR>
+<TR><TD >PIZZA_EXCLUDE</TD><TD > Python files that are not loaded, since they are not tools 
+</TD></TR></TABLE></DIV>
+
+<P>These are designed to allow users to augment Pizza.py with their own
+tools and scripts, which need not be stored in the directories of the
+Pizza.py pacakge.  Follow the instructions in the DEFAULTS.py file for
+using these options.
+</P>
+<P>The DEFAULTS.py files also contains various variables that specify the
+name and path of programs that Pizza.py tools will execute on your
+system.  In some cases the variables contain settings that are used by
+these programs.  Read the comments in the DEFAULTS.py file for more
+information.
+</P>
+<P>The following table lists the keywords in the DEFAULTS.py, the program
+or setting that will be used by default if the keyword line is
+commented out, and the Pizza.py tools that use the keyword.  If the
+program is not in your path or you wish to use an alternate program or
+setting, you must edit the DEFAULTS.py file accordingly.  If you don't
+plan to use any tool that needs the keyword, you can ignore its
+setting.
+</P>
+<DIV ALIGN=center><TABLE  BORDER=1 >
+<TR><TD >Keyword</TD><TD > Default Value</TD><TD > Purpose</TD><TD > Tools that Use it</TD></TR>
+<TR><TD >DISPLAY</TD><TD > display</TD><TD > display image files (ImageMagick)</TD><TD > rasmol, raster, svg</TD></TR>
+<TR><TD >CONVERT</TD><TD > convert</TD><TD > convert image files (ImageMagick)</TD><TD > image</TD></TR>
+<TR><TD >MONTAGE</TD><TD > montage</TD><TD > montage image files (ImageMagick)</TD><TD > image</TD></TR>
+<TR><TD >GNUPLOT</TD><TD > gnuplot</TD><TD > Gnu Plotting package</TD><TD > gnu</TD></TR>
+<TR><TD >GNUTERM</TD><TD > x11</TD><TD > GnuPlot terminal</TD><TD > gnu</TD></TR>
+<TR><TD >GUNZIP</TD><TD > gunzip</TD><TD > unzip a compressed *.gz file</TD><TD > dump, log</TD></TR>
+<TR><TD >LABEL3D</TD><TD > label3d</TD><TD > put a label on a Raster3D image</TD><TD > raster</TD></TR>
+<TR><TD >MATLAB</TD><TD > matlab</TD><TD > MatLab numerical analysis & plotting package</TD><TD > matlab</TD></TR>
+<TR><TD >RASMOL</TD><TD > rasmol</TD><TD > RasMol molecular vizualization package</TD><TD > rasmol</TD></TR>
+<TR><TD >RENDER</TD><TD > render</TD><TD > Raster3D vizualization rendering engine</TD><TD > raster </TD></TR>
+<TR><TD >VMDNAME</TD><TD > vmd</TD><TD > VMD visualization package</TD><TD > vmd</TD></TR>
+<TR><TD >VMDDIR</TD><TD > /usr/local/lib/vmd</TD><TD > VMD visualization package</TD><TD > vmd</TD></TR>
+<TR><TD >VMDDEV</TD><TD > win</TD><TD > VMD visualization package</TD><TD > vmd</TD></TR>
+<TR><TD >VMDARCH</TD><TD > LINUX</TD><TD > VMD visualization package</TD><TD > vmd 
+</TD></TR></TABLE></DIV>
+
+<HR>
+
+<H4><A NAME = "2_4"></A>Installing additional Python packages 
+</H4>
+<P>This is the list of extra Python packages various Pizza.py tools
+require.  If a tool is not listed it requires no extra packages.
+Instructions on where to find the Python extensions and how to install
+them are listed below.
+</P>
+<DIV ALIGN=center><TABLE  BORDER=1 >
+<TR><TD >Package </TD><TD > Tools that Use it</TD></TR>
+<TR><TD >Numeric or Numpy </TD><TD > dump, mdump, bdump, ldump, tdump</TD></TR>
+<TR><TD >pexpect </TD><TD > vmd</TD></TR>
+<TR><TD >PIL     </TD><TD > animate, gl, image</TD></TR>
+<TR><TD >Pmw     </TD><TD > image</TD></TR>
+<TR><TD >PyOpenGL</TD><TD > gl, vcr</TD></TR>
+<TR><TD >readline</TD><TD > Pizza.py itself</TD></TR>
+<TR><TD >Tkinter and Togl </TD><TD > animate, image, plotview, vcr 
+</TD></TR></TABLE></DIV>
+
+<HR>
+
+<H4>Numeric or Numpy 
+</H4>
+<P><A HREF = "http://numeric.scipy.org">Numeric</A> and its follow-on <A HREF = "numpy">NumPy</A> enables Python to
+process vectors and arrays of numbers efficiently, both in terms of
+memory and CPU speed.  It's an extremely useful extension to have in
+your Python if you do any numerical work on large data sets.  Pizza.py
+can use either Numeric or NumPy.
+</P>
+<P>If Numeric or NumPy is already installed in your Python, you should be
+able to type one of the following without getting an error:
+</P>
+<PRE>>>> import Numeric
+>>> import numpy 
+</PRE>
+<P>Numeric can be downloaded from <A HREF = "http://sourceforge.net/project/showfiles.php?group_id=1369&package_id=1351">this site</A> on SourceForge and
+NumPy from <A HREF = "http://numeric.scipy.org">this site</A>.  Numeric version 24.2 is fine for
+Pizza.py as is a current version of NumPy.  Once unpacked, you can
+type the following from the Numeric or NumPy directories to install it
+in your Python.
+</P>
+<PRE>sudo python setup.py install 
+</PRE>
+<P>Note: on my Linux box, when Numeric installed itself under the Python
+lib in /usr/local, it did not set all file permsissions correctly to
+allow a user to import it.  So I also needed to do this:
+</P>
+<PRE>sudo chmod -R 755 /usr/local/lib/python2.5/site-packages/Numeric 
+</PRE>
+
+
+
+
+<HR>
+
+<H4>pexpect 
+</H4>
+<P><A HREF = "http://pypi.python.org/pypi/pexpect">Pexpect</A> in a pure Python
+implementation of the Expect capability of the Tcl language.  It
+allows Python to send commands to another program, and handshake the
+interaction between them, one command at a time.
+</P>
+<P>If pexpect is already installed in your Python, you should be able to
+type the following without getting an error:
+</P>
+<PRE>>>> import pexpect 
+</PRE>
+<P>Pexpect can be downloaded from <A HREF = "http://pypi.python.org/pypi/pexpect">this
+site</A>.  As of Nov 2010, Version
+2.4 is fine.  On my Linux box, this command installed it:
+</P>
+<PRE>sudo python setup.py install 
+</PRE>
+<HR>
+
+<H4>PIL 
+</H4>
+<P>The PIL (<A HREF = "http://www.pythonware.com/products/pil">Python Imaging Library</A>) allows Python to read image
+files, manipulate them, and convert between several common image
+formats.
+</P>
+
+
+
+
+<P>If PIL is already installed in your Python, you should be able to type
+the following without getting an error:
+</P>
+<PRE>>>> import Image,ImageTk 
+</PRE>
+<P>PIL can be downloaded from <A HREF = "http://effbot.org/zone/pil-index.htm">this site</A>.  As of July 2007,
+Version 1.1.6 is fine.  On my Linux box, this command installed it:
+</P>
+<PRE>sudo python setup.py install 
+</PRE>
+<P>with a notice that Tkinter and ZLIB (PNG) support were enabled.  If
+you want the Pizza.py tools to recognize other image formats
+(e.g. JPEG), then look at the README for further details, if the PIL
+build did not find the correct libraries.
+</P>
+<HR>
+
+<H4>Pmw 
+</H4>
+<P>Pmw (<A HREF = "http://pmw.sourceforge.net">Python mega-widgets</A>) is a common Tkinter extension that
+provides a host of more powerful GUI widgets.
+</P>
+
+
+<P>If Pmw is already installed in your Python, you should be able to type
+the following without getting an error:
+</P>
+<PRE>>>> import Pmw 
+</PRE>
+<P>Pmw can be downloaded from <A HREF = "http://pmw.sourceforge.net">this site</A>.  As of July 2007, Version
+1.2 is fine.  On my Linux box, these commands installed it:
+</P>
+<PRE>cd Pmw.1.3.2/src
+sudo python setup.py install 
+</PRE>
+<HR>
+
+<H4>PyOpenGL 
+</H4>
+<P>The <A HREF = "http://pyopengl.sourceforge.net">PyOpenGL</A> package is a wrapper on the ubiquitous OpenGL
+graphics library and allows a Python program to make graphics calls in
+standard OpenGL syntax.  It also includes Togl support for opening a
+Tk OpenGL widget, assuming your Python has Tkinter intstalled and that
+Tkinter was built with Togl.  The Pizza.py tools that use PyOpenGL
+require this capability.
+</P>
+
+
+<P>If PyOpenGL is already installed in your Python, you should be able to
+type the following without getting an error:
+</P>
+<PRE>>>> import OpenGL 
+</PRE>
+<P>If your PyOpenGL supports Togl, you should be able to type the
+following without getting an error:
+</P>
+<PRE>>>> from OpenGL.Tk import *
+>>> from OpenGL.GLUT import * 
+</PRE>
+<P>PyOpenGL can be downloaded from <A HREF = "http://pyopengl.sourceforge.net">this site</A> on SourceForge.
+You want the latest PyOpenGL release (not OpenGLContext).  As of July
+2007, Version 3.0.0a6 is what I used.
+</P>
+<P>IMPORTANT NOTE: I had many problems installing earlier versions of
+PyOpenGL on various boxes.  But the 3.0 release was much easier to
+install on my Linux box, as outlined here.  Note that version 3.0
+requires Python 2.4 or later.
+</P>
+<P>IMPORTANT NOTE #2: By default, your Python may or may not have Tkinter
+installed.  Even if Tkinter is installed, it probably was not built
+with Togl.  If this is the case, you should install them first before
+installing PyOpenGl, otherwise you may get errors when you try to use
+the Pizza.py tools that use PyOpenGL, because they require Tkinter and
+Togl.  See the Tkinter section below for instructions on installing
+Tkinter and Togl in your Python.
+</P>
+<P>Once Tcl/Tk and Togl were in place, Installing PyOpenGL on my Linux
+box was as simple as:
+</P>
+<PRE>sudo python setup.py install 
+</PRE>
+<P>(Sep 2012) A user reports, you can also then do this:
+</P>
+<P>cd src
+sudo python togl.py
+</P>
+<P>which should enable Togl with PyOpenGL
+</P>
+<HR>
+
+<H4>readline 
+</H4>
+<P>The <A HREF = "http://cnswww.cns.cwru.edu/~chet/readline/rltop.html">readline</A> library is part of Python but is not supported
+on all systems.  If it works in your Python, then Pizza.py (and
+Python) prompts are more shell-like and should support arrow keys,
+Emacs-style editing, command history, etc.  If you get an error "No
+module named readline" when Pizza.py starts up, you can ignore it, or
+comment out the line "import readline" in src/pizza.py.
+</P>
+<P>If readline is already installed in your Python, you should be able to
+type the following without getting an error:
+</P>
+<PRE>>>> import readline 
+</PRE>
+<P>The readline library can be downloaded from <A HREF = "http://cnswww.cns.cwru.edu/~chet/readline/rltop.html#Availability">this site</A>.
+After building the library, I believe you then have to rebuild Python
+itself.
+</P>
+
+
+
+
+<HR>
+
+<H4>Tkinter and Togl 
+</H4>
+<P>The Tkinter package is part of Python but is not always enabled when
+Python is built, typically due to not finding the Tcl/Tk libraries.
+If you can type the following without an error message in your Python,
+then Tkinter is operational in your Python:
+</P>
+<PRE>>>> import Tkinter
+>>> Tkinter._test() 
+</PRE>
+<P>If this fails, you need to rebuild Python and either insure it finds
+the Tcl/Tk libraries or build those libraries first as described here.
+Since I wanted a more current Python then was installed with Linux on
+my box, I download the latest Python (Python 2.5.1 as of July 2007)
+and installed it under /usr/local.
+</P>
+<P>IMPORTANT NOTE: If you want to use any of the Pizza.py tools that use
+PyOpenGL, you also need the Togl library installed in the same
+directory as your Tcl/Tk libraries, so that Tcl/Tk can find it when it
+runs.  Thus you should also install Togl, after building the Tcl/Tk
+libraries, and do both before re-building Python, as outlined in the
+following 3 steps.
+</P>
+<P>(1) Building Tcl/Tk libraries
+</P>
+<P>You can download the latest versions of Tcl and Tk here:
+</P>
+
+
+<P>As of Oct 2011, version 8.5 is fine.  After unpacking the two tarballs
+I did the following:
+</P>
+<PRE>cd tcl8.5.10/unix
+./configure; make; sudo make install 
+cd tk8.5.10/unix
+./configure; make; sudo make install 
+</PRE>
+<P>(2) Installing Togl
+</P>
+<P>To intstall Togl, download it from <A HREF = "http://togl.sourceforge.net">this site</A> on SourceForge.
+As of Oct 2011, Version 2.0 is fine.
+</P>
+
+
+<P>After unpacking the tarball, try typing the following to install it:
+</P>
+<P>./configure
+</P>
+<P>The first time I did this, it complained about not finding the Tcl and
+Tk strings it needed to point to Tcl/Tk.  I fixed this by installing
+the tcl-devel package via yum.
+</P>
+<P>I then noticed that "configure" was finding the system Tcl/Tk instead
+of the one I had installed.  So I typed this instead:
+</P>
+<PRE>configure --with-tcl=/usr/local/lib/tcl8.5 --with-tk=/usr/local/lib/tk8.5 
+</PRE>
+<P>You should also make sure that "configure" prints a "prefix" string
+that points to the correct directory where you want Togl installed.
+For example, in my case, I did not want it installed in /usr/lib to
+use with the system Python, but in /usr/local/lib to be loaded by my
+own installed Python version.
+</P>
+<P>Using the with Tcl/Tk options on the configure command fixed this
+as well.
+</P>
+<P>(3) Rebuilding Python
+</P>
+<P>Now you can re-build Python (as described above) and it should find
+the correct Tcl/Tk libraries under /usr/local, so that you have
+Tkinter and Togl working with your Python as well.  Note that when you
+run ./configure as the first step in building Python, it will tell you
+what it found for Tcl/Tk.
+</P>
+<HR>
+
+<H4><A NAME = "2_5"></A>Installing other software 
+</H4>
+<P>Some Pizza.py tools invoke other software which must be installed on
+your system for the tool to work.  This is an alphabetic list of the
+needed software.  Except where noted, it is freely available for
+download on the WWW.  The Pizza.py tools that use this software are
+listed above in <A HREF = "#2_3">this section</A>.  To see if you already have the
+software on your box, type "which command", e.g. "which display".
+</P>
+<H4>ImageMagick display, convert, montage commands 
+</H4>
+<P>Several Pizza.py tools display image files.  The ImageMagick "display"
+program can be used for this purpose.  Likewise, the ImageMagick
+"convert" and "montage" comands are used by the image tool.  The
+ImageMagick toolkit can be downloaded from <A HREF = "http://www.imagemagick.org/script/index.php">this site</A> and
+contains a variety of useful image conversion and manipulation
+software.
+</P>
+
+
+<H4>GnuPlot 
+</H4>
+<P>The Pizza.py gnu tool is a wrapper on the open-source GnuPlot program.
+GnuPlot can be downloaded from <A HREF = "http://www.gnuplot.info">this site</A>.
+</P>
+
+
+<H4>Gunzip 
+</H4>
+<P>Gunzip is invoked by Python to read compressed (*.gz) data and dump
+files.  It is almost certainly on your Unix system.  If not if can be
+downloaded from <A HREF = "http://www.gnu.org/software/gzip/gzip.html">this site</A>.
+</P>
+
+
+<H4>Label3d 
+</H4>
+<P>The Pizza.py tool raster uses the label3d and render programs from the
+Raster3d visualization package to produce high-quality ray-traced
+images.  See the description of "Render" below for information about
+Raster3d.
+</P>
+<H4>MatLab 
+</H4>
+<P>The Pizza.py matlab tool is a wrapper on MatLab which is a widely-used
+commercial numerical analysis package that also produces nice plots.
+Further information is available at <A HREF = "http://www.mathworks.com">the MathWorks WWW site</A>.
+When MatLab is installed on your system and the appropriate
+environment variables are set, the command "matlab" should launch the
+program.
+</P>
+
+
+<H4>RasMol 
+</H4>
+<P>The Pizza.py rasmol tool invokes the RasMol visualization package to
+view molecular systems and produce nice images.  RasMol can be
+downloaded from <A HREF = "http://www.openrasmol.org">this site</A>, which is for the original
+open-source version of RasMol, not the Protein Explorer derivative
+version of RasMol.
+</P>
+
+
+<P>Note that when using RasMol on a Mac, you will need to launch X11
+first (or run Pizza.py from an X11 xterm) to get RasMol to display
+properly.
+</P>
+<H4>Render 
+</H4>
+<P>The Pizza.py tool raster uses the render and label3d programs from the
+Raster3d visualization package to produce high-quality ray-traced
+images.  Raster3d can be downloaded from <A HREF = "http://www.bmsc.washington.edu/raster3d/raster3d.html">this site</A>.
+</P>
+
+
+<P>For Macs, Raster3d is available for download via <A HREF = "http://fink.sourceforge.net/pdb/package.php/raster3d">Fink</A> as an
+<A HREF = "http://fink.sourceforge.net/faq/usage-fink.php?phpLang=en#unstable">unstable package</A>.
+</P>
+
+
+
+
+<H4>VMD 
+</H4>
+<P>The Pizza.py vmd tool is a simple wrapper on the <A HREF = "http://www.ks.uiuc.edu/Research/vmd">VMD visualization
+package</A> which is a popular tool for visualizing the output of
+molecular dynamics simulations.  VMD can be downloaded from <A HREF = "http://www.ks.uiuc.edu/Research/vmd">this
+site</A>.
+</P>
+
+
+</HTML>

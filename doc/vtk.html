@@ -1,0 +1,54 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>vtk tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>Convert LAMMPS snapshots to VTK format.
+</P>
+<P><B>Description:</B>
+</P>
+<P>The vtk tool converts atom snapshots in a LAMMPS dump or data file to
+the VTK format used by various visualization packages.
+</P>
+<P>The vtk constructor takes an object that stores atom snapshots
+(<A HREF = "dump.html">dump</A>, <A HREF = "data.html">data</A>) as its first argument.  The atom
+snapshots must have "id", "type", "x", "y", and "z" defined; see the
+map() methods of those tools.
+</P>
+<P>The one(), many(), and single() methods convert specific snapshots to
+the VTK format and write them out.  Optionally, a file prefix for the
+XYZ output files can also be specified.  A ".xyz" suffix will be
+appended to all output files.
+</P>
+<P><B>Usage:</B>
+</P>
+<PRE>v = vtk(d)	        d = object containing atom coords (dump, data) 
+</PRE>
+<PRE>v.one()                 write all snapshots to tmp.vtk
+v.one("new")            write all snapshots to new.vtk
+v.many()                write snapshots to tmp0000.vtk, tmp0001.vtk, etc
+v.many("new")           write snapshots to new0000.vtk, new0001.vtk, etc
+v.single(N)             write snapshot for timestep N to tmp.vtk 
+v.single(N,"file")      write snapshot for timestep N to file.vtk 
+</PRE>
+<PRE>  surfaces in snapshot will be written to SURF1.vtk, SURF2.vtk, etc
+    where each surface (triangle type) is in a different file 
+</PRE>
+<P><B>Related tools:</B>
+</P>
+<P><A HREF = "cfg.html">cfg</A>, <A HREF = "data.html">data</A>, <A HREF = "dump.html">dump</A>,
+<A HREF = "ensight.html">ensight</A>, <A HREF = "xyz.html">xyz</A>
+</P>
+<P><B>Prerequisites:</B> none
+</P>
+</HTML>

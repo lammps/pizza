@@ -1,0 +1,107 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>data tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>Read, write, manipulate LAMMPS data files.
+</P>
+<P><B>Description:</B>
+</P>
+<P>The data tool reads and writes LAMMPS data files.  It also allows
+their content to be accessed or modified.
+</P>
+<P>The data constructor reads in the specified LAMMPS data file.  With no
+argument, an empty data object is created which can have fields added
+to it later, and then be written out.
+</P>
+<P>The map() method assigns names to different atom attributes by their
+column number (1-N).  The get() method extracts columns of information
+from the specified section of the data file.
+</P>
+<P>The title, headers, and sections variables can be set directly.  The
+header values correspond to one-line definition that appear at the top
+of the data file.  The box size values should be set to a Python
+tuple, e.g.
+</P>
+<PRE>d.headers["xlo xhi"] = (-30, 30) 
+</PRE>
+<P>The section value should be a list of text lines, each of which
+includes a newline at the end.
+</P>
+<P>The delete() method deletes a header or entire section of the data
+file.  The replace() method allows one column of a section to be
+replaced with a vector of new values.  The newxyz() methods replaces
+the xyz coords of the "Atoms" section of the data file with xyz values
+from the Nth snapshot of a dump object containing snapshots.
+</P>
+<P>The iterator() and viz() methods are called by Pizza.py tools that
+visualize snapshots of atoms (e.g. raster, svg tools).  A data file
+can be visualzed similarly to snapshots from a dump file.  In the case
+of a data file, there is only a single snapshot with index 0.
+</P>
+<P>The write() method outputs a LAMMPS data file.
+</P>
+<P><B>Usage:</B>
+</P>
+<PRE>d = data("data.poly")            read a LAMMPS data file, can be gzipped
+d = data()			 create an empty data file 
+</PRE>
+<PRE>d.map(1,"id",3,"x")              assign names to atom columns (1-N) 
+</PRE>
+<PRE>coeffs = d.get("Pair Coeffs")    extract info from data file section
+q = d.get("Atoms",4) 
+</PRE>
+<PRE>  1 arg = all columns returned as 2d array of floats
+  2 args = Nth column returned as vector of floats 
+</PRE>
+<PRE>d.reorder("Atoms",1,3,2,4,5)     reorder columns (1-N) in a data file section 
+</PRE>
+<PRE>  1,3,2,4,5 = new order of previous columns, can delete columns this way 
+</PRE>
+<PRE>d.title = "My LAMMPS data file"	 set title of the data file
+d.headers["atoms"] = 1500        set a header value
+d.sections["Bonds"] = lines      set a section to list of lines (with newlines)
+d.delete("bonds")		 delete a keyword or section of data file
+d.delete("Bonds")
+d.replace("Atoms",5,vec)      	 replace Nth column of section with vector
+d.newxyz(dmp,1000)		 replace xyz in Atoms with xyz of snapshot N 
+</PRE>
+<PRE>  newxyz assumes id,x,y,z are defined in both data and dump files
+    also replaces ix,iy,iz if they are defined 
+</PRE>
+<PRE>index,time,flag = d.iterator(0/1)          loop over single data file snapshot
+time,box,atoms,bonds,tris,lines = d.viz(index)   return list of viz objects 
+</PRE>
+<PRE>  iterator() and viz() are compatible with equivalent dump calls
+  iterator() called with arg = 0 first time, with arg = 1 on subsequent calls
+    index = timestep index within dump object (only 0 for data file)
+    time = timestep value (only 0 for data file)
+    flag = -1 when iteration is done, 1 otherwise
+  viz() returns info for specified timestep index (must be 0)
+    time = 0
+    box = [xlo,ylo,zlo,xhi,yhi,zhi]
+    atoms = id,type,x,y,z for each atom as 2d array
+    bonds = id,type,x1,y1,z1,x2,y2,z2,t1,t2 for each bond as 2d array
+      NULL if bonds do not exist
+    tris = NULL
+    lines = NULL 
+</PRE>
+<PRE>d.write("data.new")             write a LAMMPS data file 
+</PRE>
+<P><B>Related tools:</B>
+</P>
+<P><A HREF = "gl.html">gl</A>, <A HREF = "raster.html">raster</A>, <A HREF = "svg.html">svg</A>
+</P>
+<P><B>Prerequisites:</B> none
+</P>
+</HTML>

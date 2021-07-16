@@ -1,0 +1,55 @@
+"Pizza.py WWW Site"_pws - "Pizza.py Documentation"_pd - "Pizza.py Tools"_pc :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pc,Section_tools.html)
+
+:line
+
+vmd tool :h3
+
+[Purpose:]
+
+Control VMD from python.
+
+[Description:]
+
+The vmd tool is a simple wrapper on the "VMD visualization
+package"_vmd, a popular tool for visualizing snapshots from molecular
+dynamics simulations.
+
+:link(vmd,http://www.ks.uiuc.edu/Research/vmd)
+
+The vmd constructor invokes VMD in its own window.  Data can be passed
+to it for visualization via the new(), data(), replace(), and append()
+methods.  The other methods permit more specialized interactions with
+VMD through its command syntax.
+
+[Usage:]
+
+v = vmd()		       start up VMD
+v.stop()		       shut down VMD instance
+v.clear()		       delete all visualizations :pre
+
+v.rep(style)		       set default representation style. One of
+			       (Lines|VDW|Licorice|DynamicBonds|Points|CPK) 
+v.new(file\[,type\])   	       load new file (default file type 'lammpstrj')
+v.data(file\[,atomstyle\])       load new data file (default atom style 'full')
+v.replace(file\[,type\])	       replace current frames with new file
+v.append(file\[,type\]) 	       append file to current frame(s)
+v.set(snap,x,y,z,(True|False)) set coordinates from a pizza.py snapshot to new or current frame :pre
+
+v.frame(frame)		       set current frame
+v.flush()		       flush pending input to VMD and update GUI
+v.read(file)		       read Tcl script file (e.g. saved state) :pre
+
+v.enter()		       enter interactive shell
+v.debug(\[True|False\])	       display generated VMD script commands? :pre
+
+[Related tools:]
+
+"gl"_gl.html
+
+[Prerequisites:]
+
+Python pexpect package.

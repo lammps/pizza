@@ -1,0 +1,221 @@
+"Pizza.py WWW Site"_pws - "Pizza.py Documentation"_pd - "Pizza.py Tools"_pc :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pc,Section_tools.html)
+
+:line
+
+cdata tool :h3
+
+[Purpose:]
+
+Read, create, manipulate ChemCell data files.
+
+[Description:]
+
+The cdata tool reads and writes "ChemCell"_chemcell data files which
+contain particle and surface information.  It enables the creation of
+geometric models of cells for input to ChemCell.
+
+:link(chemcell,http://chemcell.sandia.gov)
+
+The cdata constructor reads in the specified ChemCell data file.  With
+no argument, an empty cdata object is created which can have objects
+added to it later, and then be written out.
+
+A cdata object or file contains "objects" of different types.  Each
+object has a unique user-assigned ID.  Objects can be of several
+types: "group", "triangles", "region", "facets", or "lines".  A group
+is a list of particles, all of the same type.  Triangles define a
+surface and include a list of vertices, triangle definitions, and
+adjacent edge connections.  A region is a geometric object that
+defines a surface, such as a sphere.  Facets are a CUBIT meshing
+format that defines a set of vertices and triangles; it is converted
+into a triangles entry.  Lines are a collection of line segments.
+
+The box(), sphere(), shell(), cyl(), and cap() methods create a new
+"region" object.  The q() method sets triangulations factors that are
+used when the region is converted into a triangulated surface for
+output or visualization.
+
+The line() and ibox() methods create a "lines" object.
+
+The surf() method creates a "triangles" object from a region, using
+the q() parameters.  The surftri() method creats a new "triangles"
+object from a list of triangle indices belonging to another surface.
+The surfselect() method applies an if test to vertices and triangles
+in another surface to choose a subset of them to form a new
+"triangles" object.  The bins() method sets the number of bins in x,y
+when surfaces are binned for the purpose of creating particles
+inside/outside the surface.
+
+The part(), part2d(), partarray(), and partring() methods create a
+"group" of particles inside, outside, or on regions or triangulated
+surfaces.  Particles are 3d by default, or 2d if created on a surface.
+The partsurf() method can be used to change the name of the surface 2d
+particles are on, since that attribute is written to a file when the
+particles are output.  The creation of particles uses a random #
+generator whose initial seed can be set via the seed() method.
+
+The random() method can be used to pick a random point on the surface
+of a "region" or "triangles" object.  The project() method maps
+particles to the surface of a "region" or "triangulate" object.
+
+The center(), trans(), rotate(), and scale() methods are used to
+perform a geometric transformation on a "group" of particles or a
+"triangles" object.  The union() method creates a new object of
+"union" type from a list of objects.  The join() method does the same
+thing except all objects in the list must be of the same type and the
+new object is also of that type.  A join() can only be done for
+"group", "triangles", or "line" objects.  The delete(), rename(), and
+copy() methods manipulate the IDs of previously defined objects.
+
+Be default all objects are selected when created.  The select() and
+unselect() methods can be used to select a subset of existing objects.
+The write() and append() methods write out selected objects to a file.
+
+The iterator() and viz() methods are called by Pizza.py tools that
+visualize snapshots of atoms (e.g. gl, raster, svg tools).  Only
+selected objects are returned to the caller.  A cdata file can be
+visualzed similarly to a snapshots from a dump file.  In the case of a
+cdata file, there is only a single snapshot with index 0.
+
+[Usage:]
+
+c = cdata()			   create a datafile object
+c = cdata("mem.surf")              read in one or more ChemCell data files
+c = cdata("mem.part.gz mem.surf")  can be gzipped
+c = cdata("mem.*")		   wildcard expands to multiple files
+c.read("mem.surf")		   read in one or more data files :pre
+
+  read() has same argument options as constructor
+  files contain the following kinds of entries, each of which becomes an object
+    particles, triangles, region, facets
+    particles is a list of particles -> becomes a group
+    triangles is 3 lists of vertices, triangles, connections -> becomes a surf
+    region is a ChemCell command defining a region -> becomes a region
+    facets is a CUBIT format of vertices and triangles -> becomes a surf
+  each object is assigned an ID = name in file
+  ID can be any number or string, must be unique :pre
+
+c.box(ID,xlo,ylo,zlo,xhi,yhi,zhi)  create a box region
+c.sphere(ID,x,y,z,r)		   create a sphere region
+c.shell(ID,x,y,z,r,rinner)	   create a shell region
+c.cyl(ID,'x',c1,c2,r,lo,hi)	   create a axis-aligned cylinder region
+c.cap(ID,'x',c1,c2,r,lo,hi)	   create a axis-aligned capped-cylinder region
+c.q(ID,q1,q2,...)                  set region triangulation quality factors :pre
+
+  box() can create an axis-aligned plane, line, or point if lo=hi
+  cyl() can create an axis-aligned circle if lo=hi
+  for cyl() and cap(): 'x' c1,c2 = y,z; 'y' c1,c2 = x,z; 'z' c,c2 = x,y
+  q's are size factors for region triangulation
+    for box, q1,q2,q3 = # of divisions per xyz of box
+    for sphere or shell, q1 = # of divisions per face edge of embedded cube
+    for cyl or cap, q1 = # of divisions per face edge of end cap, must be even
+                    q2 = # of divisions along length of cylinder :pre
+
+c.line(ID,x1,y1,z1,x2,y2,z2)       create a line object with one line
+c.lbox(ID,xlo,ylo,zlo,xhi,yhi,zhi) create a line object with 12 box lines :pre
+
+c.surf(ID,id-region)               create a triangulated surf from a region
+c.surftri(ID,id-surf,t1,t2,...)    create a tri surf from list of id-surf tris
+c.surfselect(ID,id-surf,test)      create a tri surf from test on id-surf tris
+c.bins(ID,nx,ny)                   set binning parameters for a surf :pre
+
+  triangulation of a shell is just done for the outer sphere
+  for surftri(), one or more tri indices (1-N) must be listed
+  for surfselect(), test is string like "$x < 2.0 and $y > 0.0"
+  bins are used when particles are created inside/outside a surf :pre
+
+c.part(ID,n,id_in)  	           create N particles inside object id_in
+c.part(ID,n,id_in,id_out)	   particles are also outside object id_out
+c.part2d(ID,n,id_on)               create 2d particles on object id_on
+c.partarray(ID,nx,nz,nz,x,y,z,dx,dy,dz)   create 3d grid of particles
+c.partring(ID,n,x,y,z,r,'x')              create ring of particles
+c.partsurf(ID,id_on)               change surf of existing 2d particle group
+c.seed(43284)			   set random # seed (def = 12345) :pre
+
+  generate particle positions randomly (unless otherwise noted)
+  for part(), id_in and id_out must be IDs of a surf, region, or union object
+    inside a union object means inside any of the lower-level objects
+    outside a union object means outside all of the lower-level objects
+  for part2d(), id_on must be ID of a surf, region, or union object
+  for part2d(), particles will be written as 2d assigned to surf id_on
+  for partring(), ring axis is in 'x','y', or 'z' direction
+  partsurf() changes surf id_on for an existing 2d particle group :pre
+
+x,n = c.random(ID)                 pick a random pt on surf of object ID
+c.project(ID,ID2,dx,dy,dz,eps,fg)  project particles in ID to surf of obj ID2 :pre
+
+  random() returns pt = \[x,y,z\] and normal vec n \[nx,ny,nz\]
+  for random(), ID can be surf or region obj
+  project() remaps particle coords in group ID
+    moves each particle along dir until they are within eps of surface
+    if no fg arg, dir = (dx,dy,dz)
+    if fg arg, dir = line from particle coord to (dx,dy,dz)
+    ID2 can be surf or region obj
+    particles are converted to 2d assigned to surf ID2 :pre
+
+c.center(ID,x,y,z)                 set center point of object
+c.trans(ID,dx,dy,dz)   	 	   translate an object
+c.rotate(ID,'x',1,1,0,'z',-1,1,0)  rotate an object
+c.scale(ID,sx,sy,sz)		   scale an object :pre
+
+  objects must be surface or particle group, regions cannot be changed
+  for center(), default is middle of bounding box (set when obj is created)
+  for rotate(), set any 2 axes, must be orthogonal, 3rd is inferred
+    object is rotated so that it's current xyz axes point along new ones
+  rotation and scaling occur relative to center point :pre
+
+c.union(ID,id1,id2,...)		   create a new union object from id1,id2,etc
+c.join(ID,id1,id2,...)             create a new object by joining id1,id2,etc
+c.delete(id1,id2,...)              delete one or more objects
+c.rename(ID,IDnew)                 rename an object
+c.copy(ID,IDnew) 	           create a new object as copy of old object :pre
+
+  for union, all lower-level objects must be of surface, region, or union style
+  for join, all joined objects must be of same style: group, surf, line
+    new object is the same style :pre
+
+c.select(id1,id2,...)              select one or more objects
+c.select()                         select all objects
+c.unselect(id1,id2,...)            unselect one or more objects
+c.unselect()                       unselect all objects :pre
+
+  selection applies to write() and viz() :pre
+
+c.write("file")			   write all selected objs to ChemCell file
+c.write("file",id1,id2,...)	   write only listed & selected objects to file
+c.append("file")		   append all selected objs to ChemCell file
+c.append("file",id1,id2,...)	   append only listed & selected objects :pre
+
+  union objects are skipped, not written to file :pre
+
+index,time,flag = c.iterator(0/1)          loop over single snapshot
+time,box,atoms,bonds,tris,lines = c.viz(index)   return list of viz objects :pre
+
+  iterator() and viz() are compatible with equivalent dump calls
+  iterator() called with arg = 0 first time, with arg = 1 on subsequent calls
+    index = timestep index within dump object (only 0 for data file)
+    time = timestep value (only 0 for data file)
+    flag = -1 when iteration is done, 1 otherwise
+  viz() returns info for selected objs for specified timestep index (must be 0)
+    time = 0
+    box = \[xlo,ylo,zlo,xhi,yhi,zhi\]
+    atoms = id,type,x,y,z for each atom as 2d array
+      NULL if atoms do not exist
+    bonds = NULL
+    tris = id,type,x1,y1,z1,x2,y2,z2,x3,y3,z3,nx,ny,nz for each tri as 2d array
+      regions are triangulated according to q() settings by viz()
+      NULL if surfaces do not exist
+    lines = id,type,x1,y1,z1,x2,y2,z2 for each line as 2d array
+      NULL if lines do not exist
+    types are assigned to each object of same style in ascending order :pre
+
+[Related tools:]
+
+"olog"_olog.html, "data"_data.html, "gl"_gl.html,
+"raster"_raster.html, "svg"_svg.html
+
+[Prerequisites:] none

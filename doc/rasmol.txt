@@ -1,0 +1,72 @@
+"Pizza.py WWW Site"_pws - "Pizza.py Documentation"_pd - "Pizza.py Tools"_pc :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pc,Section_tools.html)
+
+:line
+
+rasmol tool :h3
+
+[Purpose:]
+
+3d visualization via RasMol program.
+
+[Description:]
+
+The rasmol tool is a wrapper on the "RasMol"_http://www.openrasmol.org
+visualization program.  RasMol is open source software and runs on
+many platforms.  The link above is for the Open Rasmol WWW site, not
+the Protein Explorer WWW site.  Protein Explorer is a derivative of
+RasMol and runs primarily on Windows machines within a browser.  This
+Pizza.py tool wraps the original RasMol program, not Protein Explorer.
+
+The rasmol constructor takes a "pdbfile"_pdbfile.html object as its
+argument which produces PDB files that RasMol reads in.  The pdbfile
+object can produce PDB files from a LAMMPS dump or data file, as well
+as in other ways.
+
+The show() method runs RasMol on the atoms of snapshot N (converted to
+a PDB file) and displays the resulting image stored as image.gif.
+Either a default RasMol script or one you specify is used to format
+the RasMol image.  The all() method loops thru all selected snapshots
+and runs RasMol on each one.  The resulting image files are saved to
+image0000.gif, image0001.gif, etc.  The prefix "image" can be changed
+via the file setting.
+
+A RasMol script can be created by running RasMol itself (outside of
+Pizza.py), typing commands or choosing menu options to format the
+display as desired, then typing "write script filename".
+Alternatively the run() method will do this for you.  It runs RasMol
+on snapshot N and lets you interact with RasMol directly either via
+typing or mouse operations in the RasMol window.  When you type "quit"
+or "exit" the script file will be saved (do not exit via the Rasmol
+menu).
+
+[Usage:]
+
+r = rasmol(p)           create RasMol wrapper for pdb object p :pre
+
+r.file = "image"        file prefix for created images (def = "image") :pre
+
+r.show(N)               show snapshot at timestep N with default script
+r.show(N,"my.rasmol")   use file as RasMol script :pre
+
+r.all()                 make images of all selected snapshots with def script
+r.all("my.rasmol")      use file as RasMol script :pre
+
+r.run(N)                run RasMol interactivly on snapshot N
+r.run(N,"new.rasmol")                 adjust via mouse or RasMol commands
+r.run(N,"new.rasmol","old.rasmol")    type quit to save RasMol script file :pre
+
+  if 2 args, 2nd arg is new script file, else save to "tmp.rasmol"
+  if 3 args, 3rd arg is initial script file, else use default script :pre
+
+[Related tools:]
+
+"dump"_dump.html, "gl"_gl.html, "pdbfile"_pdbfile.html,
+"raster"_raster.html, "svg"_svg.html
+
+[Prerequisites:]
+
+The RasMol program.

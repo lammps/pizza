@@ -1,0 +1,125 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>patch tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>Create patchy or rigid particles for LAMMPS input.
+</P>
+<P><B>Description:</B>
+</P>
+<P>The patch tool creates large multi-atom particles and writes them out
+as a LAMMPS data file.  They need to be simulated with a soft
+potential in LAMMPS to un-overlap them before they form a proper
+ensemble.
+</P>
+<P>The individual particles consist of a collection of Lennard-Jones
+atoms of various types.  By defining force field coefficients
+appropriately, specific atoms can be made attractive or repulsive, so
+that "patches" of atoms on the particle surface are reactive.  The
+<A HREF = "http://pizza.sandia.gov">Pizza.py WWW site</A> has example images and movies of simulations
+using such particles.  A <A HREF = "#Glotzer">paper</A> by <A HREF = "http://www.engin.umich.edu/dept/che/research/glotzer">Sharon Glotzer's
+group</A> at U Michigan describing a variety of patchy particle
+models was the motivation for this tool.
+</P>
+
+
+<P>The patch constructor takes a volume fraction as an argument to determine
+how densely to fill the simulation box.  Optionally, the box shape can
+also be specified.
+</P>
+<P>The build() method creates N particles, each of speficied style and
+with specified atom types.  Several styles are available and new ones
+can easily be added to patch.py.  You will need to look in patch.py
+for the details of what each style represents.  For example, "hex2"
+uses a C60 bucky ball as a template and creates hexagonal 6-atom
+patches (atoms of a different type) on either side of the ball.
+</P>
+<P>The build() method can be invoked multiple times to create collections
+of particles.  The position and orientation of each particle is chosen
+randomly.  The seed value sets the random number generator used for
+coordinate generation.
+</P>
+<P>The ensemble of chains is written to a LAMMPS data file via the
+write() method.
+</P>
+<P><B>Usage:</B>
+</P>
+<PRE>p = patch(vfrac)           setup box with a specified volume fraction
+p = patch(vfrac,1,1,2)     x,y,z = aspect ratio of box (def = 1,1,1) 
+</PRE>
+<PRE>p.seed = 48379		   set random # seed (def = 12345)
+p.randomized = 0	   1 = choose next mol randomly (def), 0 = as generated
+p.dim = 2		   set dimension of created box (def = 3)
+p.blen = 0.97              set length of tether bonds (def = 0.97)
+p.dmin = 1.02              set min r from i-1 to i+1 tether site (def = 1.02)
+p.lattice = [Nx,Ny,Nz]     generate Nx by Ny by Nz lattice of particles
+p.displace = [Dx,Dy,Dz]    displace particles randomly by +/- Dx,Dy,Dz
+p.style = "sphere"         atom-style of data file, molecular or sphere
+p.extra = "Molecules"      add extra Molecules section to data file
+p.extratype = 1            add extra atom types when write data file 
+</PRE>
+<PRE>  randomized means choose molecules in random order when creating output
+  if lattice is set, Nx*Ny*Nz must equal N for build (Nz = 1 for 2d)
+  lattice = [0,0,0] = generate N particles randomly = default
+  displace = [0,0,0] = default
+  displacement applied when writing molecule to data file
+  style = molecular by default
+  style is auto-set to line,tri,box by corresponding keywords
+  extratype = 0 by default 
+</PRE>
+<PRE>p.build(100,"hex2",1,2,3)  create 100 "hex2" particles with params 1,2,3 
+</PRE>
+<PRE>  can be invoked multiple times
+  keywords:
+    c60hex2: diam,1,2,3 = C-60 with 2 hex patches and ctr part, types 1,2,3
+    hex2: diam,1,2 = one large particle with 2 7-mer hex patches, types 1,2
+    hex4: diam,1,2 = one large particle with 4 7-mer hex patches, types 1,2
+    ring: diam,N,1,2 = one large part with equatorial ring of N, types 1,2
+    ball: diam,m1,m2,1,2,3 = large ball with m12-len tethers, types 1,2,3
+    tri5: 1,2 = 3-layer 5-size hollow tri, types 1,2
+    rod: N,m1,m2,1,2,3 = N-length rod with m12-len tethers, types 1,2,3
+    tri: N,m1,m2,m3,1,2,3,4 = N-size tri with m123-len tethers, types 1-4
+    trid2d: N,r,1 = 3d equilateral tri, N beads r apart, type 1, no bonds
+    hex: m1,m2,m3,m4,m5,m6,1,2,3,4,5,6,7 = 7-atom hex with m-len tethers, t 1-7
+    dimer: r,1 = two particles r apart, type 1, no bond
+    star2d: N,r,1 = 2d star of length N (odd), beads r apart, type 1, no bonds
+    box2d: N,M,r,1 = 2d NxM hollow box, beads r apart, type 1, no bonds
+    pgon2d: Nlo,Nhi,m = 2d hollow polygons with random N beads from Nlo to Nhi
+    sphere3d: Nlo,Nhi,m = 3d hollow spheres with random N beads/cube-edge 
+                          from Nlo to Nhi
+    tritet: A,m = 4-tri tet with edge length A, tri type m
+    tribox: Alo,Ahi,Blo,Bhi,Clo,Chi,m = 12-tri box with side lengths A,B,C & m
+    linebox: Alo,Ahi,Blo,Bhi,m = 4-line 2d rectangle with random side lengths
+                                 from Alo to Ahi and Blo to Bhi, line type m
+                                 built of line particles
+    linetri: Alo,Ahi,Blo,Bhi,m = 3-line 2d triangle with random base
+                                 from Alo to Ahi and height Blo to Bhi, type m
+                                 built of triangle particles
+    bodypgon: Nlo,Nhi,m = 2d polygons with random N particles from Nlo to Nhi
+                                 built of body particles 
+</PRE>
+<PRE>p.write("data.patch")      write out system to LAMMPS data file 
+</PRE>
+<P><B>Related tools:</B>
+</P>
+<P><A HREF = "chain.html">chain</A>, <A HREF = "data.html">data</A>
+</P>
+<P><B>Prerequisites:</B> none
+</P>
+<HR>
+
+<A NAME = "Glotzer"></A>
+
+<P><B>(Glotzer)</B> Zhang and Glotzer, NanoLetters, 4, 1407-1413 (2004).
+</P>
+</HTML>

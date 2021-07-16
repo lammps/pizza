@@ -1,0 +1,238 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>dump tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>Read, write, manipulate dump files and particle attributes.
+</P>
+<P><B>Description:</B>
+</P>
+<P>The dump tool reads one or more LAMMPS dump files, stores their
+contents as a series of snapshots with 2d arrays of atom attributes,
+and allows the values to be accessed and manipulated.  Other tools use
+dump objects to convert LAMMPS files to other formats or visualize the
+atoms.
+</P>
+<P>The constructor method is passed a string containing one or more dump
+filenames.  They can be listed in any order since snapshots are sorted
+by timestep after they are read and duplicate snapshots (with the same
+time stamp) are deleted.  If a 2nd argument is specified, the files
+are not immediately read, but snapshots can be read one-at-a-time by
+the next() method.
+</P>
+<P>The map() method assigns names to columns of atom attributes.  The
+tselect() methods select one or more snapshots by their time stamp.
+The delete() method deletes unselected timesteps so their memory is
+freed up.  This can be useful to do when reading snapshots
+one-at-a-time for huge data sets.  The aselect() methods selects atoms
+within selected snapshots.  The write() and scatter() methods write
+selected snapshots and atoms to one or more files.
+</P>
+<P>The scale(), unscale(), wrap(), unwrap(), and owrap() methods change
+the coordinates of all atoms with respect to the simulation box size.
+The sort() method sorts atoms within snapshots by their ID or another
+specified column.
+</P>
+<P>The set() method enables new or existing columns to be set to new
+values.  The minmax() method sets a column to an integer value between
+the min and max values in another column; it can be used to create a
+color map.  The clone() method copies that column values at one
+timestep to other timesteps on a per-atom basis.
+</P>
+<P>The time(), atom(), and vecs() methods return time or atom data as
+vectors of values.
+</P>
+<P>The iterator() and viz() methods are called by Pizza.py tools that
+visualize snapshots of atoms (e.g. gl, raster, svg tools).  You can
+also use the iterator() method in your scripts to loop over selected
+snapshots.  The atype setting determines what atom column is returned
+as the atom "type" by the viz() method.  The bonds() method can be
+used to create a static list of bonds that are returned by the viz()
+method.
+</P>
+<HR>
+
+<P>Normally, <A HREF = "http://lammps.sandia.gov">LAMMPS</A> creates the dump files
+read in by this tool. If you want to create them yourself, the format
+of LAMMPS dump files is simple.  Each snapshot is formatted as
+follows:
+</P>
+<PRE>ITEM: TIMESTEP
+100
+ITEM: NUMBER OF ATOMS
+32
+ITEM: BOX BOUNDS
+0 3.35919
+0 3.35919
+0 7.50
+ITEM: ATOMS
+1 1 0 0 0
+2 1 0.25 0.25 0
+3 1 0.25 0 0.25
+...
+N 3 0.7 0.5 0.6 
+</PRE>
+<P>The box bounds are listed as xlo xhi on the 1st line, ylo yhi on the
+next line, zlo zhi on the last.  There are N lines following "ITEM:
+ATOMS" where N is the number of atoms.  As the dump tool commands
+indicate, atoms do not have to be listed in any particular order.
+There can be a different number of atoms in each snapshot.  The values
+on each atom line are "ID type x y z" by default, but other quantities
+can be listed in any desired order.  The map() command can be used to
+specify the ordering if it is not the default.
+</P>
+<HR>
+
+<P><B>Usage:</B>
+</P>
+<PRE>d = dump("dump.one")              read in one or more dump files
+d = dump("dump.1 dump.2.gz")	  can be gzipped
+d = dump("dump.*")		  wildcard expands to multiple files
+d = dump("dump.*",0)		  two args = store filenames, but don't read 
+</PRE>
+<PRE>  incomplete and duplicate snapshots are deleted
+  atoms will be unscaled if stored in files as scaled
+  self-describing column names assigned  
+</PRE>
+<PRE>time = d.next()             	  read next snapshot from dump files 
+</PRE>
+<PRE>  used with 2-argument constructor to allow reading snapshots one-at-a-time
+  snapshot will be skipped only if another snapshot has same time stamp
+  return time stamp of snapshot read
+  return -1 if no snapshots left or last snapshot is incomplete
+  no column name assignment or unscaling is performed 
+</PRE>
+<PRE>d.map(1,"id",3,"x")               assign names to columns (1-N) 
+</PRE>
+<PRE>  not needed if dump file is self-describing 
+</PRE>
+<PRE>d.tselect.all()			  select all timesteps
+d.tselect.one(N)		  select only timestep N
+d.tselect.none()		  deselect all timesteps
+d.tselect.skip(M)		  select every Mth step
+d.tselect.test("$t >= 100 and $t < 10000")      select matching timesteps
+d.delete()	      	      	  delete non-selected timesteps 
+</PRE>
+<PRE>  selecting a timestep also selects all atoms in the timestep
+  skip() and test() only select from currently selected timesteps
+  test() uses a Python Boolean expression with $t for timestep value
+    Python comparison syntax: == != < > <= >= and or 
+</PRE>
+<PRE>d.aselect.all()	      	                      select all atoms in all steps
+d.aselect.all(N)      	                      select all atoms in one step
+d.aselect.test("$id > 100 and $type == 2")    select match atoms in all steps
+d.aselect.test("$id > 100 and $type == 2",N)  select matching atoms in one step 
+</PRE>
+<PRE>  all() with no args selects atoms from currently selected timesteps
+  test() with one arg selects atoms from currently selected timesteps
+  test() sub-selects from currently selected atoms
+  test() uses a Python Boolean expression with $ for atom attributes
+    Python comparison syntax: == != < > <= >= and or
+    $name must end with a space 
+</PRE>
+<PRE>d.write("file")	   	           write selected steps/atoms to dump file
+d.write("file",head,app)	   write selected steps/atoms to dump file
+d.scatter("tmp")		   write selected steps/atoms to multiple files 
+</PRE>
+<PRE>  write() can be specified with 2 additional flags
+    head = 0/1 for no/yes snapshot header, app = 0/1 for write vs append
+  scatter() files are given timestep suffix: e.g. tmp.0, tmp.100, etc 
+</PRE>
+<PRE>d.scale() 	    	  	   scale x,y,z to 0-1 for all timesteps
+d.scale(100)			   scale atom coords for timestep N
+d.unscale()			   unscale x,y,z to box size to all timesteps
+d.unscale(1000)			   unscale atom coords for timestep N
+d.wrap()			   wrap x,y,z into periodic box via ix,iy,iz
+d.unwrap()			   unwrap x,y,z out of box via ix,iy,iz
+d.owrap("other")		   wrap x,y,z to same image as another atom
+d.sort()              	  	   sort atoms by atom ID in all selected steps
+d.sort("x")            	  	   sort atoms by column value in all steps
+d.sort(1000)			   sort atoms in timestep N 
+</PRE>
+<PRE>  scale(), unscale(), wrap(), unwrap(), owrap() operate on all steps and atoms
+  wrap(), unwrap(), owrap() require ix,iy,iz be defined
+  owrap() requires a column be defined which contains an atom ID
+    name of that column is the argument to owrap()
+    x,y,z for each atom is wrapped to same image as the associated atom ID
+    useful for wrapping all molecule's atoms the same so it is contiguous 
+</PRE>
+<PRE>m1,m2 = d.minmax("type")               find min/max values for a column
+d.set("$ke = $vx * $vx + $vy * $vy")   set a column to a computed value
+d.setv("type",vector)                  set a column to a vector of values
+d.spread("ke",N,"color")	       2nd col = N ints spread over 1st col
+d.clone(1000,"color")	       	       clone timestep N values to other steps 
+</PRE>
+<PRE>  minmax() operates on selected timesteps and atoms
+  set() operates on selected timesteps and atoms
+    left hand side column is created if necessary
+    left-hand side column is unset or unchanged for non-selected atoms
+    equation is in Python syntax
+    use $ for column names, $name must end with a space
+  setv() operates on selected timesteps and atoms
+    if column label does not exist, column is created
+    values in vector are assigned sequentially to atoms, so may want to sort()
+    length of vector must match # of selected atoms
+  spread() operates on selected timesteps and atoms
+    min and max are found for 1st specified column across all selected atoms
+    atom's value is linear mapping (1-N) between min and max
+    that is stored in 2nd column (created if needed)
+    useful for creating a color map
+  clone() operates on selected timesteps and atoms
+    values at every timestep are set to value at timestep N for that atom ID
+    useful for propagating a color map 
+</PRE>
+<PRE>t = d.time()  	     	       	   return vector of selected timestep values
+fx,fy,... = d.atom(100,"fx","fy",...)   return vector(s) for atom ID N
+fx,fy,... = d.vecs(1000,"fx","fy",...)  return vector(s) for timestep N 
+</PRE>
+<PRE>  atom() returns vectors with one value for each selected timestep
+  vecs() returns vectors with one value for each selected atom in the timestep 
+</PRE>
+<PRE>index,time,flag = d.iterator(0/1)          loop over dump snapshots
+time,box,atoms,bonds,tris,lines = d.viz(index)   return list of viz objects
+d.atype = "color"                          set column returned as "type" by viz
+d.extra(obj)				   extract bond/tri/line info from obj 
+</PRE>
+<PRE>  iterator() loops over selected timesteps
+  iterator() called with arg = 0 first time, with arg = 1 on subsequent calls
+    index = index within dump object (0 to # of snapshots)
+    time = timestep value
+    flag = -1 when iteration is done, 1 otherwise
+  viz() returns info for selected atoms for specified timestep index
+    can also call as viz(time,1) and will find index of preceding snapshot
+    time = timestep value
+    box = \[xlo,ylo,zlo,xhi,yhi,zhi\]
+    atoms = id,type,x,y,z for each atom as 2d array
+    bonds = id,type,x1,y1,z1,x2,y2,z2,t1,t2 for each bond as 2d array
+      if extra() used to define bonds, else NULL
+    tris = id,type,x1,y1,z1,x2,y2,z2,x3,y3,z3,nx,ny,nz for each tri as 2d array
+      if extra() used to define tris, else NULL
+    lines = id,type,x1,y1,z1,x2,y2,z2 for each line as 2d array
+      if extra() used to define lines, else NULL
+  atype is column name viz() will return as atom type (def = "type")
+  extra() extracts bonds/tris/lines from obj each time viz() is called
+    obj can be data object for bonds, cdata object for tris and lines, 
+      bdump object for bonds, tdump object for tris, ldump object for lines.
+      mdump object for tris 
+</PRE>
+<P><B>Related tools:</B>
+</P>
+<P><A HREF = "data.html">data</A>, <A HREF = "gl.html">gl</A>, <A HREF = "mdump.html">mdump</A>, <A HREF = "tdump.html">tdump</A>,
+<A HREF = "raster.html">raster</A>, <A HREF = "svg.html">svg</A>
+</P>
+<P><B>Prerequisites:</B>
+</P>
+<P>Numeric or NumPy Python packages.  Gunzip command (if you want to read
+gzipped files).
+</P>
+</HTML>

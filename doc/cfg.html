@@ -1,0 +1,60 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>cfg tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>Convert LAMMPS snapshots to AtomEye CFG format.
+</P>
+<P><B>Description:</B>
+</P>
+<P>The cfg tool converts atom snapshots in a LAMMPS dump or data file to
+the CFG format used by the <A HREF = "http://164.107.79.177/Archive/Graphics/A">AtomEye</A> visualization tool.
+</P>
+
+
+<P>The cfg constructor takes an object that stores atom snapshots
+(<A HREF = "dump.html">dump</A>, <A HREF = "data.html">data</A>) as its first argument.  The atom
+snapshots must have "id", "type", "x", "y", and "z" defined; see the
+map() methods of those tools.
+</P>
+<P>The one(), many(), and single() methods convert specific snapshots to
+the CFG format and write them out.  Optionally, a file prefix for the
+CFG output files can also be specified.  A ".cfg" suffix will be
+appended to all output files.
+</P>
+<P>If your atom snapshots are not sorted by atom ID (e.g. because they
+were written out by a parallel LAMMPS run), then you may want to sort
+them before converting them to CFG files with this tool.  This can be
+done by "d = dump("tmp.dump"); d.sort()".  This is because AtomEye
+does not use atom IDs directly but infers an ID by the order of atoms
+as they appear in the CFG file.
+</P>
+<P><B>Usage:</B>
+</P>
+<PRE>c = cfg(d)		d = object containing atom coords (dump, data) 
+</PRE>
+<PRE>c.one()                 write all snapshots to tmp.cfg
+c.one("new")            write all snapshots to new.cfg
+c.many()                write snapshots to tmp0000.cfg, tmp0001.cfg, etc
+c.many("new")           write snapshots to new0000.cfg, new0001.cfg, etc
+c.single(N)             write snapshot for timestep N to tmp.cfg 
+c.single(N,"file")      write snapshot for timestep N to file.cfg  
+</PRE>
+<P><B>Related tools:</B>
+</P>
+<P><A HREF = "data.html">data</A>, <A HREF = "dump.html">dump</A>, <A HREF = "ensight.html">ensight</A>,
+<A HREF = "vtk.html">vtk</A>, <A HREF = "xyz.html">xyz</A>
+</P>
+<P><B>Prerequisites:</B> none
+</P>
+</HTML>

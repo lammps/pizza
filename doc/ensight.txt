@@ -1,0 +1,73 @@
+"Pizza.py WWW Site"_pws - "Pizza.py Documentation"_pd - "Pizza.py Tools"_pc :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pc,Section_tools.html)
+
+:line
+
+ensight tool :h3
+
+[Purpose:]
+
+Convert LAMMPS snapshots or meshes to Ensight format.
+
+[Description:]
+
+The ensight tool converts atom snapshots in a LAMMPS dump or data file
+or mesh data from a mesh file to the format used by the "Ensight
+visualization package"_ensight.  See the "dump"_dump.html or
+"mdump"_mdump.html tools for info about the format of these files and
+what data they contain.
+
+:link(ensight,http://www.ensight.com)
+
+The ensight constructor takes an object that stores atom or mesh
+snapshots ("dump"_dump.html, "data"_data.html) as its first argument.
+The atom snapshots must have "id", "type", "x", "y", and "z" defined;
+see the map() methods of those tools.
+
+The one(), many(), and single() methods convert specific snapshots to
+Ensight format and write them out.  These methods take a file prefix
+as an optional first argument; the prefix "tmp" will be used if not
+specified.  These methods all create a prefix.case file which is used
+by Ensight to define the format and list all associated files.  One or
+more prefix*.xyz files are also produced which contain atom
+coordinates sorted by atom type.  If additional pairs of arguments are
+specified, attributes from the shapshot data (atoms or elements) can
+be written into Ensight variable files, and used by Ensight as display
+attributes for the atoms or mesh elements.
+
+[Usage:]
+
+e = ensight(d)	     d = object with atoms or elements (dump,data,mdump)
+e.change = 1         set to 1 if element nodal xyz change with time (def = 0)
+e.maxtype = 10       max particle type, set if query to data will be bad :pre
+
+e.one()
+e.one("new")
+e.one("cns","Centro","eng","Energy")
+e.one("new","cns","Centro","eng","Energy")
+                     write all snapshots as an Ensight data set
+                     Ensight header file = tmp.case (no 1st arg) or new.case
+                     Ensight coord file = tmp.xyz or new.xyz
+                     additional pairs of args create auxiliary files:
+                       tmp.cns, tmp.eng or new.cns, new.eng
+                     cns,eng = column name in dump file and file name suffix
+                     Centro,Energy = Ensight name for the variable :pre
+
+e.increment()        same args as one(), but process dump out-of-core :pre
+
+e.many()             same args as one(), but create multiple Ensight files
+                     tmp0000.xyz, tmp0001.xyz, etc
+                     new0000.cns, new0001.cns, etc
+                     new0000.eng, new0001.eng, etc :pre
+
+e.single(N)          same args as one() prepended by N, but write a single snap :pre
+
+[Related tools:]
+
+"cfg"_cfg.html, "data"_data.html, "dump"_dump.html,
+"mdump"_mdump.html, "vtk"_vtk.html, "xyz"_xyz.html
+
+[Prerequisites:] none

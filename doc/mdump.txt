@@ -1,0 +1,287 @@
+"Pizza.py WWW Site"_pws - "Pizza.py Documentation"_pd - "Pizza.py Tools"_pc :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pc,Section_tools.html)
+
+:line
+
+mdump tool :h3
+
+[Purpose:]
+
+Read, write, manipulate mesh dump files.
+
+[Description:]
+
+The mdump tool reads one or more mesh dump files, stores their
+contents as a series of snapshots with node and element values, and
+allows the values to be accessed and manipulated.  Other tools use
+mdump objects to convert mesh files to other formats or visualize the
+mesh.
+
+The constructor method is passed a string containing one or more mesh
+dump filenames.  They can be listed in any order since snapshots are
+sorted by timestep after they are read and duplicate snapshots (with
+the same time stamp) are deleted.  If a 2nd argument is specified, the
+files are not immediately read, but snapshots can be read
+one-at-a-time by the next() method.
+
+The map() method assigns names to columns of element values.  The
+tselect() methods select one or more snapshots by their time stamp.
+The delete() method deletes unselected timesteps so their memory is
+freed up.  This can be useful to do when reading snapshots
+one-at-a-time for huge data sets.  The eselect() methods selects
+elements within selected snapshots.
+
+The time() and vecs() methods return time or element values as vectors
+of values.
+
+The iterator() and viz() methods are called by Pizza.py tools that
+visualize triangles (e.g. gl, raster, svg tools).  You can also use
+the iterator() method in your scripts to loop over selected snapshots.
+The etype setting determines what element value is returned as the
+element "type" by the viz() method.  The mviz() method is called by
+the ensight tool to extract per-node and per-element data to include
+in Ensight files it outputs, so that it can visualized in the Ensight
+package.
+
+:line
+
+The format of mesh dump files read in by this tool is simple.  There
+are 4 kinds of entries that can appear within each timestep, in any
+order.  Note that each entry is formatted with its own timestep stamp,
+but entries with duplicate stamps are combined.
+
+The 4 kinds of entries are a list of node coordinates, a list of
+element topologies (trianglular, tetrahedral, square, and cubic
+elements are currently supported), a list of nodal values, and a list
+of element values.
+
+Note that a mesh file does not need to include all 4 entries for every
+timestep.  For example, if the file only defines a mesh, but no nodal
+or element values, then the nodal and element value entries need never
+appear.  If the mesh is static, then the nodal coordinates and element
+topologies only need to be defined once (e.g. for timestep 0).  If the
+mesh moves, but its topology is static, then the element topology can
+be defined once (timestep 0), but new nodal coordinates could be
+defined every timestamp.
+
+A single mesh file can contain multiple snapshots, listed one after
+the other.
+
+The format of a nodal coordinates entry is as follows:
+
+ITEM: TIMESTEP
+0
+ITEM: NUMBER OF NODES
+121
+ITEM: BOX BOUNDS
+0 10
+0 10
+0 0
+ITEM: NODES
+1 1 0 0 0
+2 1 0 1 0
+3 1 0 2 0
+...
+N 3 7.5 3 2.5 :pre
+
+The box bounds are listed as xlo xhi on the 1st line, ylo yhi on the
+next line, zlo zhi on the last.  There are N lines following "ITEM:
+NODES" where N is the number of nodes.  The nodes do not need to be
+listed in any particular order.  There can be a different number of
+nodes in each snapshot.  The values on each node line are "ID type x y
+z".
+
+The format of an element topology entry is in one of the following
+styles (triangles, tetrahedra, squares, cubes):
+
+ITEM: TIMESTEP
+0
+ITEM: NUMBER OF TRIANGLES
+200
+ITEM: TRIANGLES
+1 1 1 13 12
+2 1 1 2 13
+3 1 2 14 13
+...
+N 3 259 340 432 :pre
+
+ITEM: TIMESTEP
+0
+ITEM: NUMBER OF TETS
+200
+ITEM: TETS
+1 1 1 13 12 27
+2 1 1 2 13 35
+3 1 2 14 13 103
+...
+N 3 259 340 432 1005 :pre
+
+ITEM: TIMESTEP
+0
+ITEM: NUMBER OF SQUARES
+200
+ITEM: SQUARES
+1 1 1 13 12 4
+2 1 1 2 13 6
+3 1 2 14 13 11
+...
+N 3 259 340 432 500 :pre
+
+ITEM: TIMESTEP
+0
+ITEM: NUMBER OF CUBES
+200
+ITEM: CUBES
+1 1 1 13 12 5 3 6 10 20
+2 1 1 2 13 10 3 4 5 6
+3 1 2 14 13 15 10 18 19
+...
+N 3 259 340 432 200 456 918 1002 988 :pre
+
+There are N lines following "ITEM: TRIANGLES" or "ITEM: TETS" or
+"ITEM: SQUARES" or "ITEM: CUBES" where N is the number of elements.
+The elements do not need to be listed in any particular order.  There
+can be a different number of elements in each snapshot.  The values on
+each element line are "ID type node1 node2 ... nodeN", where N depends
+on the type of element.  For triangles, N = 3, and the order should
+give an outward normal via the right-hand rule.  For tets, N = 4, and
+the order should give a right-hand rule for the first 3 nodes that
+points towards the 4th node.  For squares, N = 4, and the nodes should
+be listed in counter-clockwise order around the square.  For cubes, N
+= 8, and the first 4 nodes are the lower face (ordered same as a
+square), and the last 4 nodes are directly above the lower 4 as the
+upper face.
+
+The format of a nodal values entry is as follows:
+
+ITEM: TIMESTEP
+0
+ITEM: NUMBER OF NODE VALUES
+200
+ITEM: NODE VALUES
+1 1
+2 1
+3 9
+...
+N 32 :pre
+
+There are N lines following "ITEM: NODE VALUES" where N is the number
+of nodes.  The nodes do not need to be listed in any particular order.
+There can be a different number of nodes in each snapshot, but it
+should be consistent with the current nodal coordinates entry.  The
+values on each node line are "ID value1 value2 ..."  where there are
+as many columns as desired.  Each line should have the same number of
+values.
+
+The format of an element values entry is as follows:
+
+ITEM: TIMESTEP
+0
+ITEM: NUMBER OF ELEMENT VALUES
+200
+ITEM: ELEMENT VALUES
+1 1
+2 1
+3 9
+...
+N 32 :pre
+
+There are N lines following "ITEM: ELEMENT VALUES" where N is the
+number of elements.  The elements do not need to be listed in any
+particular order.  There can be a different number of elements in each
+snapshot, but it should be consistent with the current element
+topology entry.  The values on each element line are "ID value1 value2
+..."  where there are as many columns as desired.  Each line should
+have the same number of values.  The map() command can be used to
+assign names to each of these columns of values.
+
+:line
+
+[Usage:]
+
+m = mdump("mesh.one")             read in one or more mesh dump files
+m = mdump("mesh.1 mesh.2.gz")	  can be gzipped
+m = mdump("mesh.*")		  wildcard expands to multiple files
+m = mdump("mesh.*",0)		  two args = store filenames, but don't read :pre
+
+  incomplete and duplicate snapshots are deleted :pre
+
+time = m.next()             	  read next snapshot from dump files :pre
+
+  used with 2-argument constructor to allow reading snapshots one-at-a-time
+  snapshot will be skipped only if another snapshot has same time stamp
+  return time stamp of snapshot read
+  return -1 if no snapshots left or last snapshot is incomplete
+  no column name assignment or unscaling is performed :pre
+
+m.map(2,"temperature")            assign names to element value columns (1-N) :pre
+
+m.tselect.all()			  select all timesteps
+m.tselect.one(N)		  select only timestep N
+m.tselect.none()		  deselect all timesteps
+m.tselect.skip(M)		  select every Mth step
+m.tselect.test("$t >= 100 and $t < 10000")      select matching timesteps
+m.delete()	      	      	  delete non-selected timesteps :pre
+
+  selecting a timestep also selects all elements in the timestep
+  skip() and test() only select from currently selected timesteps
+  test() uses a Python Boolean expression with $t for timestep value
+    Python comparison syntax: == != < > <= >= and or :pre
+
+m.eselect.all()	      	                      select all elems in all steps
+m.eselect.all(N)      	                      select all elems in one step
+m.eselect.test("$id > 100 and $type == 2")    select match elems in all steps
+m.eselect.test("$id > 100 and $type == 2",N)  select matching elems in one step :pre
+
+  all() with no args selects atoms from currently selected timesteps
+  test() with one arg selects atoms from currently selected timesteps
+  test() sub-selects from currently selected elements
+  test() uses a Python Boolean expression with $ for atom attributes
+    Python comparison syntax: == != < > <= >= and or
+    $name must end with a space :pre
+
+t = m.time()  	     	       	   return vector of selected timestep values
+fx,fy,... = m.vecs(1000,"fx","fy",...)  return vector(s) for timestep N :pre
+
+  vecs() returns vectors with one value for each selected elem in the timestep :pre
+
+index,time,flag = m.iterator(0/1)          loop over mesh dump snapshots
+time,box,atoms,bonds,tris,lines = m.viz(index)  return list of viz objects
+nodes,elements,nvalues,evalues = m.mviz(index)  return list of mesh viz objects
+m.etype = "color"                          set column returned as "type" by viz :pre
+
+  iterator() loops over selected timesteps
+  iterator() called with arg = 0 first time, with arg = 1 on subsequent calls
+    index = index within dump object (0 to # of snapshots)
+    time = timestep value
+    flag = -1 when iteration is done, 1 otherwise
+  viz() returns info for selected elements for specified timestep index
+    can also call as viz(time,1) and will find index of preceding snapshot
+    time = timestep value
+    box = \\[xlo,ylo,zlo,xhi,yhi,zhi\\]
+    atoms = NULL
+    bonds = NULL
+    tris = id,type,x1,y1,z1,x2,y2,z2,x3,y3,z3,nx,ny,nz for each tri as 2d array
+      each element is decomposed into tris
+    lines = NULL
+  mviz() returns info for all elements for specified timestep index
+    can also call as mviz(time,1) and will find index of preceding snapshot
+    time = timestep value
+    box = \\[xlo,ylo,zlo,xhi,yhi,zhi\\]
+    nodes = list of nodes = id,type,x,y,z
+    elements = list of elements = id,type,node1,node2,...
+    nvalues = list of node values = id,type,value1,value2,...
+    evalues = list of element values = id,type,value1,value2,...
+  etype is column name viz() will return as element type (def = "" = elem type) :pre
+
+[Related tools:]
+
+"dump"_dump.html, "gl"_gl.html, "raster"_raster.html, "svg"_svg.html
+
+[Prerequisites:]
+
+Numeric or NumPy Python packages.  Gunzip command (if you want to read
+gzipped files).

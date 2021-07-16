@@ -1,0 +1,64 @@
+"Pizza.py WWW Site"_pws - "Pizza.py Documentation"_pd - "Pizza.py Tools"_pc :c
+
+:link(pws,http://pizza.sandia.gov)
+:link(pd,Manual.html)
+:link(pc,Section_tools.html)
+
+:line
+
+plotview tool :h3
+
+[Purpose:]
+
+Plot multiple vectors from a data set.
+
+[Description:]
+
+The plotview tool displays a GUI for showing a series of plots of
+vectors stored in another Pizza.py tool.  Individual plots can be
+displayed or hidden or saved to a file.
+
+The plotview constructor creates the GUI and takes a data object
+("log"_log.html, "vec"_vec.html) and a plot object ("gnu"_gnu.html,
+"matlab"_matlab.html) as arguments.
+
+The vectors in the data object are converted to individual plots.  The
+2nd thru Nth vectors are each plotted against the 1st vector to create
+N-1 plots.  One or more plots can be displayed simultaneously (right
+buttons in GUI), but only one is selected at a time (left buttons in
+GUI).  The yes(), no(), and select() methods perform the same function
+as the GUI buttons.
+
+The currently selected plot can be modified (title, range, etc)
+by the methods of the plot object.
+
+The file() and save() methods (or corresponding GUI widgets) save the
+currently selected plot to a PostScript file.
+
+[Usage:]
+
+p = plotview(d,pl)      create GUI for viewing plots :pre
+
+  d = Pizza.py object that contains vectors (log, vec)
+  pl = Pizza.py plotting object (gnu, matlab) :pre
+
+p.select(2)             select one plot as current (1-N)
+p.yes(3)                toggle one plot's visibility
+p.no(3) :pre
+
+  only one plot is selected at a time
+  multiple plots can be visible at same time
+  select is same as clicking on left-side radio-button
+  yes/no is same as clicking on right-side checkbox :pre
+
+p.x = "Time"            which vector is X vector (1st vec by default)
+p.file("pressure")      filename prefix for saving a plot
+p.save()                save currently selected plot to file.eps :pre
+
+[Related tools:]
+
+"log"_log.html, "gnu"_gnu.html, "matlab"_matlab.html
+
+[Prerequisites:]
+
+Python Tkinter package.

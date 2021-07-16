@@ -1,0 +1,122 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>tdump tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>Read dump files with triangle info.
+</P>
+<P><B>Description:</B>
+</P>
+<P>The tdump tool reads one or more LAMMPS dump files, and stores their
+contents as a series of snapshots with 2d arrays of atom attributes.
+It is assumed that each atom contains triangle segment info from a
+LAMMPS simulation using atom_style tri.  Other tools use tdump objects
+to extract triangle info for visualization, like the dump tool via its
+extra() method.
+</P>
+<P>The constructor method is passed a string containing one or more dump
+filenames.  They can be listed in any order since snapshots are sorted
+by timestep after they are read and duplicate snapshots (with the same
+time stamp) are deleted.  If a 2nd argument is specified, the files
+are not immediately read, but snapshots can be read one-at-a-time by
+the next() method.
+</P>
+<P>The map() method assigns names to columns of atom attributes.  The
+id,type, corner1x,corner1y,corner1z, corner2x,corner2y,corner2z,
+corner3x,corner3y,corner3z names must be assigned in order for line
+segment info to be extracted.
+</P>
+<P>The viz() method is called by Pizza.py tools that visualize snapshots
+of atoms (e.g. gl, raster, svg tools).
+</P>
+<HR>
+
+<P>Normally, <A HREF = "http://lammps.sandia.gov">LAMMPS</A> creates the dump files
+read in by this tool. If you want to create them yourself, the format
+of LAMMPS dump files is simple.  Each snapshot is formatted as
+follows:
+</P>
+<PRE>ITEM: TIMESTEP
+100
+ITEM: NUMBER OF ATOMS
+32
+ITEM: BOX BOUNDS
+0 3.35919
+0 3.35919
+0 7.50
+ITEM: ATOMS
+1 1 0 0 0 
+2 1 0.25 0.25 0
+3 1 0.25 0 0.25
+...
+N 3 0.7 0.5 0.6 
+</PRE>
+<P>The box bounds are listed as xlo xhi on the 1st line, ylo yhi on the
+next line, zlo zhi on the last.  There are N lines following "ITEM:
+ATOMS" where N is the number of atoms.  Atoms do not have to be listed
+in any particular order.  There can be a different number of atoms in
+each snapshot.  Each line must contain the atom ID, type, and the end
+points of the associated line segment, as specified by the map()
+command.
+</P>
+<HR>
+
+<P><B>Usage:</B>
+</P>
+<PRE>t = tdump("dump.one")             read in one or more dump files
+t = tdump("dump.1 dump.2.gz")	  can be gzipped
+t = tdump("dump.*")		  wildcard expands to multiple files
+t = tdump("dump.*",0)		  two args = store filenames, but don't read 
+</PRE>
+<PRE>  incomplete and duplicate snapshots are deleted
+  no column name assignment is performed 
+</PRE>
+<PRE>time = t.next()             	  read next snapshot from dump files 
+</PRE>
+<PRE>  used with 2-argument constructor to allow reading snapshots one-at-a-time
+  snapshot will be skipped only if another snapshot has same time stamp
+  return time stamp of snapshot read
+  return -1 if no snapshots left or last snapshot is incomplete
+  no column name assignment is performed 
+</PRE>
+<PRE>t.map(1,"id",3,"x")               assign names to atom columns (1-N) 
+</PRE>
+<PRE>  must assign id,type,corner1x,corner1y,corner1z,corner2x,corner2y,corner2z,corner3x,corner3y,corner3z 
+</PRE>
+<PRE>time,box,atoms,bonds,tris,lines = t.viz(index)   return list of viz objects 
+</PRE>
+<PRE>  viz() returns line info for specified timestep index
+    can also call as viz(time,1) and will find index of preceding snapshot
+    time = timestep value
+    box = \[xlo,ylo,zlo,xhi,yhi,zhi\]
+    atoms = NULL
+    bonds = NULL
+    tris = id,type,x1,y1,z1,x2,y2,z2,x3,y3,z3 for each tri as 2d array
+      id,type are from associated atom
+    lines = NULL 
+</PRE>
+<PRE>t.owrap(...)		          wrap tris to same image as their atoms 
+</PRE>
+<PRE>  owrap() is called by dump tool's owrap()
+  useful for wrapping all molecule's atoms/tris the same so it is contiguous 
+</PRE>
+<P><B>Related tools:</B>
+</P>
+<P><A HREF = "dump.html">dump</A>, <A HREF = "gl.html">gl</A>, <A HREF = "raster.html">raster</A>, <A HREF = "svg.html">svg</A>
+</P>
+<P><B>Prerequisites:</B>
+</P>
+<P>Numeric or NumPy Python packages.  Gunzip command (if you want to read
+gzipped files).
+</P>
+</HTML>

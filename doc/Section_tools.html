@@ -1,0 +1,104 @@
+<HTML>
+<CENTER><A HREF = "Section_basics.html">Previous Section</A> - <A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> -
+<A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> - <A HREF = "Section_examples.html">Next
+Section</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>4. Tools within Pizza.py 
+</H3>
+<P><A HREF = "Section_basics.html#3_4">Th previous section</A> describes how Pizza.py
+tools are used in Pizza.py.
+</P>
+<P>Help on the syntax for invoking a tool and using its methods and
+settings can be accessed interactively within Pizza.py itself by
+typing "? tool" or "?? tool".  Typing "??" gives a one-line
+description of each tool.
+</P>
+<P>These are the different categories of Pizza.py tools:
+</P>
+<DIV ALIGN=center><TABLE  BORDER=1 >
+<TR><TD >LAMMPS in/out files</TD><TD > chain, data, dump, log, patch, bdump, ldump, tdump</TD></TR>
+<TR><TD >ChemCell in/out files</TD><TD > cdata, olog, dump</TD></TR>
+<TR><TD >SPPARKS in/out files</TD><TD > olog, dump</TD></TR>
+<TR><TD >SPARTA in/out files</TD><TD > sdata, olog, dump</TD></TR>
+<TR><TD >Visualization</TD><TD > gl, rasmol, raster, svg, vmd</TD></TR>
+<TR><TD >File conversion</TD><TD > cfg, ensight, pdbfile, vtk, xyz</TD></TR>
+<TR><TD >GUI wrappers</TD><TD > animate, image, plotview, vcr</TD></TR>
+<TR><TD >Plotting</TD><TD > gnu, matlab</TD></TR>
+<TR><TD >Miscellaneous</TD><TD > histo, mdump, pair, vec 
+</TD></TR></TABLE></DIV>
+
+<P>Within the plotting and viz categories, individual tools share many
+common methods, so the tools can often be used interchangeably.  For
+example, the same script can produce an animation using either
+Raster3d or SVG to generate the movie frames, by simply changing the
+line that creates the visualizer object, or by passing the object into
+the script as an argument.
+</P>
+<P>This is the complete list of tools in Pizza.py; the link is to each
+tool's documentation page.
+</P>
+<DIV ALIGN=center><TABLE  BORDER=1 >
+<TR><TD ><A HREF = "animate.html">animate.py</A></TD><TD > Animate a series of image files</TD></TR>
+<TR><TD ><A HREF = "bdump.html">bdump.py</A></TD><TD > Read LAMMPS dump local files with bond info</TD></TR>
+<TR><TD ><A HREF = "data.html">cdata.py</A></TD><TD > Read, write, manipulate <A HREF = "http://www.cs.sandia.gov/~sjplimp/cell.html">Chemcell</A> data files</TD></TR>
+<TR><TD ><A HREF = "chain.html">chain.py</A></TD><TD > Create bead-spring chains for LAMMPS input</TD></TR>
+<TR><TD ><A HREF = "cfg.html">cfg.py</A></TD><TD > Convert LAMMPS snapshots to CFG format</TD></TR>
+<TR><TD ><A HREF = "data.html">data.py</A></TD><TD > Read, write, manipulate LAMMPS data files</TD></TR>
+<TR><TD ><A HREF = "dump.html">dump.py</A></TD><TD > Read, write, manipulate dump files and particle attributes</TD></TR>
+<TR><TD ><A HREF = "ensight.html">ensight.py</A></TD><TD > Convert LAMMPS snapshots to <A HREF = "http://www.ensight.com">Ensight</A> format</TD></TR>
+<TR><TD ><A HREF = "gl.html">gl.py</A></TD><TD > 3d interactive visualization via OpenGL</TD></TR>
+<TR><TD ><A HREF = "gnu.html">gnu.py</A></TD><TD > Create plots via <A HREF = "http://www.gnuplot.info">GnuPlot</A> plotting program</TD></TR>
+<TR><TD ><A HREF = "histo.html">histo.py</A></TD><TD > Particle density histogram from a dump</TD></TR>
+<TR><TD ><A HREF = "image.html">image.py</A></TD><TD > View and manipulate images</TD></TR>
+<TR><TD ><A HREF = "ldump.html">ldump.py</A></TD><TD > Read LAMMPS dump files with line info</TD></TR>
+<TR><TD ><A HREF = "log.html">log.py</A></TD><TD > Read LAMMPS log files and extract thermodynamic data</TD></TR>
+<TR><TD ><A HREF = "matlab.html">matlab.py</A></TD><TD > Create plots via <A HREF = "http://www.mathworks.com">MatLab</A> numerical analysis program</TD></TR>
+<TR><TD ><A HREF = "mdump.html">mdump.py</A></TD><TD > Read, write, manipulate mesh dump files</TD></TR>
+<TR><TD ><A HREF = "olog.html">olog.py</A></TD><TD > Read other log files (ChemCell, SPPARKS, SPARTA) and extract time-series data</TD></TR>
+<TR><TD ><A HREF = "pair.html">pair.py</A></TD><TD > Compute LAMMPS pairwise energies</TD></TR>
+<TR><TD ><A HREF = "patch.html">patch.py</A></TD><TD > Create patchy Lennard-Jones particles for LAMMPS input</TD></TR>
+<TR><TD ><A HREF = "pdbfile.html">pdbfile.py</A></TD><TD > Read, write PDB files in combo with LAMMPS snapshots</TD></TR>
+<TR><TD ><A HREF = "plotview.html">plotview.py</A></TD><TD > Plot multiple vectors from a data set</TD></TR>
+<TR><TD ><A HREF = "rasmol.html">rasmol.py</A></TD><TD > 3d visualization via <A HREF = "http://www.openrasmol.org">RasMol</A> program</TD></TR>
+<TR><TD ><A HREF = "raster.html">raster.py</A></TD><TD > 3d visualization via <A HREF = "http://www.bmsc.washington.edu/raster3d/raster3d.html">Raster3d</A> program</TD></TR>
+<TR><TD ><A HREF = "sdata.html">sdata.py</A></TD><TD > Read, write, manipulate <A HREF = "sparta">SPARTA</A> surface files</TD></TR>
+<TR><TD ><A HREF = "svg.html">svg.py</A></TD><TD > 3d visualization via <A HREF = "http://www.w3.org/Graphics/SVG">SVG</A> files</TD></TR>
+<TR><TD ><A HREF = "tdump.html">tdump.py</A></TD><TD > Read LAMMPS dump files with triangle info</TD></TR>
+<TR><TD ><A HREF = "vcr.html">vcr.py</A></TD><TD > VCR-style GUI for 3d interactive OpenGL visualization</TD></TR>
+<TR><TD ><A HREF = "vec.html">vec.py</A></TD><TD > Create numeric vectors from columns in file or list of vecs</TD></TR>
+<TR><TD ><A HREF = "vtk.html">vtk.py</A></TD><TD > Convert LAMMPS snapshots to VTK format</TD></TR>
+<TR><TD ><A HREF = "vmd.html">vmd.py</A></TD><TD > Wrapper on <A HREF = "http://www.ks.uiuc.edu/Research/vmd">VMD visualization package</A></TD></TR>
+<TR><TD ><A HREF = "xyz.html">xyz.py</A></TD><TD > Convert LAMMPS snapshots to XYZ format 
+</TD></TR></TABLE></DIV>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<P>This diagram represents the different ways tools can be interconnected
+by Pizza.py.  Tools within the same red box are tools that are
+(roughly) interchangeable.
+</P>
+<CENTER><IMG SRC = "tools.jpg">
+</CENTER>
+</HTML>

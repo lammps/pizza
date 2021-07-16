@@ -1,0 +1,51 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>xyz tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>Convert LAMMPS snapshots to XYZ format.
+</P>
+<P><B>Description:</B>
+</P>
+<P>The xyz tool converts atom snapshots in a LAMMPS dump or data file to
+the XYZ format used by various visualization packages.
+</P>
+<P>The xyz constructor takes an object that stores atom snapshots
+(<A HREF = "dump.html">dump</A>, <A HREF = "data.html">data</A>) as its first argument.  The atom
+snapshots must have "id", "type", "x", "y", and "z" defined; see the
+map() methods of those tools.
+</P>
+<P>The one(), many(), and single() methods convert specific snapshots to
+the XYZ format and write them out.  Optionally, a file prefix for the
+XYZ output files can also be specified.  A ".xyz" suffix will be
+appended to all output files.
+</P>
+<P><B>Usage:</B>
+</P>
+<PRE>x = xyz(d)		d = object containing atom coords (dump, data) 
+</PRE>
+<PRE>x.one()                 write all snapshots to tmp.xyz
+x.one("new")            write all snapshots to new.xyz
+x.many()                write snapshots to tmp0000.xyz, tmp0001.xyz, etc
+x.many("new")           write snapshots to new0000.xyz, new0001.xyz, etc
+x.single(N)             write snapshot for timestep N to tmp.xyz 
+x.single(N,"file")      write snapshot for timestep N to file.xyz  
+</PRE>
+<P><B>Related tools:</B>
+</P>
+<P><A HREF = "cfg.html">cfg</A>, <A HREF = "data.html">data</A>, <A HREF = "dump.html">dump</A>,
+<A HREF = "ensight.html">ensight</A>, <A HREF = "vtk.html">vtk</A>
+</P>
+<P><B>Prerequisites:</B> none
+</P>
+</HTML>

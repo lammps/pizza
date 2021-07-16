@@ -1,0 +1,62 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>animate tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>Animate a series of image files.
+</P>
+<P><B>Description:</B>
+</P>
+<P>The animate tool displays a GUI to view and animate a series of image
+files.
+</P>
+<P>The animate constructor creates the GUI.  The animation can be
+controlled by the GUI widgets or by invoking the tool methods: play(),
+stop(), next(), etc.  The frame slider can be dragged to view a
+desired frame.
+</P>
+<P>Image files can be in any format (PNG, GIF, BMP, etc) recognized by
+the Python Image Library (PIL) installed in your Python.  Various
+Pizza.py visualization tools (raster, rasmol, etc) create such image
+files.  If a particular image format fails to load, your PIL
+installation was linked without support for that format.  Rebuild PIL,
+and follow its install instructions.
+</P>
+<P><B>Usage:</B>
+</P>
+<PRE>a = animate("image*.png")     create GUI to animate set of image files
+a = animate("image*.png",1)   2nd arg = sort filenames, 0 = no sort, def = 1 
+</PRE>
+<PRE>Actions (same as GUI widgets): 
+</PRE>
+<PRE>a.first()		      go to first frame
+a.prev()                      go to previous frame
+a.back()                      play backwards from current frame to start
+a.stop()         	      stop on current frame		
+a.play()                      play from current frame to end
+a.next()		      go to next frame
+a.last()		      go to last frame 
+</PRE>
+<PRE>a.frame(31)    	              set frame slider
+a.delay(0.4)     	      set delay slider 
+</PRE>
+<P><B>Related tools:</B>
+</P>
+<P><A HREF = "gl.html">gl</A>, <A HREF = "raster.html">raster</A>, <A HREF = "rasmol.html">rasmol</A>,
+<A HREF = "svg.html">svg</A>, <A HREF = "vcr.html">vcr</A>
+</P>
+<P><B>Prerequisites:</B>
+</P>
+<P>Python Tkinter and PIL packages.
+</P>
+</HTML>

@@ -1,0 +1,160 @@
+<HTML>
+<CENTER><A HREF = "Manual.html">Previous Section</A> - <A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py
+Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> - <A HREF = "Section_install.html">Next
+Section</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>1. Introduction 
+</H3>
+<P>These sections describe what Pizza.py is, what it means to be
+open-source software, and acknowledge the funding and people who have
+contributed to Pizza.py.
+</P>
+1.1 <A HREF = "#1_1">What is Pizza.Py</A><BR>
+1.2 <A HREF = "#1_2">Open source distribution</A><BR>
+1.3 <A HREF = "#1_3">Acknowledgements</A> <BR>
+
+<HR>
+
+<A NAME = "1_1"></A><H4>1.1 What is Pizza.py 
+</H4>
+<P>Pizza.py is a loosely integrated collection of tools, many of which
+provide pre- and post-processing capabilities for the <A HREF = "http://www.cs.sandia.gov/~sjplimp/lammps.html">LAMMPS</A>
+molecular dynamics and <A HREF = "http://www.cs.sandia.gov/~sjplimp/chemcell.html">ChemCell</A> cell simulator packages.
+</P>
+
+
+
+
+<P>There are tools to create input files, convert between file formats to
+connect to other codes, process log and dump files, plot output, and
+visualize and animate simulation snapshots.
+</P>
+<P>Python is used in Pizza.py in 3 ways:
+</P>
+<UL><LI>to provide an interactive and scripting interface to the tools
+<LI>as a language for writing tools
+<LI>to wrap existing stand-alone codes 
+</UL>
+<P>Python makes it easy for users of Pizza.py to:
+</P>
+<UL><LI>experiment with tools interactively
+<LI>automate tasks as script files of commands
+<LI>extend tools or create new ones 
+</UL>
+<P>The topmost level of Pizza.py adds a modest bit of functionality to
+the Python interpreter to make it easier to invoke tools and pass data
+between them.  As such, Python is an ideal "framework" or "glue"
+language that enables various tools to be hooked together, while also
+providing a rich programming environment of its own.
+</P>
+<HR>
+
+<A NAME = "1_2"></A><H4>1.2 Open source distribution 
+</H4>
+<P>Pizza.py comes with no warranty of any kind.  As each source file
+states in its header, it is distributed free-of-charge, under the
+terms of the <A HREF = "http://www.gnu.org/copyleft/gpl.html">GNU Public License</A> (GPL).  This is often referred
+to as open-source distribution - see <A HREF = "http://www.gnu.org">www.gnu.org</A> or
+<A HREF = "http://www.opensource.org">www.opensource.org</A> for more details.  The legal text of
+the GPL is in the LICENSE file that is included in the Pizza.py
+distribution.
+</P>
+
+
+
+
+
+
+<P>Here is a summary of what the GPL means for Pizza.py users:
+</P>
+<P>(1) Anyone is free to use, modify, or extend Pizza.py in any way they
+choose, including for commercial purposes.
+</P>
+<P>(2) If you distribute a modified version of Pizza.py, it must remain
+open-source, meaning you distribute it under the terms of the GPL.
+You should clearly annotate such a code as a derivative version of
+Pizza.py.
+</P>
+<P>(3) If you release any code that includes Pizza.py source code, then
+it must also be open-sourced, meaning you distribute it under the
+terms of the GPL.
+</P>
+<P>(4) If you give Pizza.py to someone else, the GPL LICENSE file and
+source file headers (including the GPL notices) should remain part of
+the code.
+</P>
+<P>In the spirit of an open-source code, these are various ways you can
+contribute to making Pizza.py better.  You can send email to
+sjplimp@sandia.gov on any of these items.
+</P>
+<UL><LI>If you write a Pizza.py script that is generally useful or illustrates
+how to do something cool with Pizza.py, it can be added to the
+Pizza.py distribution.  Ditto for a picture or movie that can be added
+to the <A HREF = "http://pizza.sandia.gov">Pizza.py WWW site</A>. 
+
+<LI>If you add a new method to one of the tools or create a new tool that
+is useful for Pizza.py or LAMMPS or ChemCell users, it can be added to
+the Pizza.py distribution.  See the ToDo list at the beginning of the
+src/*.py files for features that haven't yet been implemented. 
+
+<LI>If you find a bug, report it. 
+
+<LI>Report if you find an error or omission in the <A HREF = "Manual.html">Pizza.py
+documentation</A> or on the <A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A>, or have a
+suggestion for something to clarify or include. 
+
+<LI>Point prospective users to the <A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> or link to it
+from your WWW site. 
+</UL>
+<HR>
+
+<H4><A NAME = "1_3"></A>1.3 Acknowledgements 
+</H4>
+<P>Pizza.py has been developed at <A HREF = "http://www.sandia.gov">Sandia National Laboratories</A>
+which is a multiprogram laboratory operated by Sandia Corporation, a
+Lockheed Martin Company, for the United States Department of Energy's
+National Nuclear Security Administration under contract
+DE-AC04-94AL85000.
+</P>
+<P>Funding for Pizza.py development has come from the US Department of
+Energy (<A HREF = "http://www.doe.gov">DOE</A>), through its LDRD and Genomes-to-Life programs.
+The latter effort has been funded by DOE's <A HREF = "http://www.sc.doe.gov/ascr/home.html">OASCR</A> and
+<A HREF = "http://www.er.doe.gov/production/ober/ober_top.html">OBER</A> offices as part of the US Department of Energy's
+Genomics:GTL program (<A HREF = "http://www.doegenomestolife.org">www.doegenomestolife.org</A>) under the
+<A HREF = "http://www.genomes2life.org">project</A>, "Carbon Sequestration in Synechococcus Sp.: From
+Molecular Machines to Hierarchical Modeling".
+</P>
+
+
+
+
+
+
+
+
+
+
+
+
+<P>The maintainer of Pizza.py is <A HREF = "http://www.cs.sandia.gov/~sjplimp">Steve Plimpton</A>.
+</P>
+
+
+<P>Matt Jones, a BYU student who was a summer intern at Sandia, wrote
+several of the coolest tools in Pizza.py and about half the code in
+the initial version.
+</P>
+<P>Others who have written tools or scripts that are part of the Pizza.py
+distribution are listed on the <A HREF = "http://www.cs.sandia.gov/~sjplimp/pizza/thanks.html">Pizza.py WWW site</A>.
+</P>
+
+
+</HTML>

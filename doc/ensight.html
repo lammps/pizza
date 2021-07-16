@@ -1,0 +1,78 @@
+<HTML>
+<CENTER><A HREF = "http://pizza.sandia.gov">Pizza.py WWW Site</A> - <A HREF = "Manual.html">Pizza.py Documentation</A> - <A HREF = "Section_tools.html">Pizza.py Tools</A> 
+</CENTER>
+
+
+
+
+
+
+<HR>
+
+<H3>ensight tool 
+</H3>
+<P><B>Purpose:</B>
+</P>
+<P>Convert LAMMPS snapshots or meshes to Ensight format.
+</P>
+<P><B>Description:</B>
+</P>
+<P>The ensight tool converts atom snapshots in a LAMMPS dump or data file
+or mesh data from a mesh file to the format used by the <A HREF = "http://www.ensight.com">Ensight
+visualization package</A>.  See the <A HREF = "dump.html">dump</A> or
+<A HREF = "mdump.html">mdump</A> tools for info about the format of these files and
+what data they contain.
+</P>
+
+
+<P>The ensight constructor takes an object that stores atom or mesh
+snapshots (<A HREF = "dump.html">dump</A>, <A HREF = "data.html">data</A>) as its first argument.
+The atom snapshots must have "id", "type", "x", "y", and "z" defined;
+see the map() methods of those tools.
+</P>
+<P>The one(), many(), and single() methods convert specific snapshots to
+Ensight format and write them out.  These methods take a file prefix
+as an optional first argument; the prefix "tmp" will be used if not
+specified.  These methods all create a prefix.case file which is used
+by Ensight to define the format and list all associated files.  One or
+more prefix*.xyz files are also produced which contain atom
+coordinates sorted by atom type.  If additional pairs of arguments are
+specified, attributes from the shapshot data (atoms or elements) can
+be written into Ensight variable files, and used by Ensight as display
+attributes for the atoms or mesh elements.
+</P>
+<P><B>Usage:</B>
+</P>
+<PRE>e = ensight(d)	     d = object with atoms or elements (dump,data,mdump)
+e.change = 1         set to 1 if element nodal xyz change with time (def = 0)
+e.maxtype = 10       max particle type, set if query to data will be bad 
+</PRE>
+<PRE>e.one()
+e.one("new")
+e.one("cns","Centro","eng","Energy")
+e.one("new","cns","Centro","eng","Energy")
+                     write all snapshots as an Ensight data set
+                     Ensight header file = tmp.case (no 1st arg) or new.case
+                     Ensight coord file = tmp.xyz or new.xyz
+                     additional pairs of args create auxiliary files:
+                       tmp.cns, tmp.eng or new.cns, new.eng
+                     cns,eng = column name in dump file and file name suffix
+                     Centro,Energy = Ensight name for the variable 
+</PRE>
+<PRE>e.increment()        same args as one(), but process dump out-of-core 
+</PRE>
+<PRE>e.many()             same args as one(), but create multiple Ensight files
+                     tmp0000.xyz, tmp0001.xyz, etc
+                     new0000.cns, new0001.cns, etc
+                     new0000.eng, new0001.eng, etc 
+</PRE>
+<PRE>e.single(N)          same args as one() prepended by N, but write a single snap 
+</PRE>
+<P><B>Related tools:</B>
+</P>
+<P><A HREF = "cfg.html">cfg</A>, <A HREF = "data.html">data</A>, <A HREF = "dump.html">dump</A>,
+<A HREF = "mdump.html">mdump</A>, <A HREF = "vtk.html">vtk</A>, <A HREF = "xyz.html">xyz</A>
+</P>
+<P><B>Prerequisites:</B> none
+</P>
+</HTML>
