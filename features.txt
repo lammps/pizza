@@ -25,36 +25,36 @@ driven from within Pizza.py and scripted.  These applications include
 The "FAQ"_FAQ.html lists typical tasks that can be performed with
 various tools.  Here's the list of tools in Pizza.py:
 
-"animate.py"_doc/animate.html; Animate a series of image files
-"bdump.py"_doc/bdump.html; Read LAMMPS dump local files with bond info
-"cdata.py"_doc/cdata.html; Read, write, manipulate "Chemcell"_ccell data files
-"chain.py"_doc/chain.html; Create bead-spring chains for LAMMPS input
-"clog.py"_doc/clog.html; Read "ChemCell"_ccell log files and extract species data
-"data.py"_doc/data.html; Read, write, manipulate LAMMPS data files
-"dump.py"_doc/dump.html; Read, write, manipulate LAMMPS dump files and atom attributes
-"ensight.py"_doc/ensight.html; Convert LAMMPS snapshots to "Ensight"_ensight format
-"gl.py"_doc/gl.html; 3d interactive visualization via OpenGL
-"gnu.py"_doc/gnu.html; Create plots via "GnuPlot"_gnuplot plotting program
-"histo.py"_doc/histo.html; Particle density histogram from a dump
-"image.py"_doc/image.html; View and manipulate images
-"ldump.py"_doc/ldump.html; Read LAMMPS dump files with line info
-"log.py"_doc/log.html; Read LAMMPS log files and extract thermodynamic data
-"matlab.py"_doc/matlab.html; Create plots via "MatLab"_matlab numerical analysis program
-"mdump.py"_doc/ldump.html; Read, write, manipulate mesh dump files
-"pair.py"_doc/pair.html; Compute LAMMPS pairwise energies
-"patch.py"_doc/patch.html; Create patchy Lennard-Jones particles for LAMMPS input
-"pdbfile.py"_doc/pdbfile.html; Read, write PDB files in combination with LAMMPS snapshots
-"plotview.py"_doc/plotview.html; Plot multiple vectors from a data set
-"rasmol.py"_doc/rasmol.html; 3d visualization via "RasMol"_rasmol program
-"raster.py"_doc/raster.html; 3d visualization via "Raster3d"_raster3d program
-"sdata.py"_doc/sdata.html; Read, write, manipulate "SPARTA"_sparta surface files
-"svg.py"_doc/svg.html; 3d visualization via "SVG"_svg files
-"tdump.py"_doc/tdump.html; Read LAMMPS dump files with triangle info
-"vcr.py"_doc/vcr.html; VCR-style GUI for 3d interactive OpenGL visualization
-"vec.py"_doc/vec.html; Create numeric vectors from columns in file or list of vecs
-"vtk.py"_doc/vtk.html; Convert LAMMPS snapshots to VTK format
-"vmd.py"_doc/vmd.html; Wrapper on "VMD visualization package"_vmd
-"xyz.py"_doc/xyz.html; Convert LAMMPS snapshots to XYZ format :tb(s=;)
+"animate.py"_animate.html; Animate a series of image files
+"bdump.py"_bdump.html; Read LAMMPS dump local files with bond info
+"cdata.py"_cdata.html; Read, write, manipulate "Chemcell"_ccell data files
+"chain.py"_chain.html; Create bead-spring chains for LAMMPS input
+"clog.py"_clog.html; Read "ChemCell"_ccell log files and extract species data
+"data.py"_data.html; Read, write, manipulate LAMMPS data files
+"dump.py"_dump.html; Read, write, manipulate LAMMPS dump files and atom attributes
+"ensight.py"_ensight.html; Convert LAMMPS snapshots to "Ensight"_ensight format
+"gl.py"_gl.html; 3d interactive visualization via OpenGL
+"gnu.py"_gnu.html; Create plots via "GnuPlot"_gnuplot plotting program
+"histo.py"_histo.html; Particle density histogram from a dump
+"image.py"_image.html; View and manipulate images
+"ldump.py"_ldump.html; Read LAMMPS dump files with line info
+"log.py"_log.html; Read LAMMPS log files and extract thermodynamic data
+"matlab.py"_matlab.html; Create plots via "MatLab"_matlab numerical analysis program
+"mdump.py"_ldump.html; Read, write, manipulate mesh dump files
+"pair.py"_pair.html; Compute LAMMPS pairwise energies
+"patch.py"_patch.html; Create patchy Lennard-Jones particles for LAMMPS input
+"pdbfile.py"_pdbfile.html; Read, write PDB files in combination with LAMMPS snapshots
+"plotview.py"_plotview.html; Plot multiple vectors from a data set
+"rasmol.py"_rasmol.html; 3d visualization via "RasMol"_rasmol program
+"raster.py"_raster.html; 3d visualization via "Raster3d"_raster3d program
+"sdata.py"_sdata.html; Read, write, manipulate "SPARTA"_sparta surface files
+"svg.py"_svg.html; 3d visualization via "SVG"_svg files
+"tdump.py"_tdump.html; Read LAMMPS dump files with triangle info
+"vcr.py"_vcr.html; VCR-style GUI for 3d interactive OpenGL visualization
+"vec.py"_vec.html; Create numeric vectors from columns in file or list of vecs
+"vtk.py"_vtk.html; Convert LAMMPS snapshots to VTK format
+"vmd.py"_vmd.html; Wrapper on "VMD visualization package"_vmd
+"xyz.py"_xyz.html; Convert LAMMPS snapshots to XYZ format :tb(s=;)
 
 :link(gnuplot,http://www.gnuplot.info)
 :link(matlab,http://www.mathworks.com)
